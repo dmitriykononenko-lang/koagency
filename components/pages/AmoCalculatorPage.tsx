@@ -10,7 +10,7 @@ import { Label } from '../ui/label';
 import { Badge } from '../ui/badge';
 import { GridBackground } from '../ui/grid-background';
 import { Check, Calculator, Info, Printer, Copy, ExternalLink, Sparkles } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { useIsMobile } from '../ui/use-mobile';
 
 type PackageType = 'start' | 'growth' | 'enterprise';

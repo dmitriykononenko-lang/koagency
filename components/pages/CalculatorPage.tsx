@@ -10,7 +10,7 @@ import { Label } from '../ui/label';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Badge } from '../ui/badge';
 import { Check, Calculator, Info, Printer, Copy, ExternalLink, Globe, MessageCircle, Puzzle, Users, Smartphone, Mail, LayoutTemplate, Plus, Minus, QrCode, ShieldCheck, Percent, Gift, Zap, Box, Layers, Wrench, X, Star, HelpCircle, Calendar, Clock, TrendingUp, Send, ArrowRight, FileText, CheckCircle2, ChevronDown } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { Input } from '../ui/input';
 import { GridBackground } from '../ui/grid-background';
 import {

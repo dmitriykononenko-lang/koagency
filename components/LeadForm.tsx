@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from './ui/dialog';
 import { Loader2, Send, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 
