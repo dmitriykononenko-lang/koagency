@@ -3,7 +3,7 @@
 import { Smartphone, Zap, BarChart, ArrowRight, Check, Brain, Play, Trophy, Target, User, Settings, TrendingUp, Briefcase } from 'lucide-react';
 import { Button } from './ui/button';
 import { useLanguage } from '../lib/i18n/LanguageContext';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export function Training() {

@@ -2,7 +2,7 @@
 
 import { Card } from './ui/card';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
-import { motion, useScroll, useSpring, useTransform, useInView } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
 // -- HELPERS --

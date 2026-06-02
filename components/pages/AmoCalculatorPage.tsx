@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../ui/button';
 import { Slider } from '../ui/slider';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';

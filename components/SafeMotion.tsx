@@ -1,4 +1,6 @@
-import { motion as originalMotion, AnimatePresence as OriginalAnimatePresence, useInView as originalUseInView } from 'motion/react';
+'use client';
+
+import { motion as originalMotion, AnimatePresence as OriginalAnimatePresence, useInView as originalUseInView } from 'framer-motion';
 import { isFigmaWorker } from '../utils/env';
 import React, { forwardRef } from 'react';
 
