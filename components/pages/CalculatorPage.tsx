@@ -20,14 +20,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/ui/table";
+} from "../ui/table";
 import { Switch } from '../ui/switch';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../components/ui/tooltip";
+} from "../ui/tooltip";
 
 import { GlitchText } from '../ui/glitch-text';
 import { CipherReveal } from '../ui/cipher-reveal';
@@ -528,8 +528,6 @@ export function CalculatorPage() {
     
     return text.trim();
   };
-  };
-
   const handleCopy = () => {
     navigator.clipboard.writeText(generateText());
     toast.success("Расчет скопирован");
@@ -740,7 +738,7 @@ export function CalculatorPage() {
     }
     
     return items;
-  }
+  };
 
   const lineItems = getLineItems();
   const subItems = getSubItems();
