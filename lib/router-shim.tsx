@@ -9,7 +9,7 @@
  */
 
 import NextLink from 'next/link';
-import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams, useParams as nextUseParams } from 'next/navigation';
 import { ComponentProps, forwardRef, useMemo } from 'react';
 
 // useLocation()
@@ -44,7 +44,7 @@ export function useNavigate() {
 
 // useParams()
 export function useParams<T extends Record<string, string> = Record<string, string>>(): T {
-  const params = useParams();
+  const params = nextUseParams();
   return (params ?? {}) as T;
 }
 
