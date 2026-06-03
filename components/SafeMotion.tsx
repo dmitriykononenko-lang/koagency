@@ -1,7 +1,7 @@
 'use client';
 
 import { motion as originalMotion, AnimatePresence as OriginalAnimatePresence, useInView as originalUseInView } from 'framer-motion';
-import { isFigmaWorker } from '../utils/env';
+import { isFigmaWorker } from '../lib/utils/env';
 import React, { forwardRef } from 'react';
 
 // Create a safe proxy for motion components

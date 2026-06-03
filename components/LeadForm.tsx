@@ -16,7 +16,7 @@ import {
 } from './ui/dialog';
 import { Loader2, Send, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { projectId, publicAnonKey } from '../lib/utils/supabase/info';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 
 interface LeadFormProps {

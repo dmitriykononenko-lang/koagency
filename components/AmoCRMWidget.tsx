@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { isFigmaWorker } from '../utils/env';
+import { isFigmaWorker } from '../lib/utils/env';
 
 export const AmoCRMWidget = () => {
   useEffect(() => {

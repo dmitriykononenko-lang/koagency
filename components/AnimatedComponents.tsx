@@ -2,7 +2,7 @@
 
 import { motion, useInView } from './SafeMotion';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { isFigmaWorker } from '../utils/env';
+import { isFigmaWorker } from '../lib/utils/env';
 
 // Safe useInView hook
 function useSafeInView(ref: React.RefObject<HTMLElement>, options: { once?: boolean } = {}) {
