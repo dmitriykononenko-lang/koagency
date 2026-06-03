@@ -1,0 +1,105 @@
+/*
+ * Brand override для виджета amoCRM Live Chat (id 438343).
+ * Цель: лаунчер и панель чата соответствуют фирменной палитре ko:agency.
+ * Цвет акцента: #E60000 (Electric Red). Никаких AI-tells, никаких неоновых glow.
+ */
+
+/* ───────────────────────────────────────────────
+ *  ЛАУНЧЕР (плавающая кнопка чата справа снизу)
+ * ─────────────────────────────────────────────── */
+
+/* amoCRM генерирует #amo_social_button с разными классами в зависимости от
+   версии виджета. Перекрываем общие селекторы — все варианты лаунчера. */
+
+#amo_social_button [class*='_button'],
+#amo_social_button [class*='launcher'],
+#amo_social_button [class*='trigger'],
+#amo_social_button button {
+  /* Брендовый красный, без glow */
+  background-color: #e60000 !important;
+  background-image: none !important;
+
+  /* Tinted shadow вместо outer glow — материальность */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 12px 24px -8px rgba(230, 0, 0, 0.35),
+    0 4px 8px -4px rgba(230, 0, 0, 0.2) !important;
+
+  /* Spring-feel переход (cubic-bezier) — без linear easing */
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+  /* Premium border-radius — slightly меньше "AI-bubble" дефолта */
+  border-radius: 18px !important;
+}
+
+/* Tactile feedback на hover/active — micro-physics */
+#amo_social_button [class*='_button']:hover,
+#amo_social_button [class*='launcher']:hover,
+#amo_social_button [class*='trigger']:hover,
+#amo_social_button button:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 18px 36px -12px rgba(230, 0, 0, 0.45),
+    0 6px 12px -4px rgba(230, 0, 0, 0.25) !important;
+}
+
+#amo_social_button [class*='_button']:active,
+#amo_social_button [class*='launcher']:active,
+#amo_social_button [class*='trigger']:active,
+#amo_social_button button:active {
+  transform: translateY(-1px) scale(0.98) !important;
+}
+
+/* Mobile: чуть меньше отступ от края, чтобы не наезжал на мобильный sticky footer */
+@media (max-width: 768px) {
+  #amo_social_button {
+    bottom: 88px !important;
+    right: 16px !important;
+  }
+}
+
+/* ───────────────────────────────────────────────
+ *  ПАНЕЛЬ ЧАТА (когда открыт)
+ * ─────────────────────────────────────────────── */
+
+#amo_social_button [class*='_window'],
+#amo_social_button [class*='_chat'],
+#amo_social_button iframe {
+  /* Inner border + tinted shadow для "liquid glass" edge refraction */
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 48px -16px rgba(15, 15, 15, 0.18),
+    0 8px 16px -8px rgba(15, 15, 15, 0.08) !important;
+  border-radius: 20px !important;
+}
+
+/* ───────────────────────────────────────────────
+ *  INLINE-вариант (внутри страницы)
+ * ─────────────────────────────────────────────── */
+
+.amo-inline-container {
+  min-height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  /* Контейнер дышит без card-box: subtle border вместо тяжёлой тени */
+  border: 1px solid rgba(15, 15, 15, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+.amo-inline-container iframe {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Dark mode совместимость */
+@media (prefers-color-scheme: dark) {
+  .amo-inline-container {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+  }
+}
