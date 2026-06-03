@@ -10,6 +10,11 @@ import {
 } from '@/lib/seo';
 import './globals.css';
 
+// router-shim использует useSearchParams() в Header — заставляем все страницы
+// рендериться динамически, чтобы избежать "missing-suspense-with-csr-bailout" на SSG.
+// Это не влияет на SEO: Google и Яндекс всё равно получают полный HTML на каждый запрос.
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
