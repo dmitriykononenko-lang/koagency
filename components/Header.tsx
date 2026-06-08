@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from './ui/button';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, Phone } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from '@/lib/router-shim';
 import { useTheme } from './theme-provider';
@@ -64,12 +64,15 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button onClick={() => handleScroll('services')} className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/services" className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
               {t('header.services')}
-            </button>
-            <button onClick={() => handleScroll('benefits')} className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
-              {t('header.benefits')}
+            </Link>
+            <Link to="/calculator" className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
+              Калькулятор
+            </Link>
+            <button onClick={() => handleScroll('cases')} className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
+              {t('header.cases')}
             </button>
             <button onClick={() => handleScroll('pricing')} className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
               {t('header.pricing')}
@@ -77,9 +80,9 @@ export function Header() {
             <Link to="/enterprise" className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
               Enterprise
             </Link>
-            <button onClick={() => handleScroll('cases')} className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
-              {t('header.cases')}
-            </button>
+            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-mono text-sm uppercase tracking-wide">
+              О нас
+            </Link>
             
             {/* Language Switcher */}
             <LanguageSwitcher />
@@ -99,9 +102,14 @@ export function Header() {
                <span className="sr-only">Toggle theme</span>
             </Button>
 
-            <Button onClick={() => handleScroll('contact')} size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              {t('header.contact')}
-            </Button>
+            <a
+              href="tel:+447835212468"
+              className="inline-flex items-center gap-1.5 rounded-md bg-[#E60000] hover:bg-[#cc0000] text-white px-4 py-2 text-sm font-medium shadow-[0_4px_12px_-2px_rgba(230,0,0,0.35)] hover:shadow-[0_6px_18px_-2px_rgba(230,0,0,0.5)] transition-all"
+              aria-label="Позвонить и заказать звонок"
+            >
+              <Phone className="w-4 h-4" />
+              Заказать звонок
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -135,36 +143,60 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border">
           <nav className="px-4 py-4 space-y-3">
-            <button 
-              onClick={() => handleScroll('services')} 
+            <Link
+              to="/services"
+              onClick={() => setIsMenuOpen(false)}
               className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
             >
               {t('header.services')}
-            </button>
-            <button 
-              onClick={() => handleScroll('benefits')} 
-              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
-            >
-              {t('header.benefits')}
-            </button>
-            <button 
-              onClick={() => handleScroll('pricing')} 
-              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
-            >
-              {t('header.pricing')}
-            </button>
-            <Link to="/enterprise" className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase">
-              Enterprise
             </Link>
-            <button 
-              onClick={() => handleScroll('cases')} 
+            <Link
+              to="/calculator"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
+            >
+              Калькулятор
+            </Link>
+            <Link
+              to="/excel-amocrm"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
+            >
+              Excel → amoCRM
+            </Link>
+            <button
+              onClick={() => handleScroll('cases')}
               className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
             >
               {t('header.cases')}
             </button>
-            <Button onClick={() => handleScroll('contact')} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" size="sm">
-              {t('header.contact')}
-            </Button>
+            <button
+              onClick={() => handleScroll('pricing')}
+              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
+            >
+              {t('header.pricing')}
+            </button>
+            <Link
+              to="/enterprise"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
+            >
+              Enterprise
+            </Link>
+            <Link
+              to="/about"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors font-mono text-sm uppercase"
+            >
+              О нас
+            </Link>
+            <a
+              href="tel:+447835212468"
+              className="inline-flex items-center justify-center gap-1.5 w-full rounded-md bg-[#E60000] hover:bg-[#cc0000] text-white px-4 py-2.5 text-sm font-medium shadow-[0_4px_12px_-2px_rgba(230,0,0,0.35)] transition-all"
+            >
+              <Phone className="w-4 h-4" />
+              Заказать звонок
+            </a>
           </nav>
         </div>
       )}
