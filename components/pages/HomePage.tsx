@@ -2,6 +2,7 @@
 
 import { Hero } from '../Hero';
 import { Services } from '../Services';
+import { HowWeBuild } from '../HowWeBuild';
 import { Process } from '../Process';
 import { Benefits } from '../Benefits';
 import { Training } from '../Training';
@@ -17,6 +18,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <HowWeBuild />
       <Services />
       <Process />
       <Benefits />
