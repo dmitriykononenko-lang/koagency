@@ -1,0 +1,31 @@
+{
+  "name": "kommo-kb",
+  "version": "1.0.0",
+  "description": "Knowledge base для Kommo Support",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "astro": "astro",
+    "gen:screenshots": "node scripts/generate-screenshots.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.0.0",
+    "@astrojs/tailwind": "^5.0.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "astro": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "js-yaml": "^4.1.0",
+    "pagefind": "^1.0.0",
+    "postcss": "^8.4.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "sharp": "^0.33.0",
+    "tailwindcss": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}

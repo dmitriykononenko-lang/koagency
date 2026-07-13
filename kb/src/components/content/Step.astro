@@ -1,0 +1,18 @@
+---
+interface Props {
+  n: string | number;
+}
+
+const { n } = Astro.props;
+---
+
+<div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-accent rounded-r-lg">
+  <div class="flex items-start gap-4">
+    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">
+      {n}
+    </div>
+    <div class="flex-1">
+      <slot />
+    </div>
+  </div>
+</div>

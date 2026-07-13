@@ -1,0 +1,23 @@
+sections:
+  - title: Начало работы
+    id: getting-started
+    subsections:
+      - title: Старт
+        id: start
+        articles:
+          - slug: login-kommo
+            title: Вход в аккаунт
+      - title: Основные операции
+        id: operations
+        articles:
+          - slug: deal-fields-setup
+            title: Настройка полей сделки
+
+  - title: Воронка продаж
+    id: funnel
+    subsections:
+      - title: Работа с воронкой
+        id: funnel-work
+        articles:
+          - slug: funnel-work
+            title: Работа с воронкой продаж

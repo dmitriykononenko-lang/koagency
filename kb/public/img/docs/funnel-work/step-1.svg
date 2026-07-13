@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #f3f4f6; }
+      .border { stroke: #e5e7eb; stroke-width: 2; }
+      .text { fill: #6b7280; font-family: system-ui; font-size: 20px; text-anchor: middle; }
+      .title { fill: #111827; font-size: 28px; font-weight: bold; }
+      .subtitle { fill: #9ca3af; font-size: 16px; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="800" height="600"/>
+  <rect class="border" x="1" y="1" width="798" height="598" fill="none"/>
+
+  <text class="title" x="400" y="200">Скриншот</text>
+  <text class="text" x="400" y="260">funnel-work</text>
+  <text class="text" x="400" y="300">Шаг 1</text>
+  <text class="subtitle" x="400" y="450">Placeholder изображение</text>
+  <text class="subtitle" x="400" y="480">Будет заменён на реальный скриншот</text>
+</svg>
