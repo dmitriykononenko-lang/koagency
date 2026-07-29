@@ -31,86 +31,136 @@ export function Footer() {
   return (
     <footer className="bg-[#101010] text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-[#E60000] rounded-lg flex items-center justify-center">
-                <span className="text-white font-mono text-xs">ko</span>
-              </div>
-              <span className="text-lg font-mono">ko:agency</span>
+        {/* Бренд + краткое описание */}
+        <div className="mb-10 max-w-md">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-[#E60000] rounded-lg flex items-center justify-center">
+              <span className="text-white font-mono text-xs">ko</span>
             </div>
-            <p className="text-sm text-white/70 max-w-md">
-              {t('footer.description')}
-            </p>
+            <span className="text-lg font-mono">ko:agency</span>
           </div>
+          <p className="text-sm text-white/70">
+            {t('footer.description')}
+          </p>
+        </div>
 
-          {/* Quick Links */}
+        {/* Карта сайта: 4 колонки */}
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* Услуги — главные посадочные для SEO */}
           <div>
-            <h4 className="text-white mb-4 font-mono uppercase text-sm tracking-wider">{t('footer.navigation')}</h4>
+            <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Услуги</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <button onClick={() => handleScroll('services')} className="hover:text-[#E60000] transition-colors text-left">
-                  {t('footer.services')}
-                </button>
-              </li>
-              <li>
-                <Link to="/calculator" className="hover:text-[#E60000] transition-colors block">
-                  {t('footer.calculator')}
+                <Link to="/services/amocrm-implementation" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Внедрение amoCRM
                 </Link>
               </li>
               <li>
-                <button onClick={() => handleScroll('benefits')} className="hover:text-[#E60000] transition-colors text-left">
-                  {t('footer.benefits')}
-                </button>
-              </li>
-              <li>
-                <Link to="/enterprise" className="hover:text-[#E60000] transition-colors block">
-                  Enterprise
+                <Link to="/services/kommo-implementation" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Внедрение Kommo
                 </Link>
               </li>
               <li>
-                <Link to="/excel-amocrm" className="hover:text-[#E60000] transition-colors block">
+                <Link to="/services/ai-qualifiers" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  AI-квалификация лидов
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/crm-support" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Поддержка CRM
+                </Link>
+              </li>
+              <li>
+                <Link to="/support" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Сопровождение amoCRM
+                </Link>
+              </li>
+              <li className="pt-2">
+                <Link to="/services" className="text-white hover:text-[#E60000] transition-colors font-medium">
+                  Все услуги →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Инструменты — калькуляторы и lead magnets */}
+          <div>
+            <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Инструменты</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/calculator" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Калькулятор внедрения
+                </Link>
+              </li>
+              <li>
+                <Link to="/calculator-amocrm" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Калькулятор amoCRM
+                </Link>
+              </li>
+              <li>
+                <Link to="/excel-amocrm" className="text-white/70 hover:text-[#E60000] transition-colors">
                   Excel → amoCRM
                 </Link>
               </li>
               <li>
-                <button onClick={() => handleScroll('cases')} className="hover:text-[#E60000] transition-colors text-left">
-                  {t('footer.cases')}
+                <Link to="/enterprise" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Enterprise-внедрение
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Компания */}
+          <div>
+            <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Компания</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/about" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  О компании
+                </Link>
+              </li>
+              <li>
+                <button onClick={() => handleScroll('cases')} className="text-white/70 hover:text-[#E60000] transition-colors text-left">
+                  Кейсы
                 </button>
               </li>
               <li>
-                <button onClick={() => handleScroll('contact')} className="hover:text-[#E60000] transition-colors text-left">
-                  {t('footer.contact')}
+                <button onClick={() => handleScroll('pricing')} className="text-white/70 hover:text-[#E60000] transition-colors text-left">
+                  Цены
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleScroll('contact')} className="text-white/70 hover:text-[#E60000] transition-colors text-left">
+                  Контакты
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Связь */}
           <div>
-            <h4 className="text-white mb-4 font-mono uppercase text-sm tracking-wider">{t('footer.contact')}</h4>
+            <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Связаться</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="mailto:hello@koagency.me" className="flex items-center gap-2 hover:text-[#E60000] transition-colors">
+                <a href="mailto:hello@koagency.ru" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <Mail className="w-4 h-4" />
-                  hello@koagency.me
+                  hello@koagency.ru
                 </a>
               </li>
               <li>
-                <a href="tel:+447835212468" className="flex items-center gap-2 hover:text-[#E60000] transition-colors">
+                <a href="tel:+447835212468" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <Phone className="w-4 h-4" />
                   +44 7835 212468
                 </a>
               </li>
               <li>
-                <a href="tel:+79912223880" className="flex items-center gap-2 hover:text-[#E60000] transition-colors">
+                <a href="tel:+79912223880" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <Phone className="w-4 h-4" />
                   +7 991 222-38-80
                 </a>
               </li>
               <li>
-                <a href="https://t.me/ko_agency" className="flex items-center gap-2 hover:text-[#E60000] transition-colors">
+                <a href="https://t.me/ko_agency" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <MessageSquare className="w-4 h-4" />
                   Telegram
                 </a>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ko:agency — ClipPathLinks</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E60000;--ink:#101010;--line:rgba(0,0,0,.12)}
+  *{margin:0;box-sizing:border-box}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;background:#eee;font-family:'IBM Plex Sans',system-ui,sans-serif}
+  .wrap{width:100%;max-width:1000px}
+  .cap{font-family:'IBM Plex Mono';font-size:13px;color:#666;margin-bottom:12px;text-transform:uppercase;letter-spacing:.1em}
+  .grid-wrap{border:1px solid var(--line);background:#fff}
+  .row{display:grid;border-top:1px solid var(--line)} .row:first-child{border-top:none}
+  .r2{grid-template-columns:1fr 1fr}
+  .r4{grid-template-columns:repeat(4,1fr)} .r3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:560px){.r4{grid-template-columns:1fr 1fr}}
+  .box{position:relative;height:128px;display:grid;place-content:center;border-left:1px solid var(--line);cursor:pointer;overflow:hidden}
+  .box:first-child{border-left:none}
+  .face{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink);text-align:center;padding:0 8px}
+  .face svg{width:26px;height:26px}
+  .face .l{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+  .reveal{position:absolute;inset:0;display:grid;place-content:center;background:var(--red);color:#fff;
+    clip-path:polygon(0 0, 100% 0, 0 0, 0% 100%);transition:clip-path .3s ease}
+  .reveal .face{color:#fff}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="cap">Наведи на плитки — красный «вытесняется» из ближайшей стороны</div>
+  <div class="grid-wrap" id="grid"></div>
+</div>
+<script>
+  const I={
+    send:'<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+    msg:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+    phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/>',
+    mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/>',
+    calc:'<rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="8" y1="14" y2="14"/><line x1="12" x2="12" y1="14" y2="14"/><line x1="16" x2="16" y1="14" y2="14"/><line x1="8" x2="8" y1="18" y2="18"/><line x1="12" x2="12" y1="18" y2="18"/><line x1="16" x2="16" y1="18" y2="18"/>',
+    brief:'<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    trend:'<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    bld:'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>'
+  };
+  const rows=[
+    {cls:'r2',items:[['send','Telegram'],['msg','WhatsApp']]},
+    {cls:'r4',items:[['phone','+7 991 222-38-80'],['phone','+44 7835 212468'],['mail','hello@koagency.ru'],['calc','Калькулятор']]},
+    {cls:'r3',items:[['brief','Услуги'],['trend','Кейсы'],['bld','О компании']]},
+  ];
+  const NO='polygon(0 0, 100% 0, 100% 100%, 0% 100%)';
+  const BR='polygon(0 0, 100% 0, 0 0, 0% 100%)', TR='polygon(0 0, 0 100%, 100% 100%, 0% 100%)';
+  const BL='polygon(100% 100%, 100% 0, 100% 100%, 0 100%)', TL='polygon(0 0, 100% 0, 100% 100%, 100% 0)';
+  const ENT={left:BR,bottom:BR,top:BR,right:TL}, EXT={left:TR,bottom:TR,top:TR,right:BL};
+  function svg(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+  const grid=document.getElementById('grid');
+  rows.forEach(r=>{
+    const row=document.createElement('div'); row.className='row '+r.cls;
+    r.items.forEach(([ic,label])=>{
+      const a=document.createElement('a'); a.className='box'; a.href='#';
+      a.innerHTML='<div class="face">'+svg(I[ic])+'<span class="l">'+label+'</span></div>'+
+                  '<div class="reveal"><div class="face">'+svg(I[ic])+'<span class="l">'+label+'</span></div></div>';
+      const rev=a.querySelector('.reveal');
+      function side(e){const b=a.getBoundingClientRect();
+        const s=[['left',Math.abs(b.left-e.clientX)],['right',Math.abs(b.right-e.clientX)],['top',Math.abs(b.top-e.clientY)],['bottom',Math.abs(b.bottom-e.clientY)]].sort((x,y)=>x[1]-y[1]);
+        return s[0][0];}
+      a.addEventListener('mouseenter',e=>{rev.style.clipPath=ENT[side(e)];requestAnimationFrame(()=>rev.style.clipPath=NO);});
+      a.addEventListener('mouseleave',e=>{rev.style.clipPath=EXT[side(e)];});
+      row.appendChild(a);
+    });
+    grid.appendChild(row);
+  });
+</script>
+</body></html>

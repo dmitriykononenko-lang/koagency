@@ -1,46 +1,12 @@
 'use client';
 
 import { Card } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
 import { Mail, Phone, MessageSquare } from 'lucide-react';
-import { useState } from 'react';
 import { useLanguage } from '../lib/i18n/LanguageContext';
+import { AmoForm } from './AmoForm';
 
 export function Contact() {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // В реальном приложении здесь будет отправка данных на сервер
-    console.log('Form submitted:', formData);
-    
-    alert('Спасибо за обращение! Мы свяжемся с вами в ближайшее время.');
-    
-    // Очистка формы
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
@@ -56,72 +22,8 @@ export function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <Card className="p-6 sm:p-8 bg-card border-border shadow-sm">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Label htmlFor="name" className="text-foreground">{t('contact.form.name')} *</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder={t('contact.form.placeholders.name')}
-                  required
-                  className="mt-2 border-input bg-input-background focus:border-primary focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="email" className="text-foreground">{t('contact.form.email')} *</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder={t('contact.form.placeholders.email')}
-                  required
-                  className="mt-2 border-input bg-input-background focus:border-primary focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="phone" className="text-foreground">{t('contact.form.phone')} *</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder={t('contact.form.placeholders.phone')}
-                  required
-                  className="mt-2 border-input bg-input-background focus:border-primary focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="message" className="text-foreground">{t('contact.form.message')}</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder={t('contact.form.placeholders.message')}
-                  rows={4}
-                  className="mt-2 border-input bg-input-background focus:border-primary focus:ring-primary"
-                />
-              </div>
-
-              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                {t('contact.form.submit')}
-              </Button>
-
-              <p className="text-xs text-muted-foreground text-center">
-                {t('contact.form.agreement')}
-              </p>
-            </form>
-          </Card>
+          {/* Contact Form — amoCRM widget (id 1717818) */}
+          <AmoForm />
 
           {/* Contact Info */}
           <div className="space-y-6">
@@ -138,8 +40,8 @@ export function Contact() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Email</div>
-                    <a href="mailto:hello@koagency.me" className="text-foreground hover:text-primary transition-colors">
-                      hello@koagency.me
+                    <a href="mailto:hello@koagency.ru" className="text-foreground hover:text-primary transition-colors">
+                      hello@koagency.ru
                     </a>
                   </div>
                 </div>
