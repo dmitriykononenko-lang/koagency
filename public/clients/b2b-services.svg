@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" fill="none">
+  <g transform="translate(4, 0)" style="color:#666">
+    <path d="M15 30a6 6 0 0 1 0-12 8 8 0 0 1 16 0 6 6 0 0 1 0 12H15z" fill="currentColor"/>
+  </g>
+  <text x="56" y="30" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="15" font-weight="600" fill="#666" letter-spacing="0.5">IT.SIGMA</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" fill="none">
+  <g transform="translate(4, 0)" style="color:#666">
+    <path d="M14 18l2-6h16l2 6M14 18v14h20V18M14 18h20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  </g>
+  <text x="56" y="30" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="15" font-weight="600" fill="#666" letter-spacing="0.5">TRADEMARK</text>
+</svg>

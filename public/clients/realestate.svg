@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" fill="none">
+  <g transform="translate(4, 0)" style="color:#666">
+    <path d="M24 10L10 22v14h10v-8h8v8h10V22z" fill="currentColor"/>
+  </g>
+  <text x="56" y="30" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="15" font-weight="600" fill="#666" letter-spacing="0.5">ЖК ПРЕМЬЕР</text>
+</svg>

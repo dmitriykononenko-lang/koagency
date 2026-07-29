@@ -1,6 +1,7 @@
 'use client';
 
 import { Hero } from '../Hero';
+import { LogoWall } from '../LogoWall';
 import { Services } from '../Services';
 import { HowWeBuild } from '../HowWeBuild';
 import { Process } from '../Process';
@@ -18,6 +19,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <LogoWall />
       <HowWeBuild />
       <Services />
       <Process />

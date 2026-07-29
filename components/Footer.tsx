@@ -120,9 +120,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <button onClick={() => handleScroll('cases')} className="text-white/70 hover:text-[#E60000] transition-colors text-left">
+                <Link to="/cases" className="text-white/70 hover:text-[#E60000] transition-colors text-left">
                   Кейсы
-                </button>
+                </Link>
               </li>
               <li>
                 <button onClick={() => handleScroll('pricing')} className="text-white/70 hover:text-[#E60000] transition-colors text-left">

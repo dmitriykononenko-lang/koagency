@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seo';
 import { servicesData } from '@/data/services';
+import { casesData } from '@/data/cases';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -11,8 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/calculator-amocrm`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/excel-amocrm`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/enterprise`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/support`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/cases`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
   ];
 
   const servicePages: MetadataRoute.Sitemap = Object.keys(servicesData).map((slug) => ({
@@ -22,5 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...servicePages];
+  const casePages: MetadataRoute.Sitemap = Object.keys(casesData).map((slug) => ({
+    url: `${SITE_URL}/cases/${slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  return [...staticPages, ...servicePages, ...casePages];
 }

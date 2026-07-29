@@ -1,56 +1,19 @@
+'use client';
+
+import { Link } from '@/lib/router-shim';
 import { Card } from './ui/card';
 import { ArrowUpRight } from 'lucide-react';
+import { casesList } from '@/data/cases';
 
-const cases = [
-  {
-    company: 'Интернет-магазин электроники',
-    industry: 'E-commerce',
-    challenge: 'Низкая конверсия заявок из-за большого потока нецелевых обращений',
-    solution: 'Внедрили AI-квалификатор для автоматического отбора лидов и настроили воронку продаж в amoCRM',
-    results: [
-      'Увеличение конверсии на 45%',
-      'Сокращение времени обработки заявок на 60%',
-      'Рост продаж на 32% за 3 месяца'
-    ],
-    tags: ['amoCRM', 'AI-квалификатор', 'Автоматизация']
-  },
-  {
-    company: 'Строительная компания',
-    industry: 'Строительство',
-    challenge: 'Отсутствие единой системы учета клиентов и сделок между отделами',
-    solution: 'Внедрили Kommo с кастомной настройкой полей и воронок, интеграция с 1С и обучение команды',
-    results: [
-      'Централизация всех данных о клиентах',
-      'Улучшение коммуникации между отделами',
-      'Сокращение потерянных сделок на 55%'
-    ],
-    tags: ['Kommo', 'Интеграция 1С', 'Обучение']
-  },
-  {
-    company: 'Образовательный центр',
-    industry: 'Образование',
-    challenge: 'Ручная обработка большого потока заявок на курсы',
-    solution: 'Настроили автоматизацию в amoCRM с триггерами, email-рассылками и чат-ботом для квалификации',
-    results: [
-      'Автоматизация 80% рутинных задач',
-      'Увеличение записей на курсы на 38%',
-      'Повышение удовлетворенности клиентов'
-    ],
-    tags: ['amoCRM', 'Chatbot', 'Email-маркетинг']
-  },
-  {
-    company: 'B2B Сервисная компания',
-    industry: 'B2B Услуги',
-    challenge: 'Долгий цикл сделки и сложности с контролем этапов',
-    solution: 'Создали кастомную воронку с автоматическими напоминаниями, аналитикой и AI для прогнозирования сделок',
-    results: [
-      'Сокращение цикла сделки на 25%',
-      'Прозрачный контроль всех этапов',
-      'Прогнозирование закрытия сделок с точностью 87%'
-    ],
-    tags: ['Kommo', 'AI-аналитика', 'Автоматизация']
-  }
-];
+const cases = casesList.map((c) => ({
+  slug: c.slug,
+  company: c.company,
+  industry: c.industry,
+  challenge: c.challenge,
+  solution: c.solution,
+  results: c.results.slice(0, 3),
+  tags: c.tags,
+}));
 
 export function Cases() {
   return (
@@ -69,9 +32,9 @@ export function Cases() {
         {/* Cases Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {cases.map((caseItem, index) => (
-            <Card 
-              key={index}
-              className="p-6 sm:p-8 bg-white border-black/10 shadow-sm hover:shadow-lg hover:border-[#E60000]/30 transition-all duration-300 hover:-translate-y-1 group"
+            <Link key={index} to={`/cases/${caseItem.slug}`} className="block">
+            <Card
+              className="p-6 sm:p-8 bg-white border-black/10 shadow-sm hover:shadow-lg hover:border-[#E60000]/30 transition-all duration-300 hover:-translate-y-1 group h-full"
             >
               {/* Header */}
               <div className="flex justify-between items-start mb-4">
@@ -118,19 +81,27 @@ export function Cases() {
                 </ul>
               </div>
             </Card>
+            </Link>
           ))}
         </div>
 
         {/* Additional Info */}
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <Link
+            to="/cases"
+            className="inline-flex items-center gap-2 rounded-full bg-[#101010] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#E60000]"
+          >
+            Все кейсы
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
           <p className="text-[#666666]">
-            Хотите такие же результаты? 
-            <button 
+            Хотите такие же результаты?{' '}
+            <button
               onClick={() => {
                 const element = document.getElementById('contact');
                 if (element) element.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-[#E60000] hover:text-[#cc0000] ml-2 underline underline-offset-4 font-medium"
+              className="text-[#E60000] hover:text-[#cc0000] ml-1 underline underline-offset-4 font-medium"
             >
               Свяжитесь с нами
             </button>
