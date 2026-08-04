@@ -3,6 +3,7 @@
 import { Mail, Phone, MessageSquare } from 'lucide-react';
 import { Link, useLocation, useNavigate } from '@/lib/router-shim';
 import { useLanguage } from '../lib/i18n/LanguageContext';
+import { CONTACT_EMAILS } from '@/lib/contacts';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -151,13 +152,24 @@ export function Footer() {
           <div>
             <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Связаться</h4>
             <ul className="space-y-3 text-sm">
-              <li>
-                <a href="mailto:hello@koagency.me" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
-                  <Mail className="w-4 h-4" />
-                  hello@koagency.me
-                </a>
-              </li>
-              <li>
+              {CONTACT_EMAILS.map((e) => (
+                <li key={e.address}>
+                  <a
+                    href={`mailto:${e.address}`}
+                    className="group flex items-start gap-2 text-white/70 hover:text-[#E60000] transition-colors"
+                    title={e.purpose}
+                  >
+                    <Mail className="w-4 h-4 mt-0.5 shrink-0" />
+                    <span className="flex flex-col leading-tight">
+                      <span>{e.address}</span>
+                      <span className="text-[11px] text-white/40 group-hover:text-[#E60000]/70">
+                        {e.label}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+              <li className="pt-2 border-t border-white/10">
                 <a href="tel:+447835212468" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <Phone className="w-4 h-4" />
                   +44 7835 212468

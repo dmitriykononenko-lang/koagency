@@ -1,9 +1,10 @@
 'use client';
 
 import { Card } from './ui/card';
-import { Mail, Phone, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../lib/i18n/LanguageContext';
 import { AmoForm } from './AmoForm';
+import { CONTACT_EMAILS } from '@/lib/contacts';
 
 export function Contact() {
   const { t } = useLanguage();
@@ -38,11 +39,28 @@ export function Contact() {
                   <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground mb-1">Email</div>
-                    <a href="mailto:hello@koagency.me" className="text-foreground hover:text-primary transition-colors">
-                      hello@koagency.me
-                    </a>
+                  <div className="flex-1">
+                    <div className="text-sm text-muted-foreground mb-2">Email — пишите по нужному вопросу</div>
+                    <ul className="space-y-2">
+                      {CONTACT_EMAILS.map((e) => (
+                        <li key={e.address}>
+                          <a
+                            href={`mailto:${e.address}`}
+                            className="group flex items-start justify-between gap-3 rounded-md border border-border/60 bg-background px-3 py-2 hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                          >
+                            <span className="flex flex-col">
+                              <span className="text-sm text-foreground font-medium">
+                                {e.address}
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                {e.label} — {e.purpose}
+                              </span>
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-0.5" />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 

@@ -501,14 +501,14 @@ export function WidgetTaskTemplatesPage() {
                 </div>
               </Card>
             </a>
-            <a href="mailto:koagency.me@gmail.com" className="group">
+            <a href="mailto:service@koagency.me" className="group">
               <Card className="h-full p-6 border-black/10 bg-white shadow-sm hover:shadow-md hover:border-[#E60000]/30 transition-all">
                 <Mail className="mb-3 h-6 w-6 text-[#E60000]" />
                 <div className="mb-1 text-xs uppercase font-mono tracking-wider text-[#999999]">
                   E-mail
                 </div>
                 <div className="font-semibold text-[#101010] group-hover:text-[#E60000] transition-colors break-all">
-                  koagency.me@gmail.com
+                  service@koagency.me
                 </div>
               </Card>
             </a>

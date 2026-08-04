@@ -53,10 +53,10 @@ export function LegalPrivacyPage() {
               </a>{' '}
               ·{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>
             </p>
             <p>
@@ -211,10 +211,10 @@ export function LegalPrivacyPage() {
               </a>
               ,{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>
               .
             </p>

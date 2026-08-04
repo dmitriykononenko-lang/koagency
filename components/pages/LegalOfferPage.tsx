@@ -53,10 +53,10 @@ export function LegalOfferPage() {
               </a>{' '}
               ·{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>
             </p>
             <p>
@@ -174,10 +174,10 @@ export function LegalOfferPage() {
               </a>{' '}
               и e-mail{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>{' '}
               в рабочие дни. Время реакции — до конца рабочего дня, обычно 15–60 минут.
             </p>
@@ -224,10 +224,10 @@ export function LegalOfferPage() {
             <p className="leading-relaxed text-[#333333]">
               ИП Кононенко Елена Витальевна. Контакт для обращений:{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>
               .
             </p>
