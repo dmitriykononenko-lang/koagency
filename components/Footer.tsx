@@ -108,8 +108,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/widgets/task-templates" className="text-white/70 hover:text-[#E60000] transition-colors">
-                  Виджет «Шаблоны задач»
+                <Link to="/widgets" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Наши виджеты
+                </Link>
+              </li>
+              <li>
+                <Link to="/widgets/task-templates" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Шаблоны задач
                 </Link>
               </li>
             </ul>
