@@ -147,9 +147,9 @@ export function Footer() {
             <h4 className="text-white mb-4 font-mono uppercase text-xs tracking-wider">Связаться</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="mailto:hello@koagency.ru" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
+                <a href="mailto:hello@koagency.me" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <Mail className="w-4 h-4" />
-                  hello@koagency.ru
+                  hello@koagency.me
                 </a>
               </li>
               <li>

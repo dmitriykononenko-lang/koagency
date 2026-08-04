@@ -61,7 +61,7 @@ export function ServicePage({ service }: ServicePageProps) {
     "provider": {
       "@type": "Organization",
       "name": "ko:agency",
-      "url": "https://koagency.ru"
+      "url": "https://koagency.me"
     },
     "areaServed": "RU",
     "offers": {

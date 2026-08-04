@@ -1,0 +1,211 @@
+/*
+ * Brand override для amoCRM Form (id 1717818).
+ * Цвет акцента: #E60000 (Electric Red).
+ * Цель: форма выглядит как родная часть сайта, не как embed.
+ */
+
+/* ───────────────────────────────────────────────
+ *  КОНТЕЙНЕР
+ * ─────────────────────────────────────────────── */
+
+.amo-form-container {
+  /* Subtle border + плавный градиент фона вместо тяжёлой карточки */
+  border: 1px solid rgba(15, 15, 15, 0.08);
+  border-radius: 20px;
+  padding: 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  min-height: 480px;
+}
+
+@media (max-width: 640px) {
+  .amo-form-container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+/* Dark mode */
+.dark .amo-form-container {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #131313 0%, #0d0d0d 100%);
+}
+
+/* ───────────────────────────────────────────────
+ *  ВНУТРЕННИЕ ЭЛЕМЕНТЫ ФОРМЫ amoCRM
+ *  (используем общие селекторы, т.к. версии классов меняются)
+ * ─────────────────────────────────────────────── */
+
+/* Скрываем стандартный заголовок виджета — у нас свой текст в секции */
+.amo-form-container .amoforms-page__title,
+.amo-form-container [class*='form-title'] {
+  display: none !important;
+}
+
+/* Лейблы — typography по taste-skill (tight tracking, weight-control) */
+.amo-form-container label,
+.amo-form-container [class*='label'] {
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 8px !important;
+}
+
+.dark .amo-form-container label,
+.dark .amo-form-container [class*='label'] {
+  color: #fafafa !important;
+}
+
+/* Поля ввода */
+.amo-form-container input[type='text'],
+.amo-form-container input[type='email'],
+.amo-form-container input[type='tel'],
+.amo-form-container input[type='url'],
+.amo-form-container textarea,
+.amo-form-container select {
+  background: #f5f5f5 !important;
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  color: #0a0a0a !important;
+  font-family: inherit !important;
+  width: 100% !important;
+  transition: border-color 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: none !important;
+}
+
+.amo-form-container input::placeholder,
+.amo-form-container textarea::placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+/* Focus state — брендовая обводка вместо outline */
+.amo-form-container input:focus,
+.amo-form-container textarea:focus,
+.amo-form-container select:focus {
+  outline: none !important;
+  background: #ffffff !important;
+  border-color: rgba(230, 0, 0, 0.5) !important;
+  box-shadow: 0 0 0 4px rgba(230, 0, 0, 0.08) !important;
+}
+
+.dark .amo-form-container input[type='text'],
+.dark .amo-form-container input[type='email'],
+.dark .amo-form-container input[type='tel'],
+.dark .amo-form-container input[type='url'],
+.dark .amo-form-container textarea,
+.dark .amo-form-container select {
+  background: #1a1a1a !important;
+  color: #fafafa !important;
+}
+
+.dark .amo-form-container input:focus,
+.dark .amo-form-container textarea:focus,
+.dark .amo-form-container select:focus {
+  background: #222 !important;
+}
+
+/* ───────────────────────────────────────────────
+ *  CTA-кнопка отправки
+ * ─────────────────────────────────────────────── */
+
+.amo-form-container button,
+.amo-form-container input[type='submit'],
+.amo-form-container [class*='submit'],
+.amo-form-container [class*='button_submit'] {
+  background: #e60000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px 24px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  width: 100% !important;
+  cursor: pointer !important;
+
+  /* Tinted shadow вместо неонового glow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 20px -6px rgba(230, 0, 0, 0.3) !important;
+
+  transition:
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.amo-form-container button:hover,
+.amo-form-container input[type='submit']:hover,
+.amo-form-container [class*='submit']:hover {
+  transform: translateY(-1px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 14px 28px -10px rgba(230, 0, 0, 0.4) !important;
+}
+
+.amo-form-container button:active,
+.amo-form-container input[type='submit']:active,
+.amo-form-container [class*='submit']:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+/* ───────────────────────────────────────────────
+ *  ЧЕКБОКСЫ И ССЫЛКИ (политика обработки данных)
+ * ─────────────────────────────────────────────── */
+
+.amo-form-container a {
+  color: #e60000 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(230, 0, 0, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.amo-form-container a:hover {
+  border-color: #e60000;
+}
+
+.amo-form-container input[type='checkbox'] {
+  accent-color: #e60000 !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* ───────────────────────────────────────────────
+ *  СОСТОЯНИЯ (success, error, loading)
+ * ─────────────────────────────────────────────── */
+
+.amo-form-container [class*='error'],
+.amo-form-container [class*='_error_text'] {
+  color: #e60000 !important;
+  font-size: 13px !important;
+  margin-top: 6px !important;
+}
+
+.amo-form-container [class*='success'] {
+  color: #00875a !important;
+}
+
+/* Loading: subtle pulse animation */
+.amo-form-container [class*='loading'] {
+  animation: amo-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes amo-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Hide amoCRM footer branding (можно убрать если нужно) */
+.amo-form-container [class*='amocrm-logo'],
+.amo-form-container [class*='powered_by'] {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.amo-form-container [class*='amocrm-logo']:hover {
+  opacity: 0.8;
+}

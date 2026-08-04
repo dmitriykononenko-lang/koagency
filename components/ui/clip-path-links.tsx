@@ -29,7 +29,7 @@ export const ClipPathLinks = () => {
       <div className="grid grid-cols-2 divide-x divide-border sm:grid-cols-4">
         <LinkBox Icon={Phone} label="+7 991 222-38-80" href="tel:+79912223880" />
         <LinkBox Icon={Phone} label="+44 7835 212468" href="tel:+447835212468" />
-        <LinkBox Icon={Mail} label="hello@koagency.ru" href="mailto:hello@koagency.ru" />
+        <LinkBox Icon={Mail} label="hello@koagency.me" href="mailto:hello@koagency.me" />
         <LinkBox Icon={Calculator} label="Калькулятор" href="/calculator" internal />
       </div>
       <div className="grid grid-cols-3 divide-x divide-border">

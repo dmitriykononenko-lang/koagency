@@ -381,17 +381,44 @@ export function WidgetTaskTemplatesPage() {
                 <h3 className="mb-3 text-2xl font-bold text-[#101010]">
                   Ваши данные — только внутри amoCRM
                 </h3>
-                <p className="text-base leading-relaxed text-[#666666]">
+                <p className="mb-4 text-base leading-relaxed text-[#666666]">
                   Виджет работает внутри интерфейса amoCRM и обращается только к API того
-                  же аккаунта. Шаблоны хранятся в служебном списке вашей CRM. Собственного
-                  бэкенда у виджета нет — данные не передаются на сторонние серверы и не
-                  используются системы аналитики.
+                  же аккаунта. Собственного бэкенда у виджета нет — данные не передаются
+                  на сторонние серверы и не используются системы аналитики.
                 </p>
+                <div className="mb-4 space-y-2">
+                  <div className="font-mono text-xs uppercase tracking-wider text-[#999999]">
+                    Что виджет обрабатывает
+                  </div>
+                  <ul className="space-y-2 text-sm text-[#101010]">
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#E60000]" />
+                      <span>
+                        <strong>Шаблоны задач</strong> (комментарий, тип, срок,
+                        ответственный) — хранятся в служебном списке вашего аккаунта.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#E60000]" />
+                      <span>
+                        <strong>Идентификаторы карточек</strong> (сделок / контактов /
+                        компаний) — только для постановки задачи через штатный API.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#E60000]" />
+                      <span>
+                        <strong>Справочники аккаунта</strong> (типы задач, список
+                        сотрудников) — для отображения в интерфейсе виджета.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
                 <Link
-                  to="/widgets/task-templates/privacy"
-                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#E60000] hover:underline underline-offset-4"
+                  to="/legal/privacy"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#E60000] hover:underline underline-offset-4"
                 >
-                  Политика конфиденциальности
+                  Общая политика конфиденциальности
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -512,14 +539,14 @@ export function WidgetTaskTemplatesPage() {
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/widgets/task-templates/offer"
+              to="/legal/offer"
               className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium text-[#101010] transition-colors hover:border-[#E60000] hover:text-[#E60000]"
             >
               Публичная оферта
               <ArrowUpRight className="h-4 w-4" />
             </Link>
             <Link
-              to="/widgets/task-templates/privacy"
+              to="/legal/privacy"
               className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium text-[#101010] transition-colors hover:border-[#E60000] hover:text-[#E60000]"
             >
               Политика конфиденциальности

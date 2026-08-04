@@ -40,8 +40,8 @@ export function Contact() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Email</div>
-                    <a href="mailto:hello@koagency.ru" className="text-foreground hover:text-primary transition-colors">
-                      hello@koagency.ru
+                    <a href="mailto:hello@koagency.me" className="text-foreground hover:text-primary transition-colors">
+                      hello@koagency.me
                     </a>
                   </div>
                 </div>

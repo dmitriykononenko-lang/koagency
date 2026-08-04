@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ko:agency — экраны Hero на выбор</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E60000;--ink:#101010;--mut:#666;--line:rgba(0,0,0,.08)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:#e8e8ea;color:var(--ink);-webkit-font-smoothing:antialiased;padding:36px 14px}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .tag{max-width:1120px;margin:0 auto 14px;display:flex;align-items:center;gap:10px}
+  .tag .n{width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px}
+  .tag h2{font-size:17px;font-weight:600} .tag em{color:var(--mut);font-style:normal;font-size:14px}
+  .stage{max-width:1120px;margin:0 auto 52px;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -42px rgba(0,0,0,.4)}
+  canvas.dots{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.85);backdrop-filter:blur(4px);padding:8px 14px;border-radius:999px}
+  .pill .d{width:6px;height:6px;border-radius:50%;background:var(--red)}
+  .pill .mono{font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+  .btn{height:50px;display:inline-flex;align-items:center;gap:8px;padding:0 24px;border-radius:12px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:.2s}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 10px 24px -8px rgba(230,0,0,.4)} .btn-red:hover{background:#cc0000}
+  .btn-out{background:transparent;color:var(--ink);border:1.5px solid var(--ink)} .btn-out:hover{background:var(--ink);color:#fff}
+  .btn-out.lt{color:#fff;border-color:rgba(255,255,255,.4)} .btn-out.lt:hover{background:#fff;color:var(--ink)}
+  .ck{color:var(--red);font-weight:700}
+
+  .head{position:relative;display:inline-block}
+  .head svg{position:absolute;left:-6%;top:-46%;width:112%;height:190%;pointer-events:none;overflow:visible}
+  .circle{fill:none;stroke:var(--red);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.92;animation:draw 2.4s cubic-bezier(.43,.13,.23,.96) .3s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  /* fanned cards */
+  .fan{display:grid;grid-template-areas:'stack';place-items:center;min-height:300px}
+  .card{grid-area:stack;position:relative;display:flex;height:140px;width:21rem;flex-direction:column;justify-content:space-between;
+    border-radius:12px;border:2px solid var(--line);background:rgba(255,255,255,.72);backdrop-filter:blur(5px);padding:12px 16px;transition:all .6s}
+  .card .top{display:flex;align-items:center;gap:8px}
+  .card .ic{display:inline-flex;border-radius:999px;background:var(--red);padding:6px;color:#fff} .card .ic svg{width:16px;height:16px}
+  .card .t{font-size:17px;font-weight:500;color:var(--red)} .card .d{font-size:17px;color:var(--ink)} .card .dt{font-size:14px;color:#999}
+  .c1{transform:skewY(-8deg);filter:grayscale(1)} .c1:hover{transform:skewY(-8deg) translateY(-40px);filter:grayscale(0)}
+  .c2{transform:skewY(-8deg) translate(58px,38px);filter:grayscale(1)} .c2:hover{transform:skewY(-8deg) translate(58px,-4px);filter:grayscale(0)}
+  .c3{transform:skewY(-8deg) translate(116px,76px)} .c3:hover{transform:skewY(-8deg) translate(116px,38px)}
+  .card:hover{border-color:rgba(230,0,0,.3);background:#fff}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;transition:.2s}
+  .stat:hover{transform:translateY(-4px);border-color:rgba(230,0,0,.3)}
+  .stat .v{font-family:'IBM Plex Mono';font-size:22px;font-weight:600;color:var(--red)} .stat .l{font-size:13px;font-weight:500} .stat .s{font-size:11px;color:#999}
+
+  /* ===== SCREEN 1 — light, centered, dotted ===== */
+  .s1{position:relative;overflow:hidden;background:#f7f7f8;padding:96px 32px 72px;text-align:center}
+  .s1 .in{position:relative;z-index:2;max-width:760px;margin:0 auto}
+  .s1 h1{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:600;letter-spacing:-.03em;line-height:1.04;margin-top:18px}
+  .s1 .red{color:var(--red);font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:600;margin-top:6px}
+  .s1 p{margin:18px auto 0;max-width:560px;font-size:18px;color:var(--mut);line-height:1.6}
+  .s1 .ctas{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .s1 .fan{margin-top:30px}
+
+  /* ===== SCREEN 2 — light split ===== */
+  .s2{position:relative;overflow:hidden;background:#fff;display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center;padding:72px 44px}
+  @media(max-width:880px){.s2{grid-template-columns:1fr}}
+  .s2 .l{position:relative;z-index:2}
+  .s2 h1{font-size:clamp(2.1rem,4.4vw,3.3rem);font-weight:600;letter-spacing:-.03em;line-height:1.06;margin-top:16px}
+  .s2 .red{color:var(--red)}
+  .s2 p{margin-top:16px;font-size:16px;color:var(--mut);line-height:1.6;max-width:460px}
+  .s2 .ctas{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .s2 .chips{margin-top:22px;display:flex;gap:20px;flex-wrap:wrap}
+  .s2 .chip .v{font-family:'IBM Plex Mono';font-size:22px;font-weight:600;color:var(--red)} .s2 .chip .l{font-size:13px;color:var(--mut)}
+  .s2 .r{position:relative;z-index:2}
+
+  /* ===== SCREEN 3 — dark elegant + dotted ===== */
+  .s3{position:relative;overflow:hidden;background:#0c0c0e;color:#fff;padding:92px 32px 72px;text-align:center}
+  .s3 .in{position:relative;z-index:2;max-width:780px;margin:0 auto}
+  .s3 h1{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:600;letter-spacing:-.03em;line-height:1.04;margin-top:18px;color:#fff}
+  .s3 .red{color:var(--red);font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:600;margin-top:6px}
+  .s3 p{margin:18px auto 0;max-width:560px;font-size:18px;color:rgba(255,255,255,.66);line-height:1.6}
+  .s3 .ctas{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .s3 .grid3{margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:700px){.s3 .grid3{grid-template-columns:1fr}}
+  .s3 .gc{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:14px;padding:18px;text-align:left;transition:.2s}
+  .s3 .gc:hover{border-color:rgba(230,0,0,.5);background:rgba(255,255,255,.06)}
+  .s3 .gc .ic{display:inline-flex;border-radius:10px;background:var(--red);padding:8px;color:#fff;margin-bottom:10px} .s3 .gc .ic svg{width:18px;height:18px}
+  .s3 .gc .t{font-weight:600;font-size:16px} .s3 .gc .d{font-size:13px;color:rgba(255,255,255,.55);margin-top:3px}
+  .s3 .pill{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1 -->
+<div class="tag"><span class="n">1</span><h2>Светлый · центр · dotted-волна</h2><em>обводка от руки + веер карточек, фон — анимированные точки</em></div>
+<div class="stage"><div class="s1">
+  <canvas class="dots" data-mode="light"></canvas>
+  <div class="in">
+    <span class="pill"><span class="d"></span><span class="mono">Партнёр amoCRM · 9 лет</span></span>
+    <div class="head" style="margin-top:14px">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="none"><path class="circle" pathLength="1" d="M 950 90 C 1250 300, 1050 480, 600 520 C 250 520, 150 480, 150 300 C 150 120, 350 80, 600 80 C 850 80, 950 180, 950 180"/></svg>
+      <h1>Автоматизация продаж</h1>
+    </div>
+    <div class="red">amoCRM · Kommo · AI</div>
+    <p>Внедряем CRM под ключ, настраиваем AI-квалификаторов и держим техподдержку вашего отдела продаж.</p>
+    <div class="ctas"><button class="btn btn-red">Рассчитать стоимость →</button><button class="btn btn-out">Консультация</button></div>
+    <div class="fan">
+      <div class="card c1"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span class="t">Внедрение под ключ</span></div><div class="d">amoCRM / Kommo за 2 недели</div><div class="dt">Этап 1</div></div>
+      <div class="card c2"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9 1.9 5.8 1.9-5.8 5.8-1.9-5.8-1.9z"/></svg></span><span class="t">AI-квалификация</span></div><div class="d">Автоотбор горячих лидов</div><div class="dt">Этап 2</div></div>
+      <div class="card c3"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="t">+47% конверсия</span></div><div class="d">Измеримо за 30 дней</div><div class="dt">Результат</div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- SCREEN 2 -->
+<div class="tag"><span class="n">2</span><h2>Светлый · сплит</h2><em>текст слева, веер карточек справа, точки — деликатный фон</em></div>
+<div class="stage"><div class="s2">
+  <canvas class="dots" data-mode="light-soft"></canvas>
+  <div class="l">
+    <span class="pill"><span class="d"></span><span class="mono">To create order · out of chaos</span></span>
+    <div class="head" style="margin-top:14px;display:block">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="none" style="left:-3%;width:60%;top:-30%"><path class="circle" pathLength="1" d="M 950 90 C 1250 300, 1050 480, 600 520 C 250 520, 150 480, 150 300 C 150 120, 350 80, 600 80 C 850 80, 950 180, 950 180"/></svg>
+      <h1>Автоматизация продаж<br><span class="red">amoCRM · Kommo · AI</span></h1>
+    </div>
+    <p>Внедряем CRM, настраиваем AI-квалификаторов для автоматического отбора клиентов и обеспечиваем техподдержку бизнеса.</p>
+    <div class="ctas"><button class="btn btn-red">Рассчитать стоимость →</button><button class="btn btn-out">Консультация</button></div>
+    <div class="chips"><div class="chip"><div class="v">200+</div><div class="l">внедрений</div></div><div class="chip"><div class="v">340%</div><div class="l">средний ROI</div></div><div class="chip"><div class="v">15 мин</div><div class="l">ответ</div></div></div>
+  </div>
+  <div class="r"><div class="fan">
+    <div class="card c1"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span class="t">Внедрение под ключ</span></div><div class="d">amoCRM / Kommo за 2 недели</div><div class="dt">Этап 1</div></div>
+    <div class="card c2"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9 1.9 5.8 1.9-5.8 5.8-1.9-5.8-1.9z"/></svg></span><span class="t">AI-квалификация</span></div><div class="d">Автоотбор горячих лидов</div><div class="dt">Этап 2</div></div>
+    <div class="card c3"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="t">+47% конверсия</span></div><div class="d">Измеримо за 30 дней</div><div class="dt">Результат</div></div>
+  </div></div>
+</div></div>
+
+<!-- SCREEN 3 -->
+<div class="tag"><span class="n">3</span><h2>Тёмный элегантный · dotted-волна</h2><em>светлые точки на тёмном, обводка белая+красная, карточки-результаты</em></div>
+<div class="stage"><div class="s3">
+  <canvas class="dots" data-mode="dark"></canvas>
+  <div class="in">
+    <span class="pill"><span class="d"></span><span class="mono">CRM-интегратор · 200+ проектов</span></span>
+    <div class="head" style="margin-top:14px">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="none"><path class="circle" pathLength="1" d="M 950 90 C 1250 300, 1050 480, 600 520 C 250 520, 150 480, 150 300 C 150 120, 350 80, 600 80 C 850 80, 950 180, 950 180"/></svg>
+      <h1>Автоматизация продаж</h1>
+    </div>
+    <div class="red">amoCRM · Kommo · AI</div>
+    <p>От технического задания до работающих продаж за 2 недели. Внедрение под ключ, AI-квалификация лидов и поддержка 24/7.</p>
+    <div class="ctas"><button class="btn btn-red">Рассчитать стоимость →</button><button class="btn btn-out lt">Консультация</button></div>
+    <div class="grid3">
+      <div class="gc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><div class="t">Внедрение под ключ</div><div class="d">amoCRM / Kommo за 2 недели</div></div>
+      <div class="gc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9 1.9 5.8 1.9-5.8 5.8-1.9-5.8-1.9z"/></svg></span><div class="t">AI-квалификация</div><div class="d">Автоотбор горячих лидов</div></div>
+      <div class="gc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><div class="t">+47% конверсия</div><div class="d">Измеримо за 30 дней</div></div>
+    </div>
+  </div>
+</div></div>
+
+<script>
+  function setupDots(canvas){
+    const mode=canvas.dataset.mode;
+    const ctx=canvas.getContext('2d');
+    let w,h,dpr;
+    const COLS=30, ROWS=16, SEP=46;
+    function resize(){
+      dpr=Math.min(window.devicePixelRatio||1,2);
+      w=canvas.clientWidth; h=canvas.clientHeight;
+      canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize(); window.addEventListener('resize',resize);
+    let count=0;
+    const base = mode==='dark' ? '255,255,255' : '0,0,0';
+    const maxOp = mode==='dark' ? .55 : (mode==='light-soft'? .18 : .26);
+    function frame(){
+      ctx.clearRect(0,0,w,h);
+      const cx=w/2, originY=h*0.42;
+      for(let iy=0; iy<ROWS; iy++){
+        for(let ix=0; ix<COLS; ix++){
+          const gx=(ix-(COLS-1)/2)*SEP;
+          const depth=iy/ROWS;
+          const scale=0.45+depth*0.95;
+          const px=cx+gx*scale;
+          const wave=Math.sin((ix+count)*0.3)*9 + Math.sin((iy+count)*0.5)*9;
+          const py=originY + iy*22*(0.6+depth) + wave;
+          if(px< -20||px>w+20) continue;
+          const r=Math.max(.6,1.8*scale);
+          const op=maxOp*(0.35+depth*0.75);
+          ctx.beginPath(); ctx.arc(px,py,r,0,6.283);
+          ctx.fillStyle='rgba('+base+','+op.toFixed(3)+')'; ctx.fill();
+        }
+      }
+      count+=0.08; requestAnimationFrame(frame);
+    }
+    frame();
+  }
+  document.querySelectorAll('canvas.dots').forEach(setupDots);
+</script>
+</body>
+</html>

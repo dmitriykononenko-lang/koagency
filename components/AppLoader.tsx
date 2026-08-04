@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Loader from './ui/loader-15';
 
 interface AppLoaderProps {
   isLoading: boolean;
@@ -20,18 +21,18 @@ export default function AppLoader({ isLoading }: AppLoaderProps) {
   }
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-background/80 transition-opacity duration-300"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md transition-opacity duration-300"
       style={{ opacity }}
     >
-      <div className="text-center">
-        {/* App Name */}
-        <h1 className="text-sm mb-4 text-foreground">
-          Liquid Glass Editor
+      <div className="flex flex-col items-center text-center">
+        {/* Брендированный лоадер */}
+        <Loader />
+
+        {/* Название бренда — смещено чуть ниже */}
+        <h1 className="mt-6 font-mono text-sm uppercase tracking-[0.3em] text-foreground/80">
+          ko:agency
         </h1>
-        
-        {/* Simple Spinner */}
-        <div className="w-4 h-4 mx-auto border-2 border-muted border-t-foreground rounded-full animate-spin" />
       </div>
     </div>
   );

@@ -14,10 +14,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog';
-import { Loader2, Send, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
+import { Loader2, Send, AlertCircle, Gift } from 'lucide-react';
 import { toast } from 'sonner';
 import { projectId, publicAnonKey } from '../lib/utils/supabase/info';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { SlideToUnlock } from './ui/reward-card';
 
 interface LeadFormProps {
   open: boolean;
@@ -88,12 +89,7 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
         toast.success('Заявка успешно отправлена!', {
           description: 'Мы свяжемся с вами в ближайшее время',
         });
-        
-        // Close modal after 2 seconds
-        setTimeout(() => {
-          onOpenChange(false);
-          resetForm();
-        }, 2000);
+        // Модалку не закрываем автоматически — даём забрать бонус (SlideToUnlock)
       } else {
         throw new Error(data.error || 'Ошибка отправки заявки');
       }
@@ -130,11 +126,44 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="py-8 text-center"
+              className="flex flex-col items-center py-6"
             >
-              <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Заявка отправлена!</h3>
-              <p className="text-slate-500">Мы свяжемся с вами в ближайшее время</p>
+              <SlideToUnlock
+                onUnlock={() =>
+                  toast.success('Бонус активирован!', {
+                    description: 'Бесплатный аудит вашей CRM',
+                  })
+                }
+                sliderText="Свайпни и забери бонус"
+                unlockedContent={
+                  <a
+                    href="https://wa.me/447835212468"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 flex h-14 w-full items-center justify-between rounded-full bg-[#E60000] p-2 text-white shadow-lg transition-transform hover:scale-[1.03]"
+                  >
+                    <div className="pl-3">
+                      <p className="text-sm font-bold">Бесплатный аудит CRM</p>
+                      <p className="text-xs opacity-80">Нажмите, чтобы забрать</p>
+                    </div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white">
+                      <Gift className="h-5 w-5 text-[#E60000]" />
+                    </div>
+                  </a>
+                }
+              >
+                <div className="text-center">
+                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-secondary">
+                    <Gift className="h-10 w-10 text-[#E60000]" />
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight text-slate-900">
+                    Заявка отправлена!
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Мы свяжемся с вами в ближайшее время. А пока — заберите бонус ниже.
+                  </p>
+                </div>
+              </SlideToUnlock>
             </motion.div>
           ) : (
             <motion.form

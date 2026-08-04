@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://koagency.ru';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://koagency.me';
 export const SITE_NAME = 'ko:agency';
 export const DEFAULT_OG_IMAGE = '/og-image.jpg';
 

@@ -16,9 +16,21 @@ const nextConfig = {
     ],
   },
 
-  // Редиректы со старых Figma Make URL (добавляйте сюда по мере необходимости)
+  // Редиректы: consolidation юр-документов + со старых URL
   async redirects() {
-    return [];
+    return [
+      // Юр-документы виджета «Шаблоны задач» переехали в универсальные /legal/*
+      {
+        source: '/widgets/task-templates/offer',
+        destination: '/legal/offer',
+        permanent: true,
+      },
+      {
+        source: '/widgets/task-templates/privacy',
+        destination: '/legal/privacy',
+        permanent: true,
+      },
+    ];
   },
 
   // Базовые security и SEO заголовки

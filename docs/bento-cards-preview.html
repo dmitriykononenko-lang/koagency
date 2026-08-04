@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ko:agency — Bento услуги</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E60000;--ink:#101010;--mut:#666}
+  *{margin:0;box-sizing:border-box}
+  body{background:#eee;font-family:'IBM Plex Sans',system-ui,sans-serif;padding:40px 16px}
+  .sec{max-width:1100px;margin:0 auto;border:1px solid #e5e5e5;background:#fff}
+  .inner{border:1px solid #e5e5e5;border-top:none;padding:48px 16px}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:auto;gap:16px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{position:relative;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;
+    border:1px dashed #d4d4d8;border-radius:10px;background:#fff;padding:24px;transition:border-color .2s}
+  .card:hover{border-color:rgba(230,0,0,.6)}
+  .card h3{font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+  .card p{color:var(--mut);line-height:1.55}
+  .plus{position:absolute;width:24px;height:24px;color:var(--red)}
+  .pl-tl{top:-12px;left:-12px}.pl-tr{top:-12px;right:-12px}.pl-bl{bottom:-12px;left:-12px}.pl-br{bottom:-12px;right:-12px}
+  .c1{grid-column:span 3;grid-row:span 2}.c2{grid-column:span 2;grid-row:span 2}
+  .c3{grid-column:span 4}.c4{grid-column:span 2}.c5{grid-column:span 2}
+  @media(max-width:760px){.c1,.c2,.c3,.c4,.c5{grid-column:span 1;grid-row:auto}}
+  .foot{max-width:620px;margin-left:auto;text-align:right;padding:0 16px;margin-top:-60px}
+  @media(max-width:760px){.foot{margin-top:24px}}
+  .foot h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px}
+  .foot h2 .r{color:var(--red)} .foot p{color:var(--mut);font-size:18px}
+</style></head>
+<body>
+<section class="sec"><div class="inner">
+  <div class="grid">
+    <div class="card c1"><div class="plus pl-tl">+</div><div class="plus pl-tr">+</div><div class="plus pl-bl">+</div><div class="plus pl-br">+</div>
+      <div><h3>Внедрение под ключ</h3><p>Переносим ваш процесс продаж в amoCRM / Kommo за 2 недели: воронки под цикл сделки, права менеджеров, кастомные поля. Не «как у всех», а под вашу нишу.</p></div></div>
+    <div class="card c2"><div class="plus pl-tl">+</div><div class="plus pl-tr">+</div><div class="plus pl-bl">+</div><div class="plus pl-br">+</div>
+      <div><h3>AI-квалификация лидов</h3><p>Настраиваем AI-квалификаторов, которые автоматически отбирают горячих клиентов и экономят время менеджеров.</p></div></div>
+    <div class="card c3"><div class="plus pl-tl">+</div><div class="plus pl-tr">+</div><div class="plus pl-bl">+</div><div class="plus pl-br">+</div>
+      <div><h3>Гибкие воронки под нишу</h3><p>Проектируем динамичные воронки и автоматизацию: от 5 до 12 стадий под цикл сделки, обязательные поля при переходах, Digital Pipeline с триггерами, авто-задачи менеджерам и рассылки в WhatsApp, Telegram и email. Каждый лид доходит до конца воронки.</p></div></div>
+    <div class="card c4"><div class="plus pl-tl">+</div><div class="plus pl-tr">+</div><div class="plus pl-bl">+</div><div class="plus pl-br">+</div>
+      <div><h3>Интеграции</h3><p>1С, WhatsApp, Telegram, телефония, сайт и эквайринг — данные в одном окне.</p></div></div>
+    <div class="card c5"><div class="plus pl-tl">+</div><div class="plus pl-tr">+</div><div class="plus pl-bl">+</div><div class="plus pl-br">+</div>
+      <div><h3>Поддержка 24/7</h3><p>Техническая поддержка и сопровождение вашей CRM без выходных.</p></div></div>
+  </div>
+  <div class="foot">
+    <h2>Построено под продажи. <span class="r">Гибко под ваш бизнес.</span></h2>
+    <p>ko:agency собирает CRM, которая реально работает на выручку: быстро, гибко и под ваш процесс.</p>
+  </div>
+</div></section>
+</body></html>

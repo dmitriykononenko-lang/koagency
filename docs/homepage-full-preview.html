@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ko:agency — новая главная (превью)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E60000;--ink:#101010;--mut:#666;--line:rgba(0,0,0,.09)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  a{text-decoration:none;color:inherit}
+  .btn{height:52px;display:inline-flex;align-items:center;gap:8px;padding:0 26px;border-radius:12px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:.2s}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 12px 26px -10px rgba(230,0,0,.5)} .btn-red:hover{background:#cc0000}
+  .btn-out{background:transparent;color:var(--ink);border:1.5px solid var(--ink)} .btn-out:hover{background:var(--ink);color:#fff}
+  .btn-out.lt{color:#fff;border-color:rgba(255,255,255,.35)} .btn-out.lt:hover{background:#fff;color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.85);padding:8px 14px;border-radius:999px}
+  .pill .d{width:6px;height:6px;border-radius:50%;background:var(--red)} .pill .mono{font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+  .ck{color:var(--red);font-weight:700}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  h2.sec{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:600;letter-spacing:-.03em}
+
+  /* Loader overlay */
+  #loader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    background:rgba(255,255,255,.95);backdrop-filter:blur(6px);transition:opacity .5s}
+  #loader.hide{opacity:0;pointer-events:none}
+  .koa-loader{position:relative;width:150px;height:150px}
+  .halvan{animation:sn 10s infinite linear;stroke-dasharray:180 800;fill:none;stroke:url(#g);stroke-width:23;stroke-linecap:round}
+  .strecken{animation:sn 3s infinite linear;stroke-dasharray:26 54;fill:none;stroke:url(#g);stroke-width:23;stroke-linecap:round}
+  @keyframes sn{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-403px}}
+  #loader .lb{font-family:'IBM Plex Mono';font-size:13px;text-transform:uppercase;letter-spacing:.3em;color:rgba(16,16,16,.7);margin-top:14px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px}
+  .logo .m{width:32px;height:32px;border-radius:9px;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'IBM Plex Mono';font-size:13px}
+  nav{display:flex;gap:22px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:#333}
+  @media(max-width:820px){nav{display:none}}
+  .hbtn{background:var(--red);color:#fff;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:500}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;background:#f7f7f8;padding:72px 0 64px}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero .glow{position:absolute;top:-140px;right:-80px;width:460px;height:460px;border-radius:50%;background:rgba(230,0,0,.08);filter:blur(120px)}
+  .hero .grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
+  @media(max-width:880px){.hero .grid{grid-template-columns:1fr;gap:44px}}
+  .ul{position:relative;display:inline-block}
+  .uline{position:absolute;left:0;bottom:-12px;width:100%;height:18px;overflow:visible;pointer-events:none}
+  .uline path{fill:none;stroke:var(--red);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s cubic-bezier(.43,.13,.23,.96) .7s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media(prefers-reduced-motion:reduce){.uline path{animation:none;stroke-dashoffset:0}}
+  .hero h1{font-size:clamp(2.2rem,4.6vw,3.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:16px}
+  .hero .red{color:var(--red)}
+  .hero p{margin-top:18px;font-size:17px;color:var(--mut);line-height:1.6;max-width:480px}
+  .hero .ctas{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .hero .chips{margin-top:24px;display:flex;gap:22px;flex-wrap:wrap}
+  .chip .v{font-family:'IBM Plex Mono';font-size:23px;font-weight:600;color:var(--red)} .chip .l{font-size:13px;color:var(--mut)}
+  .fan{display:grid;grid-template-areas:'stack';place-items:center;min-height:300px}
+  .card{grid-area:stack;position:relative;display:flex;height:140px;width:20rem;flex-direction:column;justify-content:space-between;
+    border-radius:12px;border:2px solid var(--line);background:rgba(255,255,255,.78);backdrop-filter:blur(5px);padding:12px 16px;transition:all .6s}
+  .card .top{display:flex;align-items:center;gap:8px}.card .ic{display:inline-flex;border-radius:999px;background:var(--red);padding:6px;color:#fff}.card .ic svg{width:16px;height:16px}
+  .card .t{font-size:16px;font-weight:500;color:var(--red)}.card .d{font-size:16px;color:var(--ink)}.card .dt{font-size:13px;color:#999}
+  .k1{transform:skewY(-8deg);filter:grayscale(1)}.k1:hover{transform:skewY(-8deg) translateY(-40px);filter:grayscale(0)}
+  .k2{transform:skewY(-8deg) translate(56px,38px);filter:grayscale(1)}.k2:hover{transform:skewY(-8deg) translate(56px,-4px);filter:grayscale(0)}
+  .k3{transform:skewY(-8deg) translate(112px,76px)}.k3:hover{transform:skewY(-8deg) translate(112px,38px)}
+  .card:hover{border-color:rgba(230,0,0,.3);background:#fff}
+
+  /* Bento */
+  .bento{padding:80px 0}
+  .bento .head2{max-width:640px;margin-bottom:36px}
+  .bento .head2 p{color:var(--mut);font-size:18px;margin-top:12px;line-height:1.6}
+  .grid6{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:auto;gap:16px}
+  @media(max-width:760px){.grid6{grid-template-columns:1fr}}
+  .bcard{position:relative;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;border:1px dashed #d4d4d8;border-radius:10px;background:#fff;padding:24px;transition:border-color .2s}
+  .bcard:hover{border-color:rgba(230,0,0,.6)}
+  .bcard h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}.bcard p{color:var(--mut);line-height:1.55}
+  .plus{position:absolute;width:22px;height:22px;color:var(--red);font-size:22px;line-height:1;text-align:center}
+  .pl-tl{top:-11px;left:-11px}.pl-tr{top:-11px;right:-11px}.pl-bl{bottom:-11px;left:-11px}.pl-br{bottom:-11px;right:-11px}
+  .cb1{grid-column:span 3;grid-row:span 2}.cb2{grid-column:span 3;grid-row:span 2}.cb3{grid-column:span 4}.cb4{grid-column:span 2}.cb5{grid-column:span 6}
+  @media(max-width:760px){.cb1,.cb2,.cb3,.cb4,.cb5{grid-column:span 1;grid-row:auto}}
+
+  /* Stats */
+  .stats{background:#0c0c0e;color:#fff;padding:64px 0}
+  .stats .g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:700px){.stats .g{grid-template-columns:1fr 1fr}}
+  .st{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px;transition:.2s}
+  .st:hover{border-color:rgba(230,0,0,.5)}
+  .st .v{font-family:'IBM Plex Mono';font-size:30px;font-weight:700;color:var(--red)}.st .l{margin-top:4px;font-weight:600}.st .s{font-size:12px;color:rgba(255,255,255,.5)}
+
+  /* Clip-path contacts */
+  .contacts{padding:80px 0}
+  .contacts .head2{text-align:center;margin-bottom:32px}
+  .cgrid{border:1px solid var(--line)}
+  .crow{display:grid;border-top:1px solid var(--line)}.crow:first-child{border-top:none}
+  .cr2{grid-template-columns:1fr 1fr}.cr4{grid-template-columns:repeat(4,1fr)}.cr3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:560px){.cr4{grid-template-columns:1fr 1fr}}
+  .cbox{position:relative;height:120px;display:grid;place-content:center;border-left:1px solid var(--line);cursor:pointer;overflow:hidden}
+  .cbox:first-child{border-left:none}
+  .cface{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:0 8px}.cface svg{width:24px;height:24px}
+  .cface .l{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .crev{position:absolute;inset:0;display:grid;place-content:center;background:var(--red);color:#fff;clip-path:polygon(0 0,100% 0,0 0,0% 100%);transition:clip-path .3s ease}
+
+  /* Footer */
+  footer{background:#0c0c0e;color:#fff;padding:48px 0 32px;border-top:1px solid rgba(255,255,255,.08)}
+  footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:28px}
+  footer .cols{display:flex;gap:56px;flex-wrap:wrap}
+  footer h4{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#fff;margin-bottom:12px}
+  footer a{color:rgba(255,255,255,.65);font-size:14px;display:block;margin-bottom:8px}footer a:hover{color:var(--red)}
+  footer .bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:13px;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="koa-loader">
+    <svg width="150" height="150" viewBox="0 0 200 200">
+      <defs><linearGradient id="gl"><stop offset="0" stop-color="#E60000"/><stop offset="1" stop-color="#FF6A00"/></linearGradient>
+      <linearGradient y2="160" x2="160" y1="40" x1="40" gradientUnits="userSpaceOnUse" id="g" xlink:href="#gl"/></defs>
+      <path class="halvan" d="m 164,100 c 0,-35.35 -28.65,-64 -64,-64 -35.35,0 -64,28.65 -64,64 0,35.35 28.65,64 64,64 35.35,0 64,-26.22 64,-64 0,-37.78 -26.92,-64 -64,-64 -37.08,0 -65.27,26.92 -64,64 1.27,37.08 26.7,65.05 64,64 37.3,-1.05 64,-64 64,-64"/>
+      <circle class="strecken" cx="100" cy="100" r="64"/>
+    </svg>
+  </div>
+  <div class="lb">ko:agency</div>
+</div>
+
+<header>
+  <div class="logo"><span class="m">ko</span> ko:agency</div>
+  <nav><span>Услуги</span><span>Процесс</span><span>Кейсы</span><span>Тарифы</span><span>Контакты</span></nav>
+  <div class="hbtn">Калькулятор</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="dots"></canvas>
+  <div class="glow"></div>
+  <div class="wrap grid">
+    <div>
+      <span class="pill"><span class="d"></span><span class="mono">Партнёр amoCRM · 9 лет</span></span>
+      <h1 style="margin-top:14px">
+        <span class="ul">Автоматизация продаж<svg class="uline" viewBox="0 0 400 22" preserveAspectRatio="none"><path pathLength="1" d="M4 13 C 90 5, 190 19, 300 10 C 340 7, 372 12, 396 9"/></svg></span>
+        <br><span class="red">amoCRM · Kommo · AI</span>
+      </h1>
+      <p>Внедряем CRM под ключ, настраиваем AI-квалификаторов для автоматического отбора клиентов и держим техподдержку вашего отдела продаж.</p>
+      <div class="ctas"><button class="btn btn-red">Рассчитать стоимость →</button><button class="btn btn-out">Консультация</button></div>
+      <div class="chips"><div class="chip"><div class="v">200+</div><div class="l">внедрений</div></div><div class="chip"><div class="v">340%</div><div class="l">средний ROI</div></div><div class="chip"><div class="v">15 мин</div><div class="l">ответ</div></div></div>
+    </div>
+    <div class="fan">
+      <div class="card k1"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span class="t">Внедрение под ключ</span></div><div class="d">amoCRM / Kommo за 2 недели</div><div class="dt">Этап 1</div></div>
+      <div class="card k2"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9 1.9 5.8 1.9-5.8 5.8-1.9-5.8-1.9z"/></svg></span><span class="t">AI-квалификация</span></div><div class="d">Автоотбор горячих лидов</div><div class="dt">Этап 2</div></div>
+      <div class="card k3"><div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="t">+47% конверсия</span></div><div class="d">Измеримо за 30 дней</div><div class="dt">Результат</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO -->
+<section class="bento"><div class="wrap">
+  <div class="head2">
+    <h2 class="sec">Что мы делаем</h2>
+    <p>Собираем CRM, которая реально работает на выручку — быстро, гибко и под ваш процесс.</p>
+  </div>
+  <div class="grid6">
+    <div class="bcard cb1"><i class="plus pl-tl">+</i><i class="plus pl-tr">+</i><i class="plus pl-bl">+</i><i class="plus pl-br">+</i><div><h3>Внедрение под ключ</h3><p>Переносим ваш процесс продаж в amoCRM / Kommo за 2 недели: воронки под цикл сделки, права менеджеров, кастомные поля. Не «как у всех», а под вашу нишу.</p></div></div>
+    <div class="bcard cb2"><i class="plus pl-tl">+</i><i class="plus pl-tr">+</i><i class="plus pl-bl">+</i><i class="plus pl-br">+</i><div><h3>AI-квалификация лидов</h3><p>Настраиваем AI-квалификаторов, которые автоматически отбирают горячих клиентов и экономят время менеджеров.</p></div></div>
+    <div class="bcard cb3"><i class="plus pl-tl">+</i><i class="plus pl-tr">+</i><i class="plus pl-bl">+</i><i class="plus pl-br">+</i><div><h3>Гибкие воронки под нишу</h3><p>Digital Pipeline с триггерами, обязательные поля при переходах, авто-задачи менеджерам и рассылки в WhatsApp, Telegram и email. Каждый лид доходит до конца воронки.</p></div></div>
+    <div class="bcard cb4"><i class="plus pl-tl">+</i><i class="plus pl-tr">+</i><i class="plus pl-bl">+</i><i class="plus pl-br">+</i><div><h3>Интеграции</h3><p>1С, телефония, сайт, эквайринг — данные в одном окне.</p></div></div>
+    <div class="bcard cb5"><i class="plus pl-tl">+</i><i class="plus pl-tr">+</i><i class="plus pl-bl">+</i><i class="plus pl-br">+</i><div><h3>Поддержка 24/7</h3><p>Техническая поддержка и сопровождение вашей CRM без выходных — с временем реакции 15 минут.</p></div></div>
+  </div>
+</div></section>
+
+<!-- STATS -->
+<section class="stats"><div class="wrap g">
+  <div class="st"><div class="v">200+</div><div class="l">Внедрений</div><div class="s">за 9 лет</div></div>
+  <div class="st"><div class="v">340%</div><div class="l">Средний ROI</div><div class="s">за 6 месяцев</div></div>
+  <div class="st"><div class="v">24/7</div><div class="l">Поддержка</div><div class="s">без выходных</div></div>
+  <div class="st"><div class="v">15 мин</div><div class="l">Ответ</div><div class="s">время реакции</div></div>
+</div></section>
+
+<!-- CONTACTS (clip-path) -->
+<section class="contacts"><div class="wrap">
+  <div class="head2"><h2 class="sec">Связаться с нами</h2></div>
+  <div class="cgrid" id="cgrid"></div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="top">
+    <div><div class="logo" style="color:#fff"><span class="m">ko</span> ko:agency</div>
+      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-top:12px;max-width:280px">Интегратор amoCRM / Kommo. Автоматизация продаж под ключ.</p></div>
+    <div class="cols">
+      <div><h4>Услуги</h4><a>Внедрение amoCRM</a><a>Внедрение Kommo</a><a>AI-квалификация</a><a>Поддержка CRM</a></div>
+      <div><h4>Компания</h4><a>О компании</a><a>Кейсы</a><a>Цены</a><a>Контакты</a></div>
+      <div><h4>Связаться</h4><a>hello@koagency.me</a><a>+7 991 222-38-80</a><a>Telegram</a></div>
+    </div>
+  </div>
+  <div class="bottom"><span>© 2026 ko:agency. Все права защищены.</span><span>Политика конфиденциальности</span></div>
+</div></footer>
+
+<script>
+  // loader fade
+  setTimeout(()=>document.getElementById('loader').classList.add('hide'), 1900);
+
+  // dotted wave (hero bg, soft)
+  (function(){
+    const c=document.getElementById('dots'),ctx=c.getContext('2d');let w,h,dpr;const COLS=34,ROWS=14,SEP=44;
+    function rz(){dpr=Math.min(devicePixelRatio||1,2);w=c.clientWidth;h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+    rz();addEventListener('resize',rz);let count=0;
+    (function f(){ctx.clearRect(0,0,w,h);const cx=w/2,oy=h*0.4;
+      for(let iy=0;iy<ROWS;iy++)for(let ix=0;ix<COLS;ix++){const gx=(ix-(COLS-1)/2)*SEP;const dp=iy/ROWS;const sc=.5+dp*.9;
+        const px=cx+gx*sc;const wv=Math.sin((ix+count)*.3)*8+Math.sin((iy+count)*.5)*8;const py=oy+iy*22*(.6+dp)+wv;
+        if(px<-20||px>w+20)continue;const r=Math.max(.6,1.7*sc);const op=.16*(.35+dp*.75);
+        ctx.beginPath();ctx.arc(px,py,r,0,6.283);ctx.fillStyle='rgba(0,0,0,'+op.toFixed(3)+')';ctx.fill();}
+      count+=.07;requestAnimationFrame(f);})();
+  })();
+
+  // clip-path contacts
+  (function(){
+    const I={send:'<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',msg:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+      phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/>',
+      mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/>',
+      calc:'<rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="8" y1="14" y2="18"/><line x1="12" x2="12" y1="14" y2="18"/><line x1="16" x2="16" y1="14" y2="18"/>',
+      brief:'<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+      trend:'<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+      bld:'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/>'};
+    const rows=[{c:'cr2',i:[['send','Telegram'],['msg','WhatsApp']]},
+      {c:'cr4',i:[['phone','+7 991 222-38-80'],['phone','+44 7835 212468'],['mail','hello@koagency.me'],['calc','Калькулятор']]},
+      {c:'cr3',i:[['brief','Услуги'],['trend','Кейсы'],['bld','О компании']]}];
+    const NO='polygon(0 0,100% 0,100% 100%,0% 100%)',BR='polygon(0 0,100% 0,0 0,0% 100%)',TR='polygon(0 0,0 100%,100% 100%,0% 100%)',BL='polygon(100% 100%,100% 0,100% 100%,0 100%)',TL='polygon(0 0,100% 0,100% 100%,100% 0)';
+    const EN={left:BR,bottom:BR,top:BR,right:TL},EX={left:TR,bottom:TR,top:TR,right:BL};
+    function sv(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+    const g=document.getElementById('cgrid');
+    rows.forEach(r=>{const row=document.createElement('div');row.className='crow '+r.c;
+      r.i.forEach(([ic,l])=>{const a=document.createElement('a');a.className='cbox';a.href='#';
+        a.innerHTML='<div class="cface">'+sv(I[ic])+'<span class="l">'+l+'</span></div><div class="crev"><div class="cface">'+sv(I[ic])+'<span class="l">'+l+'</span></div></div>';
+        const rev=a.querySelector('.crev');
+        function side(e){const b=a.getBoundingClientRect();return [['left',Math.abs(b.left-e.clientX)],['right',Math.abs(b.right-e.clientX)],['top',Math.abs(b.top-e.clientY)],['bottom',Math.abs(b.bottom-e.clientY)]].sort((x,y)=>x[1]-y[1])[0][0];}
+        a.addEventListener('mouseenter',e=>{rev.style.clipPath=EN[side(e)];requestAnimationFrame(()=>rev.style.clipPath=NO);});
+        a.addEventListener('mouseleave',e=>{rev.style.clipPath=EX[side(e)];});
+        row.appendChild(a);});
+      g.appendChild(row);});
+  })();
+</script>
+</body>
+</html>

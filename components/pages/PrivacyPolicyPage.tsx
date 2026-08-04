@@ -113,7 +113,7 @@ export function PrivacyPolicyPage() {
         >
           <p>Последнее обновление: {new Date().toLocaleDateString()}</p>
           <p className="mt-2">
-            По всем вопросам касательно данных: <a href="mailto:privacy@koagency.ru" className="text-[#E60000] hover:underline">privacy@koagency.ru</a>
+            По всем вопросам касательно данных: <a href="mailto:privacy@koagency.me" className="text-[#E60000] hover:underline">privacy@koagency.me</a>
           </p>
         </motion.div>
       </div>

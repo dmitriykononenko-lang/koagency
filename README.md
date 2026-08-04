@@ -45,7 +45,7 @@ vercel --prod
 - `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_YANDEX_METRIKA_ID`
 
 ### Домен
-1. В Vercel → Settings → Domains → добавить `koagency.ru`
+1. В Vercel → Settings → Domains → добавить `koagency.me`
 2. Прописать у регистратора A-запись на `76.76.21.21` и CNAME `www → cname.vercel-dns.com`
 3. SSL подтянется автоматически
 

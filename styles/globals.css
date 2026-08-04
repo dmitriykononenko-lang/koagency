@@ -246,3 +246,15 @@ html {
 .animate-chaos-float {
   animation: chaos-float 20s ease-in-out infinite;
 }
+
+/* Shimmer для слайдера-награды (reward-card / SlideToUnlock) */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.animate-shimmer {
+  animation: shimmer 2.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer { animation: none; }
+}
