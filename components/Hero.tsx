@@ -1,7 +1,18 @@
 'use client';
 
 import { Button } from './ui/button';
-import { ArrowRight, Calculator, Check, Sliders, Sparkles, TrendingUp } from 'lucide-react';
+import {
+  ArrowRight,
+  Calculator,
+  Check,
+  Sliders,
+  Sparkles,
+  TrendingUp,
+  Database,
+  Headphones,
+  Puzzle,
+  GraduationCap,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from '@/lib/router-shim';
 
@@ -28,11 +39,35 @@ const HERO_CARDS = [
       "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
   },
   {
+    icon: <Puzzle className="size-4 text-white" />,
+    title: 'Виджеты amoМаркета',
+    description: 'Свои виджеты для CRM',
+    date: 'Продукт',
+    className:
+      "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  },
+  {
+    icon: <Database className="size-4 text-white" />,
+    title: '1С · МойСклад',
+    description: 'Двухсторонняя синхронизация',
+    date: 'Интеграция',
+    className:
+      "[grid-area:stack] translate-x-48 translate-y-32 hover:translate-y-20 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  },
+  {
+    icon: <GraduationCap className="size-4 text-white" />,
+    title: 'Обучение команды',
+    description: 'База знаний и регламенты',
+    date: 'Онбординг',
+    className:
+      "[grid-area:stack] translate-x-64 translate-y-40 hover:translate-y-28 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  },
+  {
     icon: <TrendingUp className="size-4 text-white" />,
     title: '+47% конверсия',
     description: 'Измеримо за 30 дней',
     date: 'Результат',
-    className: '[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10',
+    className: '[grid-area:stack] translate-x-80 translate-y-48 hover:translate-y-36',
   },
 ];
 
