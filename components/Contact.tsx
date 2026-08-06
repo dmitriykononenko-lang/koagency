@@ -3,7 +3,7 @@
 import { Card } from './ui/card';
 import { Mail, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../lib/i18n/LanguageContext';
-import { BrandedLeadForm } from './BrandedLeadForm';
+import { AmoForm } from './AmoForm';
 import { CONTACT_EMAILS } from '@/lib/contacts';
 
 export function Contact() {
@@ -23,8 +23,8 @@ export function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Contact Form — брендовая форма, отправка в amoCRM через /api/lead */}
-          <BrandedLeadForm />
+          {/* Contact Form — родной amoCRM-виджет (id 1717818), стилизован через styles/amo-form.css */}
+          <AmoForm />
 
           {/* Contact Info */}
           <div className="space-y-6">
