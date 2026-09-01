@@ -36,7 +36,7 @@ const HERO_CARDS = [
     description: 'Автоотбор горячих лидов',
     date: 'Этап 2',
     className:
-      "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+      "[grid-area:stack] translate-x-12 translate-y-8 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
   },
   {
     icon: <Puzzle className="size-4 text-white" />,
@@ -44,7 +44,7 @@ const HERO_CARDS = [
     description: 'Свои виджеты для CRM',
     date: 'Продукт',
     className:
-      "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+      "[grid-area:stack] translate-x-24 translate-y-16 hover:translate-y-8 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
   },
   {
     icon: <Database className="size-4 text-white" />,
@@ -52,7 +52,7 @@ const HERO_CARDS = [
     description: 'Двухсторонняя синхронизация',
     date: 'Интеграция',
     className:
-      "[grid-area:stack] translate-x-48 translate-y-32 hover:translate-y-20 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+      "[grid-area:stack] translate-x-36 translate-y-24 hover:translate-y-16 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
   },
   {
     icon: <GraduationCap className="size-4 text-white" />,
@@ -60,14 +60,14 @@ const HERO_CARDS = [
     description: 'База знаний и регламенты',
     date: 'Онбординг',
     className:
-      "[grid-area:stack] translate-x-64 translate-y-40 hover:translate-y-28 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+      "[grid-area:stack] translate-x-48 translate-y-32 hover:translate-y-24 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
   },
   {
     icon: <TrendingUp className="size-4 text-white" />,
     title: '+47% конверсия',
     description: 'Измеримо за 30 дней',
     date: 'Результат',
-    className: '[grid-area:stack] translate-x-80 translate-y-48 hover:translate-y-36',
+    className: '[grid-area:stack] translate-x-60 translate-y-40 hover:translate-y-32',
   },
 ];
 
