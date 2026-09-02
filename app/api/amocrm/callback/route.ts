@@ -8,8 +8,7 @@ import { NextResponse } from 'next/server';
  * После настройки этот endpoint можно удалить — доступ должен быть закрыт после первого использования.
  */
 
-const CLIENT_ID = '9e0577fc-3d0c-4363-9e84-0291c5a1ffdb';
-const CLIENT_SECRET = process.env.AMOCRM_CLIENT_SECRET;
+const DEFAULT_CLIENT_ID = process.env.AMOCRM_CLIENT_ID || '5c60921a-601b-4dd7-8e57-e14de53cda10';
 const REDIRECT_URI = 'https://koagency.me/api/amocrm/callback';
 const SUBDOMAIN = process.env.AMOCRM_SUBDOMAIN || 'koagency';
 
@@ -18,24 +17,27 @@ export const runtime = 'nodejs';
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get('code');
+  // Override client_id/secret via query params (one-time setup use only)
+  const clientId = url.searchParams.get('client_id_override') || DEFAULT_CLIENT_ID;
+  const clientSecret = url.searchParams.get('client_secret_override') || process.env.AMOCRM_CLIENT_SECRET;
 
   if (!code) {
     return htmlResponse(
       `<h1>OAuth callback</h1><p>Нет параметра <code>?code=...</code>. Начните авторизацию с
-      <a href="https://www.amocrm.ru/oauth?client_id=${CLIENT_ID}&state=setup&mode=post_message">этой ссылки</a>.</p>`,
+      <a href="https://www.amocrm.ru/oauth?client_id=${clientId}&state=setup&mode=post_message">этой ссылки</a>.</p>`,
     );
   }
 
-  if (!CLIENT_SECRET) {
+  if (!clientSecret) {
     return htmlResponse(
-      `<h1>Не настроен AMOCRM_CLIENT_SECRET</h1><p>Добавьте переменную окружения и передеплойте.</p>`,
+      `<h1>Не настроен AMOCRM_CLIENT_SECRET</h1><p>Добавьте переменную окружения (или передайте <code>?client_secret_override=</code>) и передеплойте.</p>`,
       500,
     );
   }
 
   const body = new URLSearchParams({
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
+    client_id: clientId,
+    client_secret: clientSecret,
     grant_type: 'authorization_code',
     code,
     redirect_uri: REDIRECT_URI,
