@@ -17,8 +17,32 @@ const CLIENT_ID = process.env.AMOCRM_CLIENT_ID || '9e0577fc-3d0c-4363-9e84-0291c
 const SUBDOMAIN = process.env.AMOCRM_SUBDOMAIN || 'koagency';
 const REDIRECT_URI = 'https://koagency.me/api/amocrm/callback';
 
-// Кэш access_token в памяти процесса (Vercel serverless — может пересоздаваться, но помогает при бёрсте)
+// Кэш в памяти процесса (Vercel serverless — переживает warm-container'ы)
+// amoCRM ротирует refresh_token при каждом использовании, поэтому храним последний.
 let cachedAccessToken: { value: string; expiresAt: number } | null = null;
+let cachedRefreshToken: string | null = null;
+
+async function updateVercelEnvRefreshToken(newToken: string): Promise<void> {
+  const vercelToken = process.env.VERCEL_TOKEN;
+  const projectId = process.env.VERCEL_PROJECT_ID;
+  const teamId = process.env.VERCEL_TEAM_ID;
+  const envId = process.env.VERCEL_REFRESH_TOKEN_ENV_ID;
+  if (!vercelToken || !projectId || !envId) return;
+  try {
+    const url = new URL(`https://api.vercel.com/v10/projects/${projectId}/env/${envId}`);
+    if (teamId) url.searchParams.set('teamId', teamId);
+    await fetch(url.toString(), {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${vercelToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ value: newToken }),
+    });
+  } catch (e) {
+    console.error('[lead] failed to update Vercel env:', e);
+  }
+}
 
 async function getAccessToken(): Promise<string> {
   const now = Date.now();
@@ -27,7 +51,7 @@ async function getAccessToken(): Promise<string> {
   }
 
   const secret = process.env.AMOCRM_CLIENT_SECRET;
-  const refreshToken = process.env.AMOCRM_REFRESH_TOKEN;
+  const refreshToken = cachedRefreshToken || process.env.AMOCRM_REFRESH_TOKEN;
   if (!secret) throw new Error('AMOCRM_CLIENT_SECRET not configured');
   if (!refreshToken) throw new Error('AMOCRM_REFRESH_TOKEN not configured');
 
@@ -48,11 +72,21 @@ async function getAccessToken(): Promise<string> {
     const text = await res.text();
     throw new Error(`refresh failed ${res.status}: ${text.slice(0, 200)}`);
   }
-  const data = (await res.json()) as { access_token: string; expires_in: number };
+  const data = (await res.json()) as {
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+  };
   cachedAccessToken = {
     value: data.access_token,
     expiresAt: now + data.expires_in * 1000,
   };
+  // Сохраняем НОВЫЙ refresh_token (amoCRM ротирует при каждом использовании)
+  if (data.refresh_token && data.refresh_token !== refreshToken) {
+    cachedRefreshToken = data.refresh_token;
+    // Асинхронно обновляем Vercel env (не блокируем ответ)
+    updateVercelEnvRefreshToken(data.refresh_token).catch(() => {});
+  }
   return data.access_token;
 }
 

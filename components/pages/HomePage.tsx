@@ -28,7 +28,7 @@ export function HomePage() {
       <Training />
       <Partners />
       <WazzupPartner />
-      <EnterpriseBanner />
+      {/* <EnterpriseBanner /> hidden temporarily */}
       <Pricing />
       <Cases />
       <Testimonials />
