@@ -16,7 +16,6 @@ import {
 } from './ui/dialog';
 import { Loader2, Send, AlertCircle, Gift } from 'lucide-react';
 import { toast } from 'sonner';
-import { projectId, publicAnonKey } from '../lib/utils/supabase/info';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { SlideToUnlock } from './ui/reward-card';
 
@@ -60,36 +59,39 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
     setErrorMessage('');
 
     try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-55fff793/lead`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${publicAnonKey}`,
-          },
-          body: JSON.stringify({
-            name,
-            phone,
-            email,
-            comment,
-            crm: calculationData.crm,
-            users: calculationData.users,
-            implPackage: calculationData.implPackage,
-            totalCost: calculationData.totalCost,
-            calculationDetails: calculationData.calculationDetails,
-          }),
-        }
-      );
+      const note = [
+        `КП с калькулятора`,
+        `CRM: ${calculationData.crm}`,
+        `Пакет: ${calculationData.implPackage}`,
+        `Пользователей: ${calculationData.users}`,
+        `Внедрение: ${calculationData.implementationCost.toLocaleString('ru-RU')} ₽`,
+        `Лицензии: ${calculationData.licenseCost.toLocaleString('ru-RU')} ₽`,
+        `Услуги: ${calculationData.servicesCost.toLocaleString('ru-RU')} ₽`,
+        `Итого: ${calculationData.totalCost.toLocaleString('ru-RU')} ₽`,
+        comment ? `Комментарий: ${comment}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${name} · КП (${calculationData.implPackage})`,
+          phone,
+          email,
+          note,
+          page: '/calculator',
+        }),
+      });
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
+      if (response.ok && data.ok) {
         setStatus('success');
         toast.success('Заявка успешно отправлена!', {
           description: 'Мы свяжемся с вами в ближайшее время',
         });
-        // Модалку не закрываем автоматически — даём забрать бонус (SlideToUnlock)
       } else {
         throw new Error(data.error || 'Ошибка отправки заявки');
       }
