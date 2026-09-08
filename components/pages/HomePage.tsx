@@ -8,6 +8,7 @@ import { Process } from '../Process';
 import { Benefits } from '../Benefits';
 import { Training } from '../Training';
 import { Partners } from '../Partners';
+import { WazzupPartner } from '../WazzupPartner';
 import { EnterpriseBanner } from '../EnterpriseBanner';
 import { Pricing } from '../Pricing';
 import { Cases } from '../Cases';
@@ -26,6 +27,7 @@ export function HomePage() {
       <Benefits />
       <Training />
       <Partners />
+      <WazzupPartner />
       <EnterpriseBanner />
       <Pricing />
       <Cases />

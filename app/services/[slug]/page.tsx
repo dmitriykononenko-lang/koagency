@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { buildMetadata, serviceJsonLd, breadcrumbJsonLd, SITE_URL } from '@/lib/seo';
+import { buildMetadata, serviceJsonLd, breadcrumbJsonLd, faqJsonLd, SITE_URL } from '@/lib/seo';
 import { JsonLd } from '@/components/JsonLd';
 import { ServicePage } from '@/components/pages/ServicePage';
 import { servicesData } from '@/data/services';
@@ -44,6 +44,7 @@ export default function Page({ params }: { params: Params }) {
             { name: 'Услуги', url: '/services' },
             { name: service.title, url: `/services/${params.slug}` },
           ]),
+          ...(service.faq ? [faqJsonLd(service.faq)] : []),
         ]}
       />
       <ServicePage service={service} />

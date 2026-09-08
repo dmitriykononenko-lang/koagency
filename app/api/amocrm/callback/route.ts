@@ -29,9 +29,24 @@ export async function GET(req: Request) {
   }
 
   if (!clientSecret) {
+    // Клиентский fallback: читаем secret из localStorage (koagency.me) и редиректим на этот же URL с ?client_secret_override=
     return htmlResponse(
-      `<h1>Не настроен AMOCRM_CLIENT_SECRET</h1><p>Добавьте переменную окружения (или передайте <code>?client_secret_override=</code>) и передеплойте.</p>`,
-      500,
+      `<h1>Дочитываю secret из localStorage…</h1>
+      <p>Если не автопереадресуется — откройте <a href="/setup-oauth">/setup-oauth</a>, вставьте секрет и повторите OAuth.</p>
+      <script>
+        (function(){
+          try {
+            const s = localStorage.getItem('__amoSecret');
+            const c = localStorage.getItem('__amoClientId') || '${clientId}';
+            if (!s) { document.body.innerHTML += '<p style="color:#E60000">В localStorage нет __amoSecret. Откройте /setup-oauth и вставьте секрет.</p>'; return; }
+            const u = new URL(location.href);
+            u.searchParams.set('client_secret_override', s);
+            u.searchParams.set('client_id_override', c);
+            location.replace(u.toString());
+          } catch(e) { document.body.innerHTML += '<pre>'+e.message+'</pre>'; }
+        })();
+      </script>`,
+      200,
     );
   }
 
