@@ -103,7 +103,7 @@ export function Header() {
             </Button>
 
             <a
-              href="tel:+447835212468"
+              href="tel:+79912223880"
               className="inline-flex items-center gap-1.5 rounded-md bg-[#E60000] hover:bg-[#cc0000] text-white px-4 py-2 text-sm font-medium shadow-[0_4px_12px_-2px_rgba(230,0,0,0.35)] hover:shadow-[0_6px_18px_-2px_rgba(230,0,0,0.5)] transition-all"
               aria-label="Позвонить и заказать звонок"
             >
@@ -191,7 +191,7 @@ export function Header() {
               О нас
             </Link>
             <a
-              href="tel:+447835212468"
+              href="tel:+79912223880"
               className="inline-flex items-center justify-center gap-1.5 w-full rounded-md bg-[#E60000] hover:bg-[#cc0000] text-white px-4 py-2.5 text-sm font-medium shadow-[0_4px_12px_-2px_rgba(230,0,0,0.35)] transition-all"
             >
               <Phone className="w-4 h-4" />

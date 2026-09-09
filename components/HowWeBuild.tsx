@@ -701,10 +701,10 @@ const STAGES: Stage[] = [
     title: 'Результат через 30 дней',
     caption: 'Живые цифры в аналитике',
     description:
-      'В среднем по нашим клиентам: конверсия +47%, цикл сделки в 2 раза короче, выручка +30–50%. Не «потенциал», а измеримый результат через месяц.',
+      'Живые цифры в аналитике вместо «потенциала»: понятная конверсия, воронка и выручка по каждому менеджеру, измеримый результат уже через месяц.',
     bullets: [
-      '+47% конверсия в среднем',
-      '−56% время цикла сделки',
+      'Прозрачная конверсия по этапам',
+      'Короче цикл сделки',
       'Менеджеры продают, а не ведут таблицы',
     ],
     Mockup: MockupResultDashboard,
@@ -839,7 +839,7 @@ export function HowWeBuild() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:+447835212468"
+                href="tel:+79912223880"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/15 text-white px-5 py-3 rounded-xl font-medium transition-all"
               >
                 <Phone className="w-4 h-4" />

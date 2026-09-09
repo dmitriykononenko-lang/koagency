@@ -64,7 +64,7 @@ const HERO_CARDS = [
   },
   {
     icon: <TrendingUp className="size-4 text-white" />,
-    title: '+47% конверсия',
+    title: 'Рост конверсии',
     description: 'Измеримо за 30 дней',
     date: 'Результат',
     className: '[grid-area:stack] translate-x-60 translate-y-40 hover:translate-y-32',
@@ -73,7 +73,7 @@ const HERO_CARDS = [
 
 const STATS = [
   { value: '200+', label: 'Внедрений', sublabel: 'За 9 лет' },
-  { value: '340%', label: 'Средний ROI', sublabel: 'За 6 месяцев' },
+  { value: '9 лет', label: 'Опыт', sublabel: 'На рынке CRM' },
   { value: '24/7', label: 'Поддержка', sublabel: 'Без выходных' },
   { value: '15 мин', label: 'Ответ', sublabel: 'Время реакции' },
 ];
@@ -108,7 +108,7 @@ export function Hero() {
             {/* Headline с обводкой от руки */}
             <div className="-mx-4 mb-2 sm:-mx-2">
               <HandWrittenTitle
-                title="Автоматизация продаж"
+                title="Внедрение amoCRM и автоматизация продаж"
                 className="!max-w-none !py-8 md:!py-10"
                 titleClassName="text-[#101010] !text-4xl sm:!text-5xl lg:!text-6xl justify-center lg:justify-start lg:pl-2"
               />

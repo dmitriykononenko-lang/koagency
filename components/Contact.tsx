@@ -71,11 +71,11 @@ export function Contact() {
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('contact.form.phone')}</div>
                     <div className="flex flex-col gap-1">
-                      <a href="tel:+447835212468" className="text-foreground hover:text-primary transition-colors">
-                        +44 7835 212468
-                      </a>
                       <a href="tel:+79912223880" className="text-foreground hover:text-primary transition-colors">
                         +7 991 222-38-80
+                      </a>
+                      <a href="tel:+447835212468" className="text-foreground hover:text-primary transition-colors">
+                        +44 7835 212468
                       </a>
                     </div>
                   </div>

@@ -31,11 +31,6 @@ export function buildMetadata({
     keywords,
     alternates: {
       canonical: url,
-      languages: {
-        'ru-RU': url,
-        'en-US': new URL(`/en${path === '/' ? '' : path}`, SITE_URL).toString(),
-        'x-default': url,
-      },
     },
     robots: noindex
       ? { index: false, follow: false }
