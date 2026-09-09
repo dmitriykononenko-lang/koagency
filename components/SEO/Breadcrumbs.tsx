@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react';
+import { SITE_URL } from '@/lib/seo';
 
 interface BreadcrumbItem {
   label: string;
@@ -17,7 +18,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": `${window.location.origin}${item.href}`
+      "item": `${SITE_URL}${item.href}`
     }))
   };
 
