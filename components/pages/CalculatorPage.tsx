@@ -1177,9 +1177,9 @@ export function CalculatorPage() {
                    className={`relative group rounded-2xl border-2 p-6 cursor-pointer bg-white transition-colors ${implPackage === 'base' ? 'border-slate-800 ring-1 ring-slate-800' : 'border-slate-100 hover:border-slate-300'}`}
                 >
                    <div className="mb-4">
-                      <h3 className="font-bold text-lg">Базовый</h3>
+                      <h3 className="font-bold text-lg">{implPackages.base.name}</h3>
                       <p className="text-xs text-slate-500 mb-3 h-8">{implPackages.base.desc}</p>
-                      <div className="text-2xl font-bold text-slate-900">60 000 ₽</div>
+                      <div className="text-2xl font-bold text-slate-900">{String(implPackages.base.price).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0')} ₽</div>
                    </div>
                    <div className="mb-4 flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-50 p-2 rounded">
                       <Clock className="w-3 h-3" /> {implPackages.base.timeline}
@@ -1214,9 +1214,9 @@ export function CalculatorPage() {
                       />
                    )}
                    <div className="mb-4 relative z-10">
-                      <h3 className="font-bold text-lg text-[#E60000]">Бизнес</h3>
+                      <h3 className="font-bold text-lg text-[#E60000]">{implPackages.standard.name}</h3>
                       <p className="text-xs text-slate-500 mb-3 h-8">{implPackages.standard.desc}</p>
-                      <div className="text-2xl font-bold text-slate-900">90 000 ₽</div>
+                      <div className="text-2xl font-bold text-slate-900">{String(implPackages.standard.price).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0')} ₽</div>
                    </div>
                    <div className="mb-4 flex items-center gap-2 text-xs font-medium text-red-700 bg-red-50 p-2 rounded relative z-10">
                       <Clock className="w-3 h-3" /> {implPackages.standard.timeline}
@@ -1242,9 +1242,9 @@ export function CalculatorPage() {
                    className={`relative rounded-2xl border-2 p-6 cursor-pointer bg-white transition-colors ${implPackage === 'custom' ? 'border-slate-800 ring-1 ring-slate-800' : 'border-slate-100 hover:border-slate-300'}`}
                 >
                    <div className="mb-4">
-                      <h3 className="font-bold text-lg">Кастом</h3>
+                      <h3 className="font-bold text-lg">{implPackages.custom.name}</h3>
                       <p className="text-xs text-slate-500 mb-3 h-8">{implPackages.custom.desc}</p>
-                      <div className="text-2xl font-bold text-slate-900"><span className="text-sm font-normal text-slate-400">от </span>150 000 ₽</div>
+                      <div className="text-2xl font-bold text-slate-900"><span className="text-sm font-normal text-slate-400">от </span>{String(implPackages.custom.price).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0')} ₽</div>
                    </div>
                    <div className="mb-4 flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-50 p-2 rounded">
                       <Clock className="w-3 h-3" /> {implPackages.custom.timeline}
