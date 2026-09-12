@@ -58,13 +58,13 @@ export function EnterprisePage() {
       icon: Shield
     },
     {
-      title: "Выделенный сервер",
-      desc: "Приватная инфраструктура с гарантией 99.99% uptime и приоритетной технической поддержкой.",
+      title: "Надёжная инфраструктура",
+      desc: "Облачная инфраструктура amoCRM/Kommo и приоритетная техническая поддержка агентства.",
       icon: Zap
     },
     {
-      title: "Безлимитные пользователи",
-      desc: "Без ограничений по количеству сотрудников. Расширяйте команду без доплат за лицензии.",
+      title: "Масштабирование команды",
+      desc: "Подключаем команды любого размера. Лицензии CRM оплачиваются по тарифу вендора.",
       icon: Users
     },
     {
@@ -83,7 +83,7 @@ export function EnterprisePage() {
     {
       icon: Trophy,
       title: "Масштабируемость",
-      desc: "От 50 до 5000+ пользователей"
+      desc: "Под команды любого размера"
     },
     {
       icon: Target,
@@ -92,8 +92,8 @@ export function EnterprisePage() {
     },
     {
       icon: Gauge,
-      title: "SLA 99.99%",
-      desc: "Гарантированная доступность"
+      title: "SLA поддержки",
+      desc: "Условия фиксируем в договоре"
     },
     {
       icon: Network,
@@ -130,7 +130,7 @@ export function EnterprisePage() {
       company: "Ритейл-холдинг",
       industry: "Розничная торговля",
       users: "850+ пользователей",
-      result: "+47% конверсия в сделку",
+      result: "Рост конверсии в сделку",
       period: "за 6 месяцев",
       quote: "Полностью автоматизировали процессы продаж в 12 магазинах",
       author: "Михаил Петров",
@@ -159,28 +159,28 @@ export function EnterprisePage() {
   ];
 
   const stats = [
-    { value: "2500+", label: "Пользователей обслужено" },
-    { value: "99.99%", label: "Гарантированный uptime" },
+    { value: "200+", label: "Внедрений" },
+    { value: "9 лет", label: "На рынке CRM" },
     { value: "15 мин", label: "Время ответа поддержки" },
-    { value: "50+", label: "Enterprise клиентов" }
+    { value: "24/7", label: "Поддержка" }
   ];
 
   const trustBadges = [
-    { icon: ShieldCheck, title: "ISO 27001", desc: "Сертифицирован" },
-    { icon: FileCheck, title: "SOC 2 Type II", desc: "Проверка пройдена" },
-    { icon: Lock, title: "GDPR", desc: "Соответствие" },
-    { icon: Award, title: "99.99% SLA", desc: "Гарантия" }
+    { icon: ShieldCheck, title: "Партнёр amoCRM", desc: "Сертифицирован" },
+    { icon: FileCheck, title: "Партнёр Wazzup", desc: "Сертифицирован" },
+    { icon: Lock, title: "NDA и договор", desc: "По каждому проекту" },
+    { icon: Award, title: "Top Agency 2024", desc: "CRM Rating" }
   ];
 
   const comparisonFeatures = [
-    { name: "Количество пользователей", business: "До 50", enterprise: "Безлимитно" },
-    { name: "Выделенный сервер", business: false, enterprise: true },
+    { name: "Количество пользователей", business: "До 15", enterprise: "Любое" },
+    { name: "Выделенная команда экспертов", business: false, enterprise: true },
     { name: "Приоритетная поддержка", business: "Email", enterprise: "24/7 Dedicated team" },
-    { name: "Кастомные интеграции", business: "Ограничено", enterprise: "Unlimited" },
-    { name: "SLA гарантия", business: "95%", enterprise: "99.99%" },
+    { name: "Кастомные интеграции", business: "До 5", enterprise: "Без ограничений по объёму" },
+    { name: "SLA поддержки", business: "Стандарт", enterprise: "Приоритет, по договору" },
     { name: "On-site обучение", business: false, enterprise: true },
     { name: "Персональный менеджер", business: false, enterprise: true },
-    { name: "API Rate Limit", business: "1000/час", enterprise: "Unlimited" }
+    { name: "API-интеграции", business: "Стандартные", enterprise: "Расширенные" }
   ];
 
   const faqs = [
@@ -197,8 +197,8 @@ export function EnterprisePage() {
       a: "Миграция включена в Enterprise пакет. Наша команда проведет полный аудит данных, разработает план миграции и выполнит перенос с минимальным простоем в работе."
     },
     {
-      q: "Что входит в SLA 99.99%?",
-      a: "SLA гарантирует доступность системы 99.99% времени (максимум 52 минуты простоя в год). При нарушении — финансовая компенсация согласно договору."
+      q: "Что входит в SLA поддержки?",
+      a: "Время реакции, приоритет обращений и регламент доработок фиксируются в договоре под ваш проект. Доступность самой CRM обеспечивает вендор amoCRM/Kommo."
     }
   ];
 
@@ -206,7 +206,7 @@ export function EnterprisePage() {
     <div className="min-h-screen pt-24 pb-16 relative overflow-hidden">
       <SEOHead
         title="Enterprise CRM решения для холдингов | ko:agency"
-        description="Корпоративная инфраструктура CRM для холдингов и крупного бизнеса. Выделенная поддержка 24/7, безлимитные интеграции, SLA 99.99%. От 50 до 5000+ пользователей."
+        description="Корпоративная инфраструктура CRM для холдингов и крупного бизнеса. Выделенная команда, интеграции без ограничений по объёму, SLA поддержки по договору. Для команд любого размера."
         keywords="enterprise crm, корпоративная crm, внедрение crm для холдингов, crm для крупного бизнеса, amocrm enterprise, корпоративное решение crm"
       />
       
@@ -556,7 +556,7 @@ export function EnterprisePage() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     {[
                       "Выделенный аккаунт-менеджер 24/7",
-                      "Unlimited API calls и интеграции",
+                      "Интеграции и API под ваши системы",
                       "Кастомные дашборды и отчеты",
                       "Приоритетная очередь разработки",
                       "On-site обучение команды",

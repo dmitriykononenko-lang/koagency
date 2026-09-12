@@ -6,7 +6,7 @@ import { Check } from 'lucide-react';
 const packages = [
   {
     name: 'Стартовый',
-    price: '80 000₽',
+    price: 'От 80 000₽',
     description: 'Для малого бизнеса и стартапов',
     features: [
       'Настройка базовой воронки продаж',
@@ -20,7 +20,7 @@ const packages = [
   },
   {
     name: 'Бизнес',
-    price: '180 000₽',
+    price: 'От 180 000₽',
     description: 'Для растущих компаний',
     features: [
       'Настройка сложных воронок',
@@ -137,7 +137,7 @@ export function Pricing() {
                 }`}
                 variant={pkg.popular ? 'default' : 'outline'}
               >
-                Получить консультацию
+                {pkg.name === 'Энтерпрайз' ? 'Обсудить проект' : 'Заказать звонок'}
               </Button>
             </Card>
           ))}
@@ -145,6 +145,10 @@ export function Pricing() {
 
         {/* Additional Info */}
         <div className="mt-12 text-center space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Цены указаны «от» — точная стоимость зависит от числа интеграций и пользователей.{' '}
+            <a href="/calculator" className="text-primary underline underline-offset-4">Рассчитать в калькуляторе →</a>
+          </p>
           <p className="text-muted-foreground">
             💡 <span className="font-medium text-foreground">Не определились?</span> Закажите бесплатный аудит — подберем оптимальное решение под ваш бюджет
           </p>

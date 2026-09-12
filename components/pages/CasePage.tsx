@@ -270,7 +270,7 @@ export function CasePage({ caseStudy: c }: Props) {
             to="/#contact"
             className="inline-flex items-center gap-2 rounded-full bg-[#E60000] px-8 py-4 text-base font-semibold text-white shadow-[0_0_20px_rgba(230,0,0,0.3)] transition-shadow hover:bg-[#cc0000] hover:shadow-[0_0_30px_rgba(230,0,0,0.5)]"
           >
-            Получить консультацию
+            Заказать звонок
             <ArrowUpRight className="h-5 w-5" />
           </Link>
         </div>

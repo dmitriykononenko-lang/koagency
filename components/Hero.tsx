@@ -184,7 +184,7 @@ export function Hero() {
                   onClick={scrollToContact}
                   className="w-full border-[#101010] text-[#101010] transition-all hover:bg-[#101010] hover:text-white sm:w-auto"
                 >
-                  Получить консультацию
+                  Заказать звонок
                 </Button>
               </MagneticButton>
             </motion.div>

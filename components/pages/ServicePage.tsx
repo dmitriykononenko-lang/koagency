@@ -53,23 +53,6 @@ export function ServicePage({ service }: ServicePageProps) {
     }, 100);
   };
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.title,
-    "description": service.description,
-    "provider": {
-      "@type": "Organization",
-      "name": "ko:agency",
-      "url": "https://koagency.me"
-    },
-    "areaServed": "RU",
-    "offers": {
-      "@type": "Offer",
-      "price": service.pricing.from,
-      "priceCurrency": "RUB"
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -78,7 +61,6 @@ export function ServicePage({ service }: ServicePageProps) {
         description={service.description}
         keywords={service.keywords}
         canonical={`/services/${service.slug}`}
-        structuredData={structuredData}
       />
 
       <div className="pt-20">
@@ -293,7 +275,7 @@ export function ServicePage({ service }: ServicePageProps) {
               onClick={scrollToContact}
               className="bg-[#E60000] hover:bg-[#cc0000] text-white"
             >
-              Получить консультацию
+              Заказать звонок
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </div>

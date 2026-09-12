@@ -194,44 +194,49 @@ export function CalculatorPage() {
   // Package Definitions
   const implPackages = {
     base: {
-      name: 'Базовый',
-      price: 60000,
+      name: 'Стартовый',
+      price: 80000,
       timeline: '3-5 рабочих дней',
       desc: 'Старт работы',
       features: [
-        { name: 'Базовая настройка CRM', included: true },
-        { name: 'Подключение Email', included: true },
-        { name: 'Импорт базы клиентов', included: true },
-        { name: 'Обучение (1 час)', included: true },
-        { name: 'Телефония', included: false },
-        { name: 'Настройка мессенджеров', included: false },
+        { name: 'Настройка базовой воронки продаж', included: true },
+        { name: 'Интеграция с 2 сервисами', included: true },
+        { name: 'Миграция до 1 000 контактов', included: true },
+        { name: 'Обучение команды (до 5 человек)', included: true },
+        { name: '1 месяц техподдержки', included: true },
+        { name: 'Видео-инструкции', included: true },
       ]
     },
     standard: {
       name: 'Бизнес',
-      price: 90000,
+      price: 180000,
       timeline: '7-10 рабочих дней',
       desc: 'Отдел продаж под ключ',
       features: [
-        { name: 'Все из тарифа Базовый', included: true },
-        { name: 'Интеграция с телефонией', included: true },
-        { name: 'Подключение сайта / заявок', included: true },
-        { name: 'Настройка мессенджеров', included: true, note: 'Только работы. Лицензии оплачиваются отдельно.' },
-        { name: 'Автоматизация задач', included: true },
-        { name: 'Расширенное обучение', included: true },
+        { name: 'Всё из пакета Стартовый', included: true },
+        { name: 'Настройка сложных воронок', included: true },
+        { name: 'Интеграция с 5 сервисами', included: true, note: 'Только работы. Лицензии сервисов оплачиваются отдельно.' },
+        { name: 'AI-квалификатор лидов', included: true },
+        { name: 'Миграция до 10 000 контактов', included: true },
+        { name: 'Обучение команды (до 15 человек)', included: true },
+        { name: '3 месяца техподдержки', included: true },
+        { name: 'Автоматизация процессов + персональный менеджер', included: true },
       ]
     },
     custom: {
-      name: 'Кастом',
-      price: 150000, // Includes pre-project research
+      name: 'Энтерпрайз',
+      price: 350000, // Includes pre-project research
       timeline: 'от 14 рабочих дней',
       desc: 'Индивидуальный проект',
       features: [
-        { name: 'Предпроектное исследование', included: true },
-        { name: 'Техническая основа', included: true },
-        { name: 'Выбор услуг', included: true },
-        { name: 'Сложные интеграции', included: true },
-        { name: 'Персональное ТЗ', included: true },
+        { name: 'Предпроектное исследование и персональное ТЗ', included: true },
+        { name: 'Полная кастомизация под процессы', included: true },
+        { name: 'Интеграции без ограничений по объёму', included: true },
+        { name: 'AI-квалификатор + предиктивная аналитика', included: true },
+        { name: 'Миграция любых объёмов данных', included: true },
+        { name: 'Обучение всей команды', included: true },
+        { name: '6 месяцев техподдержки', included: true },
+        { name: 'Выделенная команда экспертов', included: true },
       ]
     }
   };
@@ -567,15 +572,15 @@ export function CalculatorPage() {
     // Implementation Base
     if (implPackage === 'base') {
        const price = priceConvert(implPackages.base.price);
-       items.push({ name: 'Пакет внедрения «Базовый»', price, quantity: 1, unit: 'пак', total: price });
+       items.push({ name: 'Пакет внедрения «Стартовый»', price, quantity: 1, unit: 'пак', total: price });
     } else if (implPackage === 'standard') {
        const price = priceConvert(implPackages.standard.price);
        items.push({ name: 'Пакет внедрения «Бизнес»', price, quantity: 1, unit: 'пак', total: price });
     } else {
        // Custom
-       const basePrice = priceConvert(150000);
+       const basePrice = priceConvert(implPackages.custom.price);
        const userSetupPrice = priceConvert(1000);
-       items.push({ name: 'Базовая настройка «Кастом» (включая предпроектное исследование)', price: basePrice, quantity: 1, unit: 'проект', total: basePrice });
+       items.push({ name: 'Пакет внедрения «Энтерпрайз» (включая предпроектное исследование)', price: basePrice, quantity: 1, unit: 'проект', total: basePrice });
        items.push({ name: 'Настройка прав пользователей', price: userSetupPrice, quantity: users[0], unit: 'чел', total: userSetupPrice * users[0] });
        if (sources.site) {
          const price = priceConvert(10000);
@@ -1809,7 +1814,7 @@ export function CalculatorPage() {
                                <span className="font-bold text-slate-900">{paybackMonths.toFixed(1)} мес.</span>
                             </div>
                             <p className="text-[10px] text-slate-400 leading-tight pt-1">
-                               * При росте эффективности работы отдела на 20% за счет автоматизации рутины.
+                               * Сценарий: при росте эффективности работы отдела на 20% за счёт автоматизации рутины.
                             </p>
                          </div>
                        </>
@@ -2042,7 +2047,7 @@ function BusinessSimulator({ totalCost }: { totalCost: number }) {
                         className="py-2" 
                      />
                      <p className="text-xs text-slate-400 mt-2">
-                        * Внедрение CRM в среднем увеличивает конверсию на 20-30% за счет исключения "забытых" клиентов и скорости реакции.
+                        * Сценарий: рост конверсии на 20–30% за счёт исключения «забытых» клиентов и скорости реакции. Расчёт по выручке, без учёта маржинальности и расходов.
                      </p>
                   </div>
 
@@ -2118,7 +2123,7 @@ function BusinessSimulator({ totalCost }: { totalCost: number }) {
                   <CardContent className="p-8 relative z-10">
                      <div className="grid md:grid-cols-2 gap-8 items-center">
                         <div>
-                           <h3 className="text-slate-400 font-medium mb-1">Дополнительная прибыль</h3>
+                           <h3 className="text-slate-400 font-medium mb-1">Дополнительная выручка</h3>
                            <motion.div 
                               key={profitDelta}
                               initial={{ opacity: 0, y: 10 }}
@@ -2127,11 +2132,11 @@ function BusinessSimulator({ totalCost }: { totalCost: number }) {
                            >
                               +{Math.round(profitDelta).toLocaleString()} ₽
                            </motion.div>
-                           <p className="text-sm text-slate-400">Ежемесячно, только за счет наведения порядка</p>
+                           <p className="text-sm text-slate-400">Ежемесячно, оценка по выручке — без учёта маржинальности и расходов</p>
                         </div>
 
                         <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border border-white/10">
-                           <div className="text-sm text-slate-300 mb-2">Окупаемость внедрения:</div>
+                           <div className="text-sm text-slate-300 mb-2">Окупаемость (оценочно, по выручке):</div>
                            {isProfitable ? (
                               <div className="flex items-baseline gap-2">
                                  <motion.span 
