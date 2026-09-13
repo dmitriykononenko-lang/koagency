@@ -14,7 +14,7 @@ ${docs
   .map(
     (doc) => `
 ### ${doc.data.title}
-- URL: https://kb.kommo.example.com/docs/${doc.slug}
+- URL: https://docs.koagency.me/docs/${doc.slug}
 - Раздел: ${doc.data.section}
 - Подраздел: ${doc.data.subsection}
 - Описание: ${doc.data.description}

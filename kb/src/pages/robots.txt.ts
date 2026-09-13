@@ -6,7 +6,7 @@ Allow: /
 Disallow: /api/
 Disallow: /.astro/
 
-Sitemap: https://kb.kommo.example.com/sitemap.xml
+Sitemap: https://docs.koagency.me/sitemap.xml
 
 # OpenAI
 User-agent: GPTBot

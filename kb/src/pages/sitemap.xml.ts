@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async () => {
   const docs = await getCollection('docs');
-  const baseUrl = 'https://kb.kommo.example.com';
+  const baseUrl = 'https://docs.koagency.me';
 
   const urls = [
     { loc: '/', lastmod: new Date().toISOString().split('T')[0], priority: '1.0' },

@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://kb.kommo.example.com',
+  site: 'https://docs.koagency.me',
   integrations: [
     tailwind({
       applyBaseStyles: false,
