@@ -37,8 +37,35 @@ export const metadata: Metadata = {
   referrer: 'strict-origin-when-cross-origin',
   formatDetection: { email: false, address: false, telephone: false },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+    ],
     apple: '/apple-touch-icon.png',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Интеграция amoCRM и автоматизация продаж`,
+    description:
+      'Интегратор amoCRM/Kommo. Внедрение под ключ, AI-квалификация лидов, 200+ проектов, 9 лет на рынке.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'ko:agency — Интеграция amoCRM и автоматизация продаж',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — Интеграция amoCRM и автоматизация продаж`,
+    description: 'Интегратор amoCRM/Kommo. Внедрение, AI-квалификация, поддержка 24/7.',
+    images: ['/og-image.jpg'],
   },
 };
 
