@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from '@/lib/router-shim';
 import { SpotlightCard } from '../ui/spotlight-card';
+import { Card, CardContent } from '../ui/card';
 import { GlitchText } from '../ui/glitch-text';
 import { CipherReveal } from '../ui/cipher-reveal';
 import { MagneticButton } from '../ui/magnetic-button';
