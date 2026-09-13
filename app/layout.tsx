@@ -64,6 +64,23 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Providers>{children}</Providers>
         <AmoChat />
+        {/* Google Analytics 4 (G-F3XEVMHM2B) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-F3XEVMHM2B"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-F3XEVMHM2B');
+            `,
+          }}
+        />
         {/* Yandex.Metrika counter */}
         <Script
           id="yandex-metrika"
