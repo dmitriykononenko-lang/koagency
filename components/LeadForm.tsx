@@ -92,6 +92,25 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
         toast.success('Заявка успешно отправлена!', {
           description: 'Мы свяжемся с вами в ближайшее время',
         });
+        // Analytics: GA4 + Yandex Metrika
+        if (typeof window !== 'undefined') {
+          const w = window as any;
+          if (typeof w.gtag === 'function') {
+            w.gtag('event', 'generate_lead', {
+              currency: 'RUB',
+              value: calculationData.totalCost,
+              form_location: '/calculator',
+              crm: calculationData.crm,
+              impl_package: calculationData.implPackage,
+            });
+            w.gtag('event', 'qualify_lead');
+          }
+          if (typeof w.ym === 'function') {
+            w.ym(112550385, 'reachGoal', 'calculator_lead_submit', {
+              amount: calculationData.totalCost,
+            });
+          }
+        }
       } else {
         throw new Error(data.error || 'Ошибка отправки заявки');
       }

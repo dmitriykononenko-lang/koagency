@@ -58,6 +58,23 @@ export function BrandedLeadForm({ className = '' }: { className?: string }) {
         throw new Error(body.error || `HTTP ${res.status}`);
       }
       setStatus('success');
+      // Analytics: fire GA4 conversion + Yandex Metrika goal
+      if (typeof window !== 'undefined') {
+        const w = window as any;
+        // GA4 (recommended events: generate_lead + custom qualify_lead)
+        if (typeof w.gtag === 'function') {
+          w.gtag('event', 'generate_lead', {
+            currency: 'RUB',
+            value: 0,
+            form_location: window.location.pathname,
+          });
+          w.gtag('event', 'qualify_lead');
+        }
+        // Yandex Metrika goal
+        if (typeof w.ym === 'function') {
+          w.ym(112550385, 'reachGoal', 'lead_submit');
+        }
+      }
       (e.target as HTMLFormElement).reset();
     } catch (err) {
       setStatus('error');
