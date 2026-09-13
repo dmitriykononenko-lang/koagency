@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  slugs: string[];
+}
+
+const { slugs } = Astro.props;
+const allDocs = await getCollection('docs');
+const relatedArticles = allDocs.filter((doc) => slugs.includes(doc.data.slug));
+---
+
+{
+  relatedArticles.length > 0 && (
+    <section class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <h2 class="text-2xl font-bold mb-6">Связанные статьи</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {relatedArticles.map((article) => (
+          <a
+            href={`/docs/${article.data.slug}`}
+            class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-accent hover:shadow-md transition-all group"
+          >
+            <span class="text-xs text-gray-600 dark:text-gray-400">
+              {article.data.section} → {article.data.subsection}
+            </span>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mt-2 group-hover:text-accent transition-colors">
+              {article.data.title}
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+              {article.data.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}

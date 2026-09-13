@@ -1,0 +1,27 @@
+---
+interface Props {
+  headings: Array<{ depth: number; text: string; slug: string }>;
+}
+
+const { headings } = Astro.props;
+
+// Filter to only include H2 and H3
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  toc.length > 0 && (
+    <nav class="mb-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">Содержание</h3>
+      <ul class="space-y-2 text-sm">
+        {toc.map((heading) => (
+          <li style={`padding-left: ${(heading.depth - 2) * 1.5}rem`}>
+            <a href={`#${heading.slug}`} class="text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}

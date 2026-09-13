@@ -1,0 +1,32 @@
+---
+interface Props {
+  prev?: string;
+  next?: string;
+}
+
+const { prev, next } = Astro.props;
+---
+
+<nav class="border-t border-gray-200 dark:border-gray-700 pt-8 mt-12 grid grid-cols-2 gap-4">
+  {
+    prev ? (
+      <a href={`/docs/${prev}`} class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-accent hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group">
+        <span class="text-xs text-gray-600 dark:text-gray-400 group-hover:text-accent transition-colors">← Предыдущая</span>
+        <p class="font-semibold text-gray-900 dark:text-gray-100 mt-1">Перейти назад</p>
+      </a>
+    ) : (
+      <div></div>
+    )
+  }
+
+  {
+    next ? (
+      <a href={`/docs/${next}`} class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-accent hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group text-right">
+        <span class="text-xs text-gray-600 dark:text-gray-400 group-hover:text-accent transition-colors">Следующая →</span>
+        <p class="font-semibold text-gray-900 dark:text-gray-100 mt-1">Перейти вперёд</p>
+      </a>
+    ) : (
+      <div></div>
+    )
+  }
+</nav>

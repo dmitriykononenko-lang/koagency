@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import DocLayout from '../../layouts/DocLayout.astro';
+import Step from '../../components/content/Step.astro';
+import Screenshot from '../../components/content/Screenshot.astro';
+import Callout from '../../components/content/Callout.astro';
+import Video from '../../components/content/Video.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}
+
+interface Props {
+  doc: any;
+}
+
+const { doc } = Astro.props;
+const { Content } = await doc.render();
+---
+
+<DocLayout {...doc.data}>
+  <Content components={{ Step, Screenshot, Callout, Video }} />
+</DocLayout>
+
+<style>
+  :global(.prose) {
+    max-width: 65ch;
+  }
+
+  :global(.prose p) {
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  :global(.prose h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 5rem;
+  }
+
+  :global(.prose h3) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 5rem;
+  }
+
+  :global(.prose code) {
+    background-color: var(--bg-code);
+    color: var(--text-code);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+  }
+
+  :global(.prose pre) {
+    background-color: var(--bg-code);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  :global(.prose pre code) {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  :global(.prose a) {
+    color: #e60000;
+    text-decoration: underline;
+    transition: opacity 0.2s;
+  }
+
+  :global(.prose a:hover) {
+    opacity: 0.8;
+  }
+
+  :global(.prose table) {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  :global(.prose th) {
+    background-color: var(--bg-code);
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+  }
+
+  :global(.prose td) {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+  }
+
+  :global(.prose tr:nth-child(even)) {
+    background-color: var(--bg-stripe);
+  }
+
+  :root {
+    --bg-code: rgb(243, 244, 246);
+    --text-code: rgb(31, 41, 55);
+    --border-color: rgb(229, 231, 235);
+    --bg-stripe: transparent;
+  }
+
+  :root.dark {
+    --bg-code: rgb(31, 41, 55);
+    --text-code: rgb(209, 213, 219);
+    --border-color: rgb(55, 65, 81);
+    --bg-stripe: rgb(17, 24, 39);
+  }
+</style>
