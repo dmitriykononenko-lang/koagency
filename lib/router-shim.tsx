@@ -10,17 +10,24 @@
 
 import NextLink from 'next/link';
 import { useRouter, usePathname, useSearchParams, useParams as nextUseParams } from 'next/navigation';
-import { ComponentProps, forwardRef, useMemo } from 'react';
+import { ComponentProps, forwardRef, useEffect, useMemo, useState } from 'react';
 
 // useLocation()
+// NB: не вызываем useSearchParams() внутри — это триггерит client-side bailout
+// для всего дерева и требует Suspense-обёртки. Consumers (Header/Footer/Layout)
+// используют только .pathname. Search/hash читаем лениво из window через useEffect.
 export function useLocation() {
   const pathname = usePathname() ?? '/';
-  const searchParams = useSearchParams();
-  const search = searchParams?.toString();
+  const [browserBits, setBrowserBits] = useState({ search: '', hash: '' });
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setBrowserBits({ search: window.location.search, hash: window.location.hash });
+    }
+  }, [pathname]);
   return {
     pathname,
-    search: search ? `?${search}` : '',
-    hash: typeof window !== 'undefined' ? window.location.hash : '',
+    search: browserBits.search,
+    hash: browserBits.hash,
     state: null,
     key: 'default',
   };

@@ -8,7 +8,6 @@ import { GlitchText } from '../ui/glitch-text';
 import { CipherReveal } from '../ui/cipher-reveal';
 import { MagneticButton } from '../ui/magnetic-button';
 import { GridBackground } from '../ui/grid-background';
-import { SEOHead } from '../SEO/SEOHead';
 import { 
   Building2, 
   Shield, 
@@ -204,11 +203,6 @@ export function EnterprisePage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 relative overflow-hidden">
-      <SEOHead
-        title="Enterprise CRM решения для холдингов | ko:agency"
-        description="Корпоративная инфраструктура CRM для холдингов и крупного бизнеса. Выделенная команда, интеграции без ограничений по объёму, SLA поддержки по договору. Для команд любого размера."
-        keywords="enterprise crm, корпоративная crm, внедрение crm для холдингов, crm для крупного бизнеса, amocrm enterprise, корпоративное решение crm"
-      />
       
       <GridBackground 
         className="opacity-10 -z-10 fixed inset-0"

@@ -1,6 +1,5 @@
 'use client';
 
-import { SEOHead } from '../SEO/SEOHead';
 import { Breadcrumbs } from '../SEO/Breadcrumbs';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
@@ -56,12 +55,6 @@ export function ServicePage({ service }: ServicePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEOHead
-        title={`${service.title} | ko:agency`}
-        description={service.description}
-        keywords={service.keywords}
-        canonical={`/services/${service.slug}`}
-      />
 
       <div className="pt-20">
         {/* Breadcrumbs */}
