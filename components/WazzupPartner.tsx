@@ -4,9 +4,8 @@ import { motion } from 'framer-motion';
 import { Check, Award } from 'lucide-react';
 
 const STATS = [
-  { value: '2+ года', label: 'подключаем клиентов и сопровождаем интеграции' },
-  { value: 'ТОП-10', label: 'среди партнёров Wazzup по СНГ' },
-  { value: '1 день', label: 'на подключение Wazzup и настройку в CRM' },
+  { value: '2+ года', label: 'подключаем клиентов и сопровождаем интеграции' },
+  { value: '1 день', label: 'на подключение Wazzup и настройку в CRM' },
 ];
 
 const BENEFITS = [
@@ -59,21 +58,21 @@ export function WazzupPartner() {
                 <span className="font-mono text-xs text-[#999999]">№ WZ-2024-KO</span>
               </div>
 
-              {/* Аватар + имя */}
+              {/* Логотип ko:agency + название компании */}
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#E60000] to-[#8b0000] text-2xl font-bold text-white shadow-lg">
-                    ДК
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#E60000] to-[#8b0000] text-2xl font-bold tracking-tight text-white shadow-lg">
+                    ko:
                   </div>
                   <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-[#25D366]">
                     <Check className="h-4 w-4 text-white" strokeWidth={3} />
                   </div>
                 </div>
                 <div>
-                  <div className="text-lg font-semibold text-[#101010]">Дмитрий Кононенко</div>
-                  <div className="text-sm text-[#666666]">Founder, ko:agency</div>
+                  <div className="text-lg font-semibold text-[#101010]">ko:agency</div>
+                  <div className="text-sm text-[#666666]">Интегратор amoCRM/Kommo</div>
                   <div className="mt-1 font-mono text-xs uppercase tracking-wider text-[#25D366]">
-                    Wazzup Partner
+                    Официальный партнёр Wazzup
                   </div>
                 </div>
               </div>
@@ -86,9 +85,15 @@ export function WazzupPartner() {
                   </div>
                   <div className="font-mono text-sm text-[#101010]">31.12.2027</div>
                 </div>
-                <div className="flex items-center gap-1.5 text-xl font-bold tracking-tight">
-                  <span className="text-[#25D366]">wa</span>
-                  <span className="text-[#101010]">zzup!</span>
+                <div className="flex items-center gap-2">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="9" fill="#25D366" />
+                    <path d="M16 7.5c-4.7 0-8.5 3.8-8.5 8.5 0 1.5.4 3 1.2 4.3L7.5 24l3.9-1.1c1.3.7 2.8 1.1 4.6 1.1 4.7 0 8.5-3.8 8.5-8.5S20.7 7.5 16 7.5Zm4.9 12.2c-.2.6-1.2 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.5-2.7-1.2-4.5-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.2.6-1.9.9-2.1.2-.2.5-.3.7-.3h.5c.2 0 .4-.1.6.5.2.6.7 2 .8 2.2.1.1.1.3 0 .5-.1.2-.1.3-.3.4-.1.1-.3.3-.4.4-.1.1-.3.3-.1.5.2.3.7 1.2 1.6 2 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1s.8-.9.9-1.2c.2-.3.3-.3.6-.2.3.1 1.7.8 2 .9.3.1.5.2.5.4 0 .2 0 .8-.2 1.4Z" fill="white"/>
+                  </svg>
+                  <div className="flex items-baseline text-xl font-bold tracking-tight">
+                    <span className="text-[#25D366]">wa</span>
+                    <span className="text-[#101010]">zzup!</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -97,7 +102,7 @@ export function WazzupPartner() {
           {/* Правая колонка: статы + бенефиты */}
           <div className="lg:col-span-7">
             {/* Статы */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {STATS.map((s, i) => (
                 <motion.div
                   key={s.value}
