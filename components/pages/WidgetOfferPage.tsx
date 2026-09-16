@@ -2,6 +2,7 @@
 
 import { Link } from '@/lib/router-shim';
 import { ArrowLeft } from 'lucide-react';
+import { LegalRequisites } from '@/components/LegalRequisites';
 
 export function WidgetOfferPage() {
   return (
@@ -191,17 +192,8 @@ export function WidgetOfferPage() {
           </section>
 
           <section>
-            <h2 className="mb-3 text-xl font-semibold">8. Реквизиты</h2>
-            <p className="leading-relaxed text-[#333333]">
-              ИП Кононенко Елена Витальевна. Контакт для обращений:{' '}
-              <a
-                href="mailto:koagency.me@gmail.com"
-                className="text-[#E60000] hover:underline underline-offset-4"
-              >
-                koagency.me@gmail.com
-              </a>
-              .
-            </p>
+            <h2 className="mb-4 text-xl font-semibold">8. Реквизиты</h2>
+            <LegalRequisites />
           </section>
         </div>
 

@@ -2,6 +2,7 @@
 
 import { Link } from '@/lib/router-shim';
 import { ArrowLeft } from 'lucide-react';
+import { LegalRequisites } from '@/components/LegalRequisites';
 
 export function LegalPrivacyPage() {
   return (
@@ -218,6 +219,11 @@ export function LegalPrivacyPage() {
               </a>
               .
             </p>
+          </section>
+
+          <section>
+            <h2 className="mb-4 text-xl font-semibold">10. Реквизиты оператора</h2>
+            <LegalRequisites />
           </section>
         </div>
 

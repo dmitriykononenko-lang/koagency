@@ -2,6 +2,7 @@
 
 import { Link } from '@/lib/router-shim';
 import { motion } from 'framer-motion';
+import { LegalRequisites } from '@/components/LegalRequisites';
 import {
   ArrowUpRight,
   Check,
@@ -528,6 +529,9 @@ export function WidgetTaskTemplatesPage() {
           <p className="mt-10 text-center text-sm text-[#666666]">
             Разработчик: <strong className="text-[#101010]">KO:AGENCY</strong>, ИП Кононенко Елена Витальевна
           </p>
+          <div className="mx-auto mt-6 max-w-2xl">
+            <LegalRequisites compact />
+          </div>
         </div>
       </section>
 

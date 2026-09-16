@@ -54,3 +54,35 @@ export function emailByPurpose(purpose: 'general' | 'support' | 'partners' | 'hr
       return PRIMARY_EMAIL;
   }
 }
+
+/**
+ * Юридические и банковские реквизиты ИП.
+ * Единый источник для оферты, политики конфиденциальности, счетов.
+ */
+export interface LegalEntity {
+  brand: string;
+  legalName: string;
+  legalNameShort: string;
+  inn: string;
+  bank: {
+    name: string;
+    account: string;
+    bik: string;
+    correspondentAccount: string;
+  };
+  supportEmail: string;
+}
+
+export const LEGAL_ENTITY: LegalEntity = {
+  brand: 'KO:AGENCY',
+  legalName: 'Индивидуальный предприниматель Кононенко Елена Витальевна',
+  legalNameShort: 'ИП Кононенко Елена Витальевна',
+  inn: '463300749910',
+  bank: {
+    name: 'ООО «Банк Точка»',
+    account: '40802810820000508995',
+    bik: '044525104',
+    correspondentAccount: '30101810745374525104',
+  },
+  supportEmail: SUPPORT_EMAIL,
+};

@@ -2,6 +2,7 @@
 
 import { Link } from '@/lib/router-shim';
 import { ArrowLeft } from 'lucide-react';
+import { LegalRequisites } from '@/components/LegalRequisites';
 
 export function WidgetPrivacyPage() {
   return (
@@ -163,13 +164,18 @@ export function WidgetPrivacyPage() {
               </a>
               ,{' '}
               <a
-                href="mailto:koagency.me@gmail.com"
+                href="mailto:service@koagency.me"
                 className="text-[#E60000] hover:underline underline-offset-4"
               >
-                koagency.me@gmail.com
+                service@koagency.me
               </a>
               .
             </p>
+          </section>
+
+          <section>
+            <h2 className="mb-4 text-xl font-semibold">8. Реквизиты оператора</h2>
+            <LegalRequisites />
           </section>
         </div>
 
