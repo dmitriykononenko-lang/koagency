@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check, AlertTriangle, Sparkles, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { ArrowRight, Check, AlertTriangle, Sparkles, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 
 // -----------------------------------------------------------------------------
-// Config & constants
+// Config
 // -----------------------------------------------------------------------------
 
 const CONFIG = {
@@ -14,103 +14,71 @@ const CONFIG = {
   SOURCE: 'Диагностика готовности к AI',
 };
 
+// Упрощённая версия: 5 утверждений → 3 ключевых.
 const MATURITY_STATEMENTS = [
-  'Процессы описаны в документах, а не «в головах».',
-  'Есть единый источник истины — документы не расходятся между отделами и версиями.',
-  'Для ключевых задач описан стандарт результата.',
-  'В процессах уже стабильно работает автоматизация или AI-агенты.',
-  'Системы обмениваются результатами, видны действия, стоимость и ошибки.',
+  'Ключевые процессы описаны в документах, а не только «в головах»',
+  'Для главных задач есть чёткий стандарт результата',
+  'Уже стабильно работает автоматизация или AI-агенты',
 ];
 
-const LEVELS: Array<{ level: number; title: string; description: string }> = [
-  { level: 0, title: 'В головах', description: 'Процессы существуют только в опыте сотрудников. Ничего не описано.' },
-  { level: 1, title: 'В файлах', description: 'Есть документы и таблицы, но они разбросаны и не синхронизированы.' },
-  { level: 2, title: 'Источник истины', description: 'Единый набор актуальных документов, доступный всем отделам.' },
-  { level: 3, title: 'Первый агент', description: 'В процессе стабильно работает автоматизация или отдельный AI-агент.' },
-  { level: 4, title: 'Связка агентов', description: 'Несколько агентов передают результаты друг другу, есть контроль.' },
-  { level: 5, title: 'Система', description: 'Полноценная агентная система: видны действия, стоимость, ошибки, ROI.' },
-];
+// Упрощённая матрица: 4 критерия вместо 8. Достаточно для точного вердикта.
+const CRITERIA = [
+  { id: 'impact', label: 'Влияние на выручку', hint: 'Насколько результат критичен для бизнеса' },
+  { id: 'standard', label: 'Стандарт результата', hint: 'Насколько чётко описан «правильный» ответ' },
+  { id: 'data', label: 'Качество данных', hint: 'Полнота и точность входных данных' },
+  { id: 'reversibility', label: 'Обратимость ошибки', hint: 'Можно ли откатить ошибку без потерь' },
+] as const;
 
-const CRITERIA: Array<{ id: keyof Scores; label: string; hint: string }> = [
-  { id: 'impact', label: 'Влияние', hint: 'Насколько результат этого процесса важен для выручки/маржи' },
-  { id: 'frequency', label: 'Частота', hint: 'Как часто задача повторяется' },
-  { id: 'standard', label: 'Стандарт результата', hint: 'Насколько чётко описан “правильный” ответ' },
-  { id: 'data', label: 'Данные', hint: 'Полнота и качество входных данных для агента' },
-  { id: 'measurability', label: 'Измеримость', hint: 'Можно ли посчитать успех/ошибку количественно' },
-  { id: 'integration', label: 'Интеграции', hint: 'Легко ли подключиться к нужным системам' },
-  { id: 'reversibility', label: 'Обратимость', hint: 'Можно ли откатить ошибку агента без потерь' },
-  { id: 'adoption', label: 'Принятие', hint: 'Готовность команды использовать результат агента' },
-];
-
-type Scores = {
-  impact: number;
-  frequency: number;
-  standard: number;
-  data: number;
-  measurability: number;
-  integration: number;
-  reversibility: number;
-  adoption: number;
-};
-
+type CriterionId = (typeof CRITERIA)[number]['id'];
+type Scores = Record<CriterionId, number>;
 type Answer = 'yes' | 'part' | 'no' | null;
 
-const initialScores: Scores = {
-  impact: 3,
-  frequency: 3,
-  standard: 3,
-  data: 3,
-  measurability: 3,
-  integration: 3,
-  reversibility: 3,
-  adoption: 3,
-};
+const initialScores: Scores = { impact: 3, standard: 3, data: 3, reversibility: 3 };
+
+const LEVELS: Array<{ level: number; title: string; description: string }> = [
+  { level: 0, title: 'В головах', description: 'Процессы существуют только в опыте сотрудников' },
+  { level: 1, title: 'В документах', description: 'Есть базовые описания процессов' },
+  { level: 2, title: 'Со стандартом', description: 'Известен «правильный» результат ключевых задач' },
+  { level: 3, title: 'С автоматизацией', description: 'Уже работают агенты или автоматизации' },
+];
 
 // -----------------------------------------------------------------------------
-// Calculation logic (per ТЗ раздел 6)
+// Calc
 // -----------------------------------------------------------------------------
 
-function calcMaturityLevel(answers: Answer[]): number {
+function calcLevel(answers: Answer[]): number {
   let score = 0;
   for (const a of answers) {
     if (a === 'yes') score += 1;
-    else if (a === 'part') {
-      score += 0.5;
-      break;
-    } else {
-      break;
-    }
+    else if (a === 'part') { score += 0.5; break; }
+    else break;
   }
   return Math.floor(score);
 }
 
-function calcTotalPercent(scores: Scores): number {
+function calcPercent(scores: Scores): number {
   const sum = Object.values(scores).reduce((a, b) => a + b, 0);
-  return Math.round((sum / 40) * 100);
+  return Math.round((sum / 20) * 100); // 4 критерия × 5 = 20
 }
 
-function calcBand(percent: number, redZone: boolean): { label: string; tone: 'red' | 'green' | 'amber' | 'neutral' | 'blue' } {
-  if (redZone) return { label: 'Красная зона: нужен контур контроля', tone: 'red' };
-  if (percent >= 70) return { label: 'Готов к пилоту', tone: 'green' };
-  if (percent >= 50) return { label: 'Почти готов — доработать данные', tone: 'blue' };
-  if (percent >= 30) return { label: 'Учебный стенд', tone: 'amber' };
-  return { label: 'Рано: сначала подготовка', tone: 'neutral' };
+function calcBand(percent: number, redZone: boolean) {
+  if (redZone) return { label: 'Нужен контур контроля', tone: 'red' as const };
+  if (percent >= 70) return { label: 'Готов к пилоту', tone: 'green' as const };
+  if (percent >= 50) return { label: 'Почти готов', tone: 'blue' as const };
+  if (percent >= 30) return { label: 'Учебный стенд', tone: 'amber' as const };
+  return { label: 'Рано: сначала подготовка', tone: 'neutral' as const };
 }
 
-function personalVerdict(level: number, percent: number, redZone: boolean): string {
-  if (redZone) {
-    return 'В задаче есть необратимые действия — начинать с полноценного AI-агента опасно. Первый шаг: описать процесс, добавить ручную проверку на критичных шагах и только потом подключать автономию.';
-  }
-  if (percent >= 70 && level >= 2) {
-    return 'Отличная точка входа. Процессы описаны, данные есть, влияние понятно. Можно готовить пилот на 4–6 недель: сначала копилот, потом автономный агент.';
-  }
-  if (percent >= 50) {
-    return 'Кандидат хороший, но нужно докрутить данные и стандарт результата. 1–2 недели подготовки — и можно запускать пилот в режиме копилота.';
-  }
-  if (percent >= 30) {
-    return 'Пока рано для боевого агента, но подойдёт как учебный стенд: настроим процесс, соберём данные, обучим команду. Через 1–2 месяца можно возвращаться к пилоту.';
-  }
-  return 'Для этой задачи AI-агент сейчас не даст эффекта. Стоит сначала описать процесс, определить стандарт результата и собрать нормальные данные — это база, без которой агент только увеличит хаос.';
+function verdict(level: number, percent: number, redZone: boolean): string {
+  if (redZone)
+    return 'В задаче есть необратимые действия — начинать с полноценного AI-агента опасно. Первый шаг: описать процесс, добавить ручную проверку на критичных шагах, затем подключать автономию.';
+  if (percent >= 70 && level >= 1)
+    return 'Отличная точка входа: данные есть, стандарт понятен. Можно готовить пилот на 4–6 недель — сначала копилот, потом автономный агент.';
+  if (percent >= 50)
+    return 'Кандидат хороший, но нужно докрутить данные и стандарт. 1–2 недели подготовки — и запускаем пилот в режиме копилота.';
+  if (percent >= 30)
+    return 'Пока рано для боевого агента: подойдёт как учебный стенд. Настроим процесс, соберём данные, обучим команду — через 1–2 месяца возвращаемся к пилоту.';
+  return 'Для этой задачи AI-агент сейчас не даст эффекта. Сначала опишите процесс, определите стандарт результата и соберите данные — без этой базы агент только увеличит хаос.';
 }
 
 // -----------------------------------------------------------------------------
@@ -122,88 +90,49 @@ function Ring({ percent, tone }: { percent: number; tone: string }) {
   const c = 2 * Math.PI * r;
   const offset = c - (percent / 100) * c;
   const colorMap: Record<string, string> = {
-    red: '#E60000',
-    green: '#22c55e',
-    amber: '#f59e0b',
-    blue: '#3b82f6',
-    neutral: '#71717a',
+    red: '#E60000', green: '#22c55e', amber: '#f59e0b', blue: '#3b82f6', neutral: '#71717a',
   };
   const color = colorMap[tone] || '#E60000';
   return (
     <svg width="160" height="160" viewBox="0 0 160 160" className="rotate-[-90deg]">
       <circle cx="80" cy="80" r={r} stroke="#f0f0f0" strokeWidth="12" fill="none" />
       <motion.circle
-        cx="80"
-        cy="80"
-        r={r}
-        stroke={color}
-        strokeWidth="12"
-        fill="none"
-        strokeLinecap="round"
+        cx="80" cy="80" r={r} stroke={color} strokeWidth="12" fill="none" strokeLinecap="round"
         initial={{ strokeDasharray: c, strokeDashoffset: c }}
         animate={{ strokeDashoffset: offset }}
         transition={{ duration: 1, ease: 'easeOut' }}
       />
-      <text
-        x="80"
-        y="80"
-        textAnchor="middle"
-        dominantBaseline="central"
-        className="rotate-90"
+      <text x="80" y="80" textAnchor="middle" dominantBaseline="central"
         transform="rotate(90 80 80)"
-        style={{ fontSize: '28px', fontWeight: 700, fill: '#101010' }}
-      >
+        style={{ fontSize: '28px', fontWeight: 700, fill: '#101010' }}>
         {percent}%
       </text>
     </svg>
   );
 }
 
-function Progress({ step, total }: { step: number; total: number }) {
-  return (
-    <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/5">
-      <motion.div
-        className="h-full bg-[#E60000]"
-        initial={{ width: 0 }}
-        animate={{ width: `${(step / total) * 100}%` }}
-        transition={{ duration: 0.4 }}
-      />
-    </div>
-  );
-}
-
 // -----------------------------------------------------------------------------
-// Main component
+// Main
 // -----------------------------------------------------------------------------
 
 export function AIDiagnosticPage() {
-  const [step, setStep] = useState(0); // 0=intro, 1=contact, 2=maturity, 3=first-agent, 4=result
+  const [step, setStep] = useState(0); // 0=intro, 1=form, 2=result
 
-  // Step 1 — contact + company
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
-  const [position, setPosition] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [size, setSize] = useState('');
-  const [niche, setNiche] = useState('');
-  const [crm, setCrm] = useState('');
 
-  // Step 2 — maturity
-  const [answers, setAnswers] = useState<Answer[]>([null, null, null, null, null]);
-
-  // Step 3 — first agent
-  const [process, setProcess] = useState('');
+  const [answers, setAnswers] = useState<Answer[]>([null, null, null]);
+  const [processName, setProcessName] = useState('');
   const [scores, setScores] = useState<Scores>(initialScores);
   const [redZone, setRedZone] = useState(false);
 
-  // Submit state
   const [submitting, setSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<'idle' | 'ok' | 'err'>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [utm, setUtm] = useState<Record<string, string>>({});
 
-  // Read UTM from query on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
@@ -213,117 +142,71 @@ export function AIDiagnosticPage() {
       if (v) captured[k] = v;
     });
     setUtm(captured);
-    fireEvent('diagnostic_view');
+    fire('diagnostic_view');
   }, []);
 
-  const maturityLevel = useMemo(() => calcMaturityLevel(answers), [answers]);
-  const totalPercent = useMemo(() => calcTotalPercent(scores), [scores]);
-  const band = useMemo(() => calcBand(totalPercent, redZone), [totalPercent, redZone]);
-  const levelInfo = LEVELS[maturityLevel] || LEVELS[0];
+  const level = useMemo(() => calcLevel(answers), [answers]);
+  const percent = useMemo(() => calcPercent(scores), [scores]);
+  const band = useMemo(() => calcBand(percent, redZone), [percent, redZone]);
+  const levelInfo = LEVELS[Math.min(level, LEVELS.length - 1)];
 
-  function fireEvent(name: string, params: Record<string, unknown> = {}) {
+  function fire(name: string, params: Record<string, unknown> = {}) {
     if (typeof window === 'undefined') return;
     const w = window as any;
     if (typeof w.gtag === 'function') w.gtag('event', name, params);
     if (typeof w.ym === 'function') w.ym(112550385, 'reachGoal', name);
   }
 
-  function validateStep1(): boolean {
+  function validate(): boolean {
     const e: Record<string, string> = {};
     if (!name.trim()) e.name = 'Укажите имя';
     if (!company.trim()) e.company = 'Укажите компанию';
-    const phoneDigits = phone.replace(/\D/g, '');
-    if (phoneDigits.length < 10) e.phone = 'Не менее 10 цифр';
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length < 10) e.phone = 'Не менее 10 цифр';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Некорректный email';
+    if (answers.some((a) => a === null)) e.maturity = 'Ответьте на все 3 утверждения';
+    if (!processName.trim()) e.process = 'Опишите процесс-кандидат';
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
-  function validateStep2(): boolean {
-    if (answers.some((a) => a === null)) {
-      setErrors({ maturity: 'Ответьте на все 5 утверждений' });
-      return false;
-    }
-    setErrors({});
-    return true;
-  }
-
-  function validateStep3(): boolean {
-    if (!process.trim()) {
-      setErrors({ process: 'Опишите процесс-кандидат' });
-      return false;
-    }
-    setErrors({});
-    return true;
-  }
-
-  function next() {
-    let ok = true;
-    if (step === 1) ok = validateStep1();
-    if (step === 2) ok = validateStep2();
-    if (step === 3) ok = validateStep3();
-    if (!ok) return;
-    if (step === 1) fireEvent('diagnostic_step_1_done');
-    if (step === 2) fireEvent('diagnostic_step_2_done');
-    if (step === 3) submit();
-    else setStep(step + 1);
-    scrollTop();
-  }
-
-  function back() {
-    setStep(Math.max(0, step - 1));
-    scrollTop();
-  }
-
-  function scrollTop() {
-    if (typeof window !== 'undefined') {
-      document.getElementById('diag-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   async function submit() {
     if (submitting) return;
+    if (!validate()) {
+      document.getElementById('diag-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     setSubmitting(true);
-    fireEvent('diagnostic_submit');
+    fire('diagnostic_submit');
 
-    const verdict = band.label;
     const noteLines = [
       `📋 ${CONFIG.SOURCE}`,
       '',
-      `👤 Контакт: ${name}${position ? ` · ${position}` : ''}`,
-      `🏢 Компания: ${company}${size ? ` · ${size}` : ''}${niche ? ` · ${niche}` : ''}`,
-      crm ? `💼 Текущая CRM: ${crm}` : null,
+      `👤 ${name} · ${company}`,
+      `📞 ${phone} · ✉ ${email}`,
       '',
-      `📊 Уровень зрелости: ${maturityLevel}/5 — ${levelInfo.title}`,
+      `📊 Уровень зрелости: ${level}/3 — ${levelInfo.title}`,
       `   Ответы: ${answers.map((a, i) => `${i + 1}=${a}`).join(', ')}`,
       '',
-      `🤖 Процесс-кандидат: ${process}`,
-      `   Готовность: ${totalPercent}%`,
-      `   Вердикт: ${verdict}${redZone ? ' · 🚨 Красная зона' : ''}`,
-      '',
-      `Оценки по критериям (1–5):`,
-      ...CRITERIA.map((c) => `   ${c.label}: ${scores[c.id]}`),
+      `🤖 Процесс: ${processName}`,
+      `   Готовность: ${percent}% — ${band.label}${redZone ? ' · 🚨 Красная зона' : ''}`,
+      ...CRITERIA.map((c) => `   ${c.label}: ${scores[c.id]}/5`),
       '',
       Object.keys(utm).length ? `UTM: ${JSON.stringify(utm)}` : null,
     ].filter(Boolean).join('\n');
 
     const payload = {
-      name: `${name} · Диагностика AI (${totalPercent}%, ур.${maturityLevel})`,
+      name: `${name} · Диагностика AI (${percent}%, ур.${level})`,
       phone,
       email,
       note: noteLines,
       page: '/ai-diagnostic',
-      utm: {
-        source: utm.utm_source,
-        medium: utm.utm_medium,
-        campaign: utm.utm_campaign,
-      },
-      // Structured payload (per ТЗ 8.3) — endpoint пока кладёт в note, но данные под рукой
+      utm: { source: utm.utm_source, medium: utm.utm_medium, campaign: utm.utm_campaign },
       diagnostic: {
-        contact: { name, phone, email, position },
-        company: { name: company, size, niche, crm },
-        maturity: { level: maturityLevel, answers },
-        firstAgent: { process, scores, totalPercent, redZone },
+        contact: { name, phone, email },
+        company: { name: company },
+        maturity: { level, answers },
+        firstAgent: { process: processName, scores, totalPercent: percent, redZone },
         meta: {
           source: CONFIG.SOURCE,
           url: typeof window !== 'undefined' ? window.location.href : '',
@@ -339,95 +222,41 @@ export function AIDiagnosticPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (r.ok) {
-        setSubmitResult('ok');
-        fireEvent('diagnostic_submit_success', { percent: totalPercent, level: maturityLevel });
-      } else {
-        setSubmitResult('err');
-        fireEvent('diagnostic_submit_error');
-      }
+      setSubmitResult(r.ok ? 'ok' : 'err');
+      fire(r.ok ? 'diagnostic_submit_success' : 'diagnostic_submit_error', { percent, level });
     } catch (e) {
       console.error('diagnostic submit failed', e);
       setSubmitResult('err');
-      fireEvent('diagnostic_submit_error');
+      fire('diagnostic_submit_error');
     } finally {
       setSubmitting(false);
-      setStep(4);
-      scrollTop();
+      setStep(2);
+      document.getElementById('diag-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }
-
-  // ---------------------------------------------------------------------------
-  // Render helpers
-  // ---------------------------------------------------------------------------
-
-  function Field({
-    id,
-    label,
-    required,
-    error,
-    children,
-  }: {
-    id: string;
-    label: string;
-    required?: boolean;
-    error?: string;
-    children: React.ReactNode;
-  }) {
-    return (
-      <div>
-        <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-[#101010]">
-          {label} {required && <span className="text-[#E60000]">*</span>}
-        </label>
-        {children}
-        {error && <p className="mt-1 text-xs text-[#E60000]">{error}</p>}
-      </div>
-    );
   }
 
   const inputCls =
     'w-full rounded-lg border border-black/15 bg-white px-3 py-2.5 text-[15px] text-[#101010] outline-none focus:border-[#E60000] focus:ring-2 focus:ring-[#E60000]/15';
 
-  // ---------------------------------------------------------------------------
-  // Screens
-  // ---------------------------------------------------------------------------
-
-  const stepsTotal = 3;
-
   return (
     <section className="min-h-screen bg-[#f5f5f5] px-4 pb-20 pt-28 sm:px-6">
       <div className="mx-auto max-w-2xl">
-        {/* Header pill */}
         <div className="mb-4 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1.5 shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-[#E60000]" />
             <span className="font-mono text-xs uppercase tracking-wider text-[#666]">
-              Бесплатная диагностика · 5 минут
+              Бесплатная диагностика · 2 минуты
             </span>
           </div>
         </div>
 
-        {/* Card */}
         <div
           id="diag-card"
           className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_10px_40px_-15px_rgba(0,0,0,0.15)]"
         >
-          {/* Progress (только на шагах формы) */}
-          {step > 0 && step < 4 && (
-            <div className="border-b border-black/5 px-6 py-4 sm:px-8">
-              <div className="mb-2 flex items-center justify-between text-xs text-[#666]">
-                <span>
-                  Шаг {step} из {stepsTotal}
-                </span>
-                <span>{Math.round((step / stepsTotal) * 100)}%</span>
-              </div>
-              <Progress step={step} total={stepsTotal} />
-            </div>
-          )}
-
           <div className="p-6 sm:p-10">
             <AnimatePresence mode="wait">
-              {/* ============================ INTRO ============================ */}
+              {/* ============ INTRO ============ */}
               {step === 0 && (
                 <motion.div
                   key="intro"
@@ -441,15 +270,14 @@ export function AIDiagnosticPage() {
                     <span className="whitespace-nowrap text-[#E60000]">AI-агенту</span>?
                   </h1>
                   <p className="mt-4 text-base text-[#666] sm:text-lg">
-                    За 5 минут узнаете уровень зрелости процессов, определите первый процесс для
-                    автономного агента и получите персональный вывод с планом действий.
+                    За 2 минуты узнаете уровень зрелости процессов, готовность выбранной задачи к AI
+                    и получите персональный вывод — с чего начать.
                   </p>
                   <ul className="mt-6 space-y-2 text-sm text-[#101010]">
                     {[
-                      'Уровень зрелости процессов по 5-балльной шкале',
+                      'Уровень зрелости процессов',
                       'Готовность выбранного процесса к AI (в %)',
                       'Персональный вывод: пилот, стенд или подготовка',
-                      'Что делать конкретно — с чего начать',
                     ].map((t) => (
                       <li key={t} className="flex items-start gap-2">
                         <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#E60000]/10">
@@ -461,9 +289,9 @@ export function AIDiagnosticPage() {
                   </ul>
                   <button
                     onClick={() => {
-                      fireEvent('diagnostic_start');
+                      fire('diagnostic_start');
                       setStep(1);
-                      scrollTop();
+                      document.getElementById('diag-card')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E60000] px-6 py-3.5 text-base font-semibold text-white shadow-[0_10px_30px_-10px_rgba(230,0,0,0.6)] transition hover:bg-[#cc0000] sm:w-auto"
                   >
@@ -471,167 +299,130 @@ export function AIDiagnosticPage() {
                     <ArrowRight className="h-4 w-4" />
                   </button>
                   <p className="mt-4 text-xs text-[#999]">
-                    Данные не передаём третьим лицам. Результат вы получите на экране сразу.
+                    Данные не передаём третьим лицам. Результат — на экране сразу.
                   </p>
                 </motion.div>
               )}
 
-              {/* ============================ STEP 1: contacts ============================ */}
+              {/* ============ FORM (single screen) ============ */}
               {step === 1 && (
                 <motion.div
-                  key="s1"
-                  initial={{ opacity: 0, x: 20 }}
+                  key="form"
+                  id="diag-form"
+                  initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  exit={{ opacity: 0, x: -16 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h2 className="text-xl font-semibold text-[#101010] sm:text-2xl">О вас и компании</h2>
-                  <p className="mt-1 text-sm text-[#666]">
-                    Отправим итоговый отчёт и свяжемся, если попросите разбор.
-                  </p>
-
-                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                    <Field id="name" label="Имя" required error={errors.name}>
-                      <input id="name" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} placeholder="Иван" />
-                    </Field>
-                    <Field id="company" label="Компания" required error={errors.company}>
-                      <input id="company" className={inputCls} value={company} onChange={(e) => setCompany(e.target.value)} placeholder="ООО Ромашка" />
-                    </Field>
-                    <Field id="position" label="Роль">
-                      <input id="position" className={inputCls} value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Собственник / РОП" />
-                    </Field>
-                    <Field id="phone" label="Телефон" required error={errors.phone}>
-                      <input id="phone" type="tel" className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+7 900 000-00-00" />
-                    </Field>
-                    <Field id="email" label="Email" required error={errors.email}>
-                      <input id="email" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.ru" />
-                    </Field>
-                    <Field id="size" label="Размер компании">
-                      <select id="size" className={inputCls} value={size} onChange={(e) => setSize(e.target.value)}>
-                        <option value="">— не выбрано —</option>
-                        {['1–2', '3–9', '10–20', '20–50', '50+'].map((v) => (
-                          <option key={v} value={v}>
-                            {v} сотрудников
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field id="niche" label="Сфера бизнеса">
-                      <input id="niche" className={inputCls} value={niche} onChange={(e) => setNiche(e.target.value)} placeholder="Например: продажа окон" />
-                    </Field>
-                    <Field id="crm" label="Текущая CRM">
-                      <select id="crm" className={inputCls} value={crm} onChange={(e) => setCrm(e.target.value)}>
-                        <option value="">— не выбрано —</option>
-                        {['amoCRM / Kommo', 'Bitrix24', 'Другая', 'Нет CRM'].map((v) => (
-                          <option key={v} value={v}>
-                            {v}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
+                  {/* Contacts */}
+                  <h2 className="text-xl font-semibold text-[#101010] sm:text-2xl">Ваши данные</h2>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <input
+                        placeholder="Имя *"
+                        className={inputCls}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      {errors.name && <p className="mt-1 text-xs text-[#E60000]">{errors.name}</p>}
+                    </div>
+                    <div>
+                      <input
+                        placeholder="Компания *"
+                        className={inputCls}
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                      />
+                      {errors.company && <p className="mt-1 text-xs text-[#E60000]">{errors.company}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="tel"
+                        placeholder="Телефон *"
+                        className={inputCls}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                      {errors.phone && <p className="mt-1 text-xs text-[#E60000]">{errors.phone}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="email"
+                        placeholder="Email *"
+                        className={inputCls}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      {errors.email && <p className="mt-1 text-xs text-[#E60000]">{errors.email}</p>}
+                    </div>
                   </div>
-                </motion.div>
-              )}
 
-              {/* ============================ STEP 2: maturity ============================ */}
-              {step === 2 && (
-                <motion.div
-                  key="s2"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <h2 className="text-xl font-semibold text-[#101010] sm:text-2xl">Зрелость процессов</h2>
-                  <p className="mt-1 text-sm text-[#666]">
-                    Оцените 5 утверждений — считаем накопительно от простого к сложному.
-                  </p>
-
-                  <div className="mt-6 space-y-3">
+                  {/* Maturity */}
+                  <h3 className="mt-8 text-lg font-semibold text-[#101010]">
+                    Зрелость процессов
+                  </h3>
+                  <p className="mt-0.5 text-sm text-[#666]">3 короткие оценки — «Да / Частично / Нет»</p>
+                  <div className="mt-3 space-y-2.5">
                     {MATURITY_STATEMENTS.map((s, i) => (
-                      <div
-                        key={i}
-                        className="rounded-xl border border-black/10 bg-white p-4"
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#E60000]/10 text-sm font-semibold text-[#E60000]">
+                      <div key={i} className="rounded-xl border border-black/10 bg-white p-3.5">
+                        <p className="mb-2.5 text-sm text-[#101010]">
+                          <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded bg-[#E60000]/10 text-xs font-semibold text-[#E60000]">
                             {i + 1}
-                          </div>
-                          <p className="text-sm text-[#101010] sm:text-base">{s}</p>
-                        </div>
-                        <div className="mt-3 grid grid-cols-3 gap-2">
-                          {(
-                            [
-                              { v: 'yes', l: 'Да' },
-                              { v: 'part', l: 'Частично' },
-                              { v: 'no', l: 'Нет' },
-                            ] as const
-                          ).map((opt) => {
-                            const active = answers[i] === opt.v;
-                            return (
-                              <button
-                                key={opt.v}
-                                type="button"
-                                onClick={() => {
-                                  const next = [...answers];
-                                  next[i] = opt.v as Answer;
-                                  setAnswers(next);
-                                }}
-                                className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
-                                  active
-                                    ? 'border-[#E60000] bg-[#E60000] text-white'
-                                    : 'border-black/10 bg-white text-[#101010] hover:border-[#E60000]/40'
-                                }`}
-                              >
-                                {opt.l}
-                              </button>
-                            );
-                          })}
+                          </span>
+                          {s}
+                        </p>
+                        <div className="grid grid-cols-3 gap-2">
+                          {([{ v: 'yes', l: 'Да' }, { v: 'part', l: 'Частично' }, { v: 'no', l: 'Нет' }] as const).map(
+                            (opt) => {
+                              const active = answers[i] === opt.v;
+                              return (
+                                <button
+                                  key={opt.v}
+                                  type="button"
+                                  onClick={() => {
+                                    const next = [...answers];
+                                    next[i] = opt.v as Answer;
+                                    setAnswers(next);
+                                  }}
+                                  className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                                    active
+                                      ? 'border-[#E60000] bg-[#E60000] text-white'
+                                      : 'border-black/10 bg-white text-[#101010] hover:border-[#E60000]/40'
+                                  }`}
+                                >
+                                  {opt.l}
+                                </button>
+                              );
+                            },
+                          )}
                         </div>
                       </div>
                     ))}
                   </div>
-                  {errors.maturity && (
-                    <p className="mt-3 text-sm text-[#E60000]">{errors.maturity}</p>
-                  )}
-                </motion.div>
-              )}
+                  {errors.maturity && <p className="mt-2 text-xs text-[#E60000]">{errors.maturity}</p>}
 
-              {/* ============================ STEP 3: first agent ============================ */}
-              {step === 3 && (
-                <motion.div
-                  key="s3"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <h2 className="text-xl font-semibold text-[#101010] sm:text-2xl">Первый агент</h2>
-                  <p className="mt-1 text-sm text-[#666]">
-                    Выберите один конкретный процесс и оцените его по 8 критериям (1 — плохо, 5 — отлично).
+                  {/* First agent */}
+                  <h3 className="mt-8 text-lg font-semibold text-[#101010]">Первый агент</h3>
+                  <p className="mt-0.5 text-sm text-[#666]">
+                    Один процесс + 4 быстрые оценки по шкале 1–5
                   </p>
+                  <input
+                    placeholder="Процесс-кандидат (например: квалификация лидов) *"
+                    className={`${inputCls} mt-3`}
+                    value={processName}
+                    onChange={(e) => setProcessName(e.target.value)}
+                  />
+                  {errors.process && <p className="mt-1 text-xs text-[#E60000]">{errors.process}</p>}
 
-                  <div className="mt-6">
-                    <Field id="process" label="Процесс-кандидат" required error={errors.process}>
-                      <input
-                        id="process"
-                        className={inputCls}
-                        value={process}
-                        onChange={(e) => setProcess(e.target.value)}
-                        placeholder="Например: квалификация входящих лидов"
-                      />
-                    </Field>
-                  </div>
-
-                  <div className="mt-6 space-y-3">
+                  <div className="mt-3 space-y-2.5">
                     {CRITERIA.map((c) => (
-                      <div key={c.id} className="rounded-xl border border-black/10 bg-white p-4">
-                        <div className="mb-2 flex items-baseline justify-between gap-4">
+                      <div key={c.id} className="rounded-xl border border-black/10 bg-white p-3.5">
+                        <div className="mb-2 flex items-baseline justify-between gap-3">
                           <div>
-                            <div className="font-medium text-[#101010]">{c.label}</div>
+                            <div className="text-sm font-medium text-[#101010]">{c.label}</div>
                             <div className="text-xs text-[#999]">{c.hint}</div>
                           </div>
-                          <div className="font-mono text-lg font-semibold text-[#E60000]">
+                          <div className="font-mono text-base font-semibold text-[#E60000]">
                             {scores[c.id]}
                           </div>
                         </div>
@@ -643,7 +434,7 @@ export function AIDiagnosticPage() {
                                 key={n}
                                 type="button"
                                 onClick={() => setScores({ ...scores, [c.id]: n })}
-                                className={`rounded-lg border py-2 text-sm font-medium transition ${
+                                className={`rounded-lg border py-1.5 text-sm font-medium transition ${
                                   active
                                     ? 'border-[#E60000] bg-[#E60000] text-white'
                                     : 'border-black/10 bg-white text-[#666] hover:border-[#E60000]/40'
@@ -658,7 +449,7 @@ export function AIDiagnosticPage() {
                     ))}
                   </div>
 
-                  <label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+                  <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/50 p-3.5">
                     <input
                       type="checkbox"
                       checked={redZone}
@@ -666,21 +457,38 @@ export function AIDiagnosticPage() {
                       className="mt-0.5 h-5 w-5 flex-shrink-0 rounded border-amber-300 text-[#E60000] focus:ring-[#E60000]"
                     />
                     <div>
-                      <div className="flex items-center gap-1.5 font-medium text-[#101010]">
+                      <div className="flex items-center gap-1.5 text-sm font-medium text-[#101010]">
                         <AlertTriangle className="h-4 w-4 text-amber-600" />
                         В задаче есть необратимые действия
                       </div>
                       <div className="mt-0.5 text-xs text-[#666]">
-                        Например: отправка платежа, публикация в проде, отправка письма клиенту. Если да —
-                        нужен контур контроля перед автономией.
+                        Отправка платежа, публикация, письмо клиенту — нужен контур контроля.
                       </div>
                     </div>
                   </label>
+
+                  <button
+                    onClick={submit}
+                    disabled={submitting}
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E60000] px-6 py-3.5 text-base font-semibold text-white shadow-[0_10px_30px_-10px_rgba(230,0,0,0.6)] transition hover:bg-[#cc0000] disabled:opacity-70"
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Отправляем...
+                      </>
+                    ) : (
+                      <>
+                        Получить результат
+                        <Sparkles className="h-4 w-4" />
+                      </>
+                    )}
+                  </button>
                 </motion.div>
               )}
 
-              {/* ============================ STEP 4: result ============================ */}
-              {step === 4 && (
+              {/* ============ RESULT ============ */}
+              {step === 2 && (
                 <motion.div
                   key="result"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -689,7 +497,7 @@ export function AIDiagnosticPage() {
                   className="text-center"
                 >
                   <div className="flex justify-center">
-                    <Ring percent={totalPercent} tone={band.tone} />
+                    <Ring percent={percent} tone={band.tone} />
                   </div>
 
                   <div
@@ -711,7 +519,7 @@ export function AIDiagnosticPage() {
                   </div>
 
                   <h2 className="mt-6 text-2xl font-semibold tracking-tight text-[#101010] sm:text-3xl">
-                    Уровень зрелости: {maturityLevel}/5
+                    Уровень зрелости: {level}/3
                   </h2>
                   <p className="mt-1 text-lg font-medium text-[#E60000]">{levelInfo.title}</p>
                   <p className="mx-auto mt-2 max-w-md text-sm text-[#666]">{levelInfo.description}</p>
@@ -721,7 +529,7 @@ export function AIDiagnosticPage() {
                       Что это значит для вас
                     </div>
                     <p className="text-[15px] leading-relaxed text-[#101010]">
-                      {personalVerdict(maturityLevel, totalPercent, redZone)}
+                      {verdict(level, percent, redZone)}
                     </p>
                   </div>
 
@@ -729,19 +537,18 @@ export function AIDiagnosticPage() {
                     href={CONFIG.BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => fireEvent('diagnostic_cta_click')}
+                    onClick={() => fire('diagnostic_cta_click')}
                     className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#E60000] px-6 py-3.5 text-base font-semibold text-white shadow-[0_10px_30px_-10px_rgba(230,0,0,0.6)] transition hover:bg-[#cc0000]"
                   >
                     Записаться на разбор
                     <ArrowRight className="h-4 w-4" />
                   </a>
 
-                  {/* Submit status */}
                   <div className="mt-6 text-sm">
                     {submitResult === 'ok' && (
                       <div className="inline-flex items-center gap-2 text-green-700">
                         <CheckCircle2 className="h-4 w-4" />
-                        Мы получили вашу заявку — свяжемся в течение рабочего дня.
+                        Заявку получили — свяжемся в течение рабочего дня.
                       </div>
                     )}
                     {submitResult === 'err' && (
@@ -754,48 +561,9 @@ export function AIDiagnosticPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Nav buttons — только на шагах 1–3 */}
-            {step >= 1 && step <= 3 && (
-              <div className="mt-8 flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onClick={back}
-                  disabled={submitting}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-[#666] transition hover:border-[#E60000]/30 hover:text-[#101010] disabled:opacity-50"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Назад
-                </button>
-                <button
-                  type="button"
-                  onClick={next}
-                  disabled={submitting}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#E60000] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#cc0000] disabled:opacity-70"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Отправляем...
-                    </>
-                  ) : step === 3 ? (
-                    <>
-                      Получить результат
-                      <Sparkles className="h-4 w-4" />
-                    </>
-                  ) : (
-                    <>
-                      Далее
-                      <ArrowRight className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Footer trust */}
         <div className="mt-6 text-center text-xs text-[#999]">
           ko:agency · Интегратор amoCRM/Kommo · 9 лет на рынке · 200+ внедрений
         </div>
