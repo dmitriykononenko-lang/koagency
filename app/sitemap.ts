@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${SITE_URL}/legal/consent`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/legal/cookies`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/legal/company`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
   ];
 
   const servicePages: MetadataRoute.Sitemap = Object.keys(servicesData).map((slug) => ({

@@ -4,6 +4,7 @@ import { Container } from '../ui/container';
 import { Button } from '../ui/button';
 import { ArrowRight, Zap, Shield, Users } from 'lucide-react';
 import { Link } from '@/lib/router-shim';
+import { LEGAL_ENTITY } from '@/lib/contacts';
 
 export function AboutPage() {
   return (
@@ -87,6 +88,67 @@ export function AboutPage() {
                 <div className="text-6xl font-mono mb-4 opacity-20">ko:</div>
                 <p className="text-lg">Архитекторы системных продаж</p>
               </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Юридическое лицо / владелец бренда */}
+      <section className="py-16">
+        <Container>
+          <div className="max-w-4xl mx-auto rounded-3xl border border-black/10 bg-[#f8f8f8] p-8 sm:p-10">
+            <div className="mb-6 font-mono text-xs uppercase tracking-wider text-[#999999]">
+              Владелец бренда · юридическое лицо
+            </div>
+            <h2 className="mb-4 text-2xl font-bold text-[#101010] sm:text-3xl">
+              ko:agency — ИП Кононенко Елена Витальевна
+            </h2>
+            <p className="mb-6 text-[#555555] leading-relaxed">
+              «ko:agency» — обозначение деятельности индивидуального предпринимателя, зарегистрированного
+              в Российской Федерации.
+            </p>
+            <dl className="grid gap-3 text-sm sm:grid-cols-2 text-[#333333]">
+              <div>
+                <dt className="text-[#888888]">Полное наименование</dt>
+                <dd className="font-medium">{LEGAL_ENTITY.legalName}</dd>
+              </div>
+              <div>
+                <dt className="text-[#888888]">ИНН</dt>
+                <dd className="font-mono">{LEGAL_ENTITY.inn}</dd>
+              </div>
+              <div>
+                <dt className="text-[#888888]">ОГРНИП</dt>
+                <dd className="font-mono">{LEGAL_ENTITY.ogrnip}</dd>
+              </div>
+              <div>
+                <dt className="text-[#888888]">Дата регистрации</dt>
+                <dd className="font-mono">{LEGAL_ENTITY.registrationDate}</dd>
+              </div>
+              <div className="sm:col-span-2">
+                <dt className="text-[#888888]">Адрес для обращений</dt>
+                <dd>{LEGAL_ENTITY.address}</dd>
+              </div>
+              <div>
+                <dt className="text-[#888888]">Телефон</dt>
+                <dd className="font-mono">{LEGAL_ENTITY.phone}</dd>
+              </div>
+              <div>
+                <dt className="text-[#888888]">Email</dt>
+                <dd>
+                  <a href="mailto:hello@koagency.me" className="text-[#E60000] hover:underline">
+                    hello@koagency.me
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            <div className="mt-6">
+              <Link
+                to="/legal/company"
+                className="inline-flex items-center gap-2 text-sm text-[#E60000] hover:underline underline-offset-4"
+              >
+                Полные реквизиты и юридическая информация
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </Container>

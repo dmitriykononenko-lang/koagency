@@ -3,7 +3,7 @@
 import { Mail, Phone, MessageSquare } from 'lucide-react';
 import { Link, useLocation, useNavigate } from '@/lib/router-shim';
 import { useLanguage } from '../lib/i18n/LanguageContext';
-import { CONTACT_EMAILS } from '@/lib/contacts';
+import { CONTACT_EMAILS, LEGAL_ENTITY } from '@/lib/contacts';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -191,12 +191,21 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Юр. блок для WABA / Meta verification */}
+        <div className="border-t border-white/10 pt-6 pb-4 text-[11px] text-white/50 leading-relaxed">
+          <p className="mb-1">
+            ko:agency · {LEGAL_ENTITY.legalNameShort} · ИНН {LEGAL_ENTITY.inn} · ОГРНИП{' '}
+            {LEGAL_ENTITY.ogrnip}
+          </p>
+          <p>{LEGAL_ENTITY.address}</p>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/70">
             © {currentYear} ko:agency. {t('footer.rights')}
           </p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 text-sm text-center sm:text-left">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm justify-center sm:justify-end">
             <Link to="/privacy" className="hover:text-[#E60000] transition-colors">
               {t('footer.privacy')}
             </Link>
@@ -205,6 +214,9 @@ export function Footer() {
             </Link>
             <Link to="/legal/cookies" className="hover:text-[#E60000] transition-colors">
               Cookie
+            </Link>
+            <Link to="/legal/company" className="hover:text-[#E60000] transition-colors">
+              Юр. информация
             </Link>
           </div>
         </div>
