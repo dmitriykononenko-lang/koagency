@@ -200,9 +200,12 @@ export function Footer() {
             <Link to="/privacy" className="hover:text-[#E60000] transition-colors">
               {t('footer.privacy')}
             </Link>
-            <button className="hover:text-[#E60000] transition-colors">
-              {t('footer.terms')}
-            </button>
+            <Link to="/legal/consent" className="hover:text-[#E60000] transition-colors">
+              Согласие на заявку
+            </Link>
+            <Link to="/legal/cookies" className="hover:text-[#E60000] transition-colors">
+              Cookie
+            </Link>
           </div>
         </div>
       </div>

@@ -64,6 +64,11 @@ export interface LegalEntity {
   legalName: string;
   legalNameShort: string;
   inn: string;
+  ogrnip: string;
+  registrationDate: string; // ДД.ММ.ГГГГ
+  address: string; // юридический адрес
+  phone: string; // основной телефон
+  phoneAlt?: string;
   bank: {
     name: string;
     account: string;
@@ -78,6 +83,11 @@ export const LEGAL_ENTITY: LegalEntity = {
   legalName: 'Индивидуальный предприниматель Кононенко Елена Витальевна',
   legalNameShort: 'ИП Кононенко Елена Витальевна',
   inn: '463300749910',
+  ogrnip: '323460000034221',
+  registrationDate: '23.08.2023',
+  address: 'Россия, Курская область, г. Железногорск, ул. Краснознамённая, д. 20',
+  phone: '+7 991 222-38-80',
+  phoneAlt: '+44 7835 212468',
   bank: {
     name: 'ООО «Банк Точка»',
     account: '40802810820000508995',

@@ -5,10 +5,14 @@ import { LEGAL_ENTITY, SUPPORT_EMAIL } from '@/lib/contacts';
  * Одна точка правды — данные тянутся из `lib/contacts.ts`.
  */
 export function LegalRequisites({ compact = false }: { compact?: boolean }) {
-  const { legalName, inn, bank } = LEGAL_ENTITY;
+  const { legalName, inn, ogrnip, registrationDate, address, phone, bank } = LEGAL_ENTITY;
   const rows: Array<[string, string]> = [
     ['Наименование', legalName],
     ['ИНН', inn],
+    ['ОГРНИП', ogrnip],
+    ['Дата регистрации', registrationDate],
+    ['Адрес', address],
+    ['Телефон', phone],
     ['Банк', bank.name],
     ['БИК', bank.bik],
     ['Расчётный счёт', bank.account],

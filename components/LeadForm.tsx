@@ -322,10 +322,15 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
               </DialogFooter>
 
               <p className="text-xs text-slate-400 text-center">
-                Нажимая "Отправить заявку", вы соглашаетесь с{' '}
+                Нажимая «Отправить заявку», вы соглашаетесь с{' '}
                 <a href="/privacy" className="text-[#E60000] hover:underline">
-                  политикой конфиденциальности
+                  политикой обработки данных
+                </a>{' '}
+                и даёте{' '}
+                <a href="/legal/consent" className="text-[#E60000] hover:underline">
+                  согласие на обработку заявки
                 </a>
+                .
               </p>
             </motion.form>
           )}

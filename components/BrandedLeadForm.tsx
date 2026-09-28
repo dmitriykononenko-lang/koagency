@@ -176,8 +176,12 @@ export function BrandedLeadForm({ className = '' }: { className?: string }) {
 
             <p className="text-[11px] text-muted-foreground text-center pt-2">
               Нажимая кнопку, вы соглашаетесь с{' '}
-              <a href="/legal/privacy" className="text-[#E60000] hover:underline">
-                политикой конфиденциальности
+              <a href="/privacy" className="text-[#E60000] hover:underline">
+                политикой обработки данных
+              </a>{' '}
+              и даёте{' '}
+              <a href="/legal/consent" className="text-[#E60000] hover:underline">
+                согласие на обработку заявки
               </a>
               .
             </p>
