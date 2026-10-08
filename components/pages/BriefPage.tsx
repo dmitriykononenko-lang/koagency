@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check, Loader2, Download, MessageCircle, Send } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Loader2, Download, MessageCircle, Send } from 'lucide-react';
 import { BRIEF_STEPS, CONTACT_STEP, STARTUP_CHECKLIST, type BriefField, type BriefStep } from '@/data/brief';
 
 const STORAGE_KEY = 'koagency.brief.v1';
@@ -21,6 +21,18 @@ interface State {
 const EMPTY: State = { answers: {}, others: {}, checklist: {} };
 
 const ALL_STEPS: BriefStep[] = [...BRIEF_STEPS, CONTACT_STEP];
+const TOTAL_FIELDS = ALL_STEPS.reduce((sum, s) => sum + s.fields.length, 0);
+const SECONDS_PER_FIELD = 20;
+
+function isAnswered(v: AnswerValue | undefined): boolean {
+  if (v === undefined || v === null) return false;
+  if (Array.isArray(v)) return v.length > 0;
+  return String(v).trim().length > 0;
+}
+
+function filledIn(step: BriefStep, answers: Answers): number {
+  return step.fields.reduce((acc, f) => acc + (isAnswered(answers[f.id]) ? 1 : 0), 0);
+}
 
 function loadState(): State {
   if (typeof window === 'undefined') return EMPTY;
@@ -41,6 +53,8 @@ export function BriefPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [leadId, setLeadId] = useState<number | null>(null);
+  const [stepsMenuOpen, setStepsMenuOpen] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setState(loadState());
@@ -57,8 +71,33 @@ export function BriefPage() {
   }, [state, hydrated]);
 
   const step = ALL_STEPS[stepIdx];
-  const progress = useMemo(() => Math.round(((stepIdx + 1) / ALL_STEPS.length) * 100), [stepIdx]);
   const isContactStep = stepIdx === ALL_STEPS.length - 1;
+
+  const stepsFilled = useMemo(
+    () => ALL_STEPS.map((s) => filledIn(s, state.answers)),
+    [state.answers],
+  );
+  const totalFilled = useMemo(() => stepsFilled.reduce((a, b) => a + b, 0), [stepsFilled]);
+  const progress = useMemo(
+    () => Math.min(100, Math.round((totalFilled / TOTAL_FIELDS) * 100)),
+    [totalFilled],
+  );
+  const minutesLeft = useMemo(() => {
+    const left = Math.max(0, TOTAL_FIELDS - totalFilled);
+    return Math.ceil((left * SECONDS_PER_FIELD) / 60);
+  }, [totalFilled]);
+
+  // Автофокус на первый текстовый элемент при переходе на шаг
+  useEffect(() => {
+    if (!hydrated) return;
+    const t = window.setTimeout(() => {
+      const el = cardRef.current?.querySelector<HTMLElement>(
+        'input:not([type="checkbox"]):not([type="radio"]), textarea',
+      );
+      el?.focus({ preventScroll: true });
+    }, 220);
+    return () => window.clearTimeout(t);
+  }, [stepIdx, hydrated]);
 
   function setAnswer(id: string, value: AnswerValue) {
     setState((s) => ({ ...s, answers: { ...s.answers, [id]: value } }));
@@ -213,18 +252,25 @@ export function BriefPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7]">
-      {/* Minimal top bar: только лого, без навигации — страница тупиковая */}
-      <div className="sticky top-0 z-20 border-b border-black/5 bg-white/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#f6f7fa] to-[#eef0f3]">
+      {/* Top bar: лого + таймер + прогресс */}
+      <div className="sticky top-0 z-30 border-b border-black/5 bg-white/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#E60000]">
               <span className="font-mono text-sm font-bold text-white">ko</span>
             </div>
             <span className="font-mono text-sm text-[#101010]">ko:agency&nbsp;·&nbsp;brief</span>
           </div>
-          <div className="font-mono text-xs text-[#999]">
-            Шаг {stepIdx + 1}&thinsp;/&thinsp;{ALL_STEPS.length}
+          <div className="flex items-center gap-4 font-mono text-xs text-[#666]">
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-[#999]" />
+              {minutesLeft === 0 ? 'готово!' : `≈${minutesLeft} мин`}
+            </span>
+            <span className="hidden sm:inline text-[#ccc]">·</span>
+            <span className="hidden sm:inline">
+              Шаг {stepIdx + 1}&thinsp;/&thinsp;{ALL_STEPS.length}
+            </span>
           </div>
         </div>
         <div className="h-1 w-full bg-black/5">
@@ -235,37 +281,61 @@ export function BriefPage() {
             transition={{ duration: 0.4, ease: 'easeOut' }}
           />
         </div>
+
+        {/* Mobile: dropdown-список шагов для быстрой навигации */}
+        <div className="border-t border-black/5 bg-white lg:hidden">
+          <button
+            onClick={() => setStepsMenuOpen((o) => !o)}
+            className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-[#101010] sm:px-6"
+          >
+            <span className="flex items-center gap-2">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#E60000] text-[10px] font-semibold text-white">
+                {step.num}
+              </span>
+              {step.title}
+            </span>
+            <ChevronDown className={`h-4 w-4 text-[#999] transition-transform ${stepsMenuOpen ? 'rotate-180' : ''}`} />
+          </button>
+          <AnimatePresence>
+            {stepsMenuOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden border-t border-black/5 bg-[#fafafa]"
+              >
+                <div className="px-2 py-2 sm:px-4">
+                  <StepList
+                    steps={ALL_STEPS}
+                    stepIdx={stepIdx}
+                    stepsFilled={stepsFilled}
+                    onPick={(i) => {
+                      setStepIdx(i);
+                      setStepsMenuOpen(false);
+                    }}
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 lg:py-14 lg:px-8">
         {/* Sidebar: список шагов (desktop only) */}
         <aside className="hidden lg:block">
           <div className="sticky top-28 space-y-1">
-            <div className="mb-4 font-mono text-[11px] uppercase tracking-wider text-[#999]">
-              Разделы брифа
+            <div className="mb-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-[#999]">
+              <span>Разделы брифа</span>
+              <span>{totalFilled}/{TOTAL_FIELDS}</span>
             </div>
-            {ALL_STEPS.map((s, i) => {
-              const active = i === stepIdx;
-              const done = i < stepIdx;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setStepIdx(i)}
-                  className={`group flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition ${
-                    active ? 'bg-[#E60000]/10 text-[#101010]' : done ? 'text-[#333] hover:bg-black/5' : 'text-[#999] hover:bg-black/5'
-                  }`}
-                >
-                  <span
-                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold transition ${
-                      active ? 'bg-[#E60000] text-white' : done ? 'bg-[#E60000]/15 text-[#E60000]' : 'bg-black/10 text-[#666]'
-                    }`}
-                  >
-                    {done ? <Check className="h-3 w-3" /> : s.num}
-                  </span>
-                  <span className="leading-tight">{s.title}</span>
-                </button>
-              );
-            })}
+            <StepList
+              steps={ALL_STEPS}
+              stepIdx={stepIdx}
+              stepsFilled={stepsFilled}
+              onPick={(i) => setStepIdx(i)}
+            />
           </div>
         </aside>
 
@@ -274,6 +344,7 @@ export function BriefPage() {
           <AnimatePresence mode="wait">
             <motion.div
               key={step.id}
+              ref={cardRef}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -403,6 +474,64 @@ export function BriefPage() {
           </div>
         </main>
       </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Step list (sidebar / mobile dropdown)
+// ---------------------------------------------------------------------------
+
+function StepList({
+  steps,
+  stepIdx,
+  stepsFilled,
+  onPick,
+}: {
+  steps: BriefStep[];
+  stepIdx: number;
+  stepsFilled: number[];
+  onPick: (i: number) => void;
+}) {
+  return (
+    <div className="space-y-1">
+      {steps.map((s, i) => {
+        const active = i === stepIdx;
+        const filled = stepsFilled[i];
+        const total = s.fields.length;
+        const complete = filled === total && total > 0;
+        return (
+          <button
+            key={s.id}
+            onClick={() => onPick(i)}
+            className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition ${
+              active ? 'bg-[#E60000]/10 text-[#101010]' : 'text-[#555] hover:bg-black/5'
+            }`}
+          >
+            <span
+              className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold transition ${
+                active
+                  ? 'bg-[#E60000] text-white'
+                  : complete
+                    ? 'bg-[#E60000]/15 text-[#E60000]'
+                    : filled > 0
+                      ? 'bg-black/15 text-[#333]'
+                      : 'bg-black/8 text-[#999]'
+              }`}
+            >
+              {complete ? <Check className="h-3 w-3" /> : s.num}
+            </span>
+            <span className="flex-1 leading-tight">{s.title}</span>
+            <span
+              className={`font-mono text-[10px] tabular-nums ${
+                active ? 'text-[#E60000]' : complete ? 'text-[#E60000]/70' : 'text-[#aaa]'
+              }`}
+            >
+              {filled}/{total}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
