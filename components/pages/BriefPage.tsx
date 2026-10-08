@@ -105,6 +105,14 @@ export function BriefPage() {
     lines.push('Дата: ' + new Date().toLocaleString('ru-RU'));
     lines.push('');
 
+    // KEY ACCOUNT INFO (сверху — чтобы менеджер видел сразу)
+    const kommoEmail = String(state.answers.kommoEmail || '').trim();
+    if (kommoEmail) {
+      lines.push('>>> EMAIL ДЛЯ СОЗДАНИЯ АККАУНТА KOMMO:');
+      lines.push('    ' + kommoEmail);
+      lines.push('');
+    }
+
     for (const s of BRIEF_STEPS) {
       lines.push(`${s.num}. ${s.title.toUpperCase()}`);
       for (const f of s.fields) {
@@ -133,8 +141,10 @@ export function BriefPage() {
     lines.push('КОНТАКТЫ:');
     if (c.name) lines.push('  Имя: ' + c.name);
     if (c.company) lines.push('  Компания: ' + c.company);
+    if (c.country) lines.push('  Страна / TZ: ' + c.country);
     if (c.phone) lines.push('  Телефон: ' + c.phone);
-    if (c.email) lines.push('  Email: ' + c.email);
+    if (c.email) lines.push('  Email для связи: ' + c.email);
+    if (c.kommoEmail) lines.push('  Email для Kommo: ' + c.kommoEmail);
     if (c.preferredChannel) lines.push('  Предпочитаемый канал: ' + c.preferredChannel);
     if (c.bestTime) lines.push('  Удобное время: ' + c.bestTime);
     return lines.join('\n');
