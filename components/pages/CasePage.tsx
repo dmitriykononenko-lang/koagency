@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight, Check, Quote, TrendingUp } from 'lucide-react'
 import { Card } from '../ui/card';
 import type { CaseStudy } from '@/data/cases';
 import { casesList } from '@/data/cases';
+import { BrandedLeadForm } from '../BrandedLeadForm';
 
 interface Props {
   caseStudy: CaseStudy;
@@ -257,22 +258,18 @@ export function CasePage({ caseStudy: c }: Props) {
 
       {/* CTA */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f5f5f5]">
-        <div className="mx-auto max-w-3xl text-center">
-          <TrendingUp className="mx-auto mb-4 h-10 w-10 text-[#E60000]" />
-          <h2 className="mb-4 text-2xl font-bold text-[#101010] sm:text-3xl">
-            Обсудим ваш проект?
-          </h2>
-          <p className="mb-8 text-[#666666]">
-            Первый аудит и техническое задание — бесплатно. Расскажем, как это будет
-            работать именно в вашем бизнесе.
-          </p>
-          <Link
-            to="/#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#E60000] px-8 py-4 text-base font-semibold text-white shadow-[0_0_20px_rgba(230,0,0,0.3)] transition-shadow hover:bg-[#cc0000] hover:shadow-[0_0_30px_rgba(230,0,0,0.5)]"
-          >
-            Заказать звонок
-            <ArrowUpRight className="h-5 w-5" />
-          </Link>
+        <div className="mx-auto max-w-xl">
+          <div className="mb-8 text-center">
+            <TrendingUp className="mx-auto mb-4 h-10 w-10 text-[#E60000]" />
+            <h2 className="mb-4 text-2xl font-bold text-[#101010] sm:text-3xl">
+              Обсудим ваш проект?
+            </h2>
+            <p className="text-[#666666]">
+              Первый аудит и техническое задание — бесплатно. Расскажем, как это
+              будет работать именно в вашем бизнесе.
+            </p>
+          </div>
+          <BrandedLeadForm />
         </div>
       </section>
 

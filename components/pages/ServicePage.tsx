@@ -4,6 +4,7 @@ import { Breadcrumbs } from '../SEO/Breadcrumbs';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Check, ArrowRight, Star } from 'lucide-react';
+import { BrandedLeadForm } from '../BrandedLeadForm';
 
 interface ServicePageProps {
   service: {
@@ -255,22 +256,15 @@ export function ServicePage({ service }: ServicePageProps) {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="mb-6 text-[#101010]">
-              Готовы начать?
-            </h2>
-            <p className="text-lg text-[#666666] mb-8">
-              Оставьте заявку и получите бесплатную консультацию и расчёт стоимости
-            </p>
-            <Button 
-              size="lg"
-              onClick={scrollToContact}
-              className="bg-[#E60000] hover:bg-[#cc0000] text-white"
-            >
-              Заказать звонок
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f5f5f5]">
+          <div className="max-w-xl mx-auto">
+            <div className="mb-8 text-center">
+              <h2 className="mb-4 text-[#101010]">Готовы начать?</h2>
+              <p className="text-lg text-[#666666]">
+                Оставьте заявку — вернёмся с бесплатной консультацией и расчётом стоимости.
+              </p>
+            </div>
+            <BrandedLeadForm />
           </div>
         </section>
       </div>

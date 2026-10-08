@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { Card } from '../ui/card';
 import { casesList } from '@/data/cases';
+import { BrandedLeadForm } from '../BrandedLeadForm';
 
 export function CasesIndexPage() {
   return (
@@ -121,21 +122,17 @@ export function CasesIndexPage() {
 
       {/* CTA */}
       <section className="pb-24 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-4 text-2xl font-bold text-[#101010] sm:text-3xl">
-            Хотите такие же результаты?
-          </h2>
-          <p className="mb-8 text-[#666666]">
-            Первый аудит и техническое задание — бесплатно. Ответим на все вопросы и
-            покажем, как это будет работать в вашем бизнесе.
-          </p>
-          <Link
-            to="/#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#E60000] px-8 py-4 text-base font-semibold text-white shadow-[0_0_20px_rgba(230,0,0,0.3)] transition-shadow hover:bg-[#cc0000] hover:shadow-[0_0_30px_rgba(230,0,0,0.5)]"
-          >
-            Заказать звонок
-            <ArrowUpRight className="h-5 w-5" />
-          </Link>
+        <div className="mx-auto max-w-xl">
+          <div className="mb-8 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-[#101010] sm:text-3xl">
+              Хотите такие же результаты?
+            </h2>
+            <p className="text-[#666666]">
+              Первый аудит и техническое задание — бесплатно. Ответим на все вопросы и
+              покажем, как это будет работать в вашем бизнесе.
+            </p>
+          </div>
+          <BrandedLeadForm />
         </div>
       </section>
     </div>

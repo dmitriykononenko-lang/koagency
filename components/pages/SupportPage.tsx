@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from '@/lib/router-shim';
 import { MagneticButton } from '../ui/magnetic-button';
-import { Entropy } from '../ui/entropy';
 import { ArrowRight, Check, Minus } from 'lucide-react';
 import { cn } from '../ui/utils';
+import { BrandedLeadForm } from '../BrandedLeadForm';
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -546,22 +546,15 @@ export function SupportPage() {
                 Начнём со стартового аудита — посмотрим состояние вашей amoCRM и покажем,
                 где теряются заявки и деньги.
               </p>
-              <Link to="/calculator-amocrm">
-                <MagneticButton className="bg-[#E60000] text-white px-8 py-4 rounded-xl font-medium hover:bg-[#cc0000] transition-colors inline-flex items-center gap-2">
-                  Запросить аудит <ArrowRight className="w-5 h-5" />
-                </MagneticButton>
-              </Link>
-              <p className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500 mt-6">
-                Telegram · Email · Сайт — по запросу
+              <p className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500 mb-4">
+                Telegram · Email · WhatsApp — вернёмся в течение часа в рабочее время.
               </p>
             </div>
 
-            <div className="flex justify-center lg:justify-end">
-              <Entropy
-                size={440}
-                labels={['Порядок', 'Хаос']}
-                className="rounded-2xl"
-              />
+            <div className="flex justify-center lg:justify-end w-full">
+              <div className="w-full max-w-md">
+                <BrandedLeadForm />
+              </div>
             </div>
           </div>
         </motion.div>
