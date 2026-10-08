@@ -285,8 +285,11 @@ export function BriefPage() {
         {/* Mobile: dropdown-список шагов для быстрой навигации */}
         <div className="border-t border-black/5 bg-white lg:hidden">
           <button
+            type="button"
             onClick={() => setStepsMenuOpen((o) => !o)}
-            className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-[#101010] sm:px-6"
+            aria-expanded={stepsMenuOpen}
+            aria-controls="brief-mobile-stepper"
+            className="flex min-h-[48px] w-full cursor-pointer items-center justify-between px-4 py-3 text-left text-sm font-medium text-[#101010] transition-colors hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-[-2px] motion-reduce:transition-none sm:px-6"
           >
             <span className="flex items-center gap-2">
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#E60000] text-[10px] font-semibold text-white">
@@ -304,6 +307,7 @@ export function BriefPage() {
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden border-t border-black/5 bg-[#fafafa]"
+                id="brief-mobile-stepper"
               >
                 <div className="px-2 py-2 sm:px-4">
                   <StepList
@@ -389,8 +393,8 @@ export function BriefPage() {
                         return (
                           <li key={item}>
                             <label
-                              className={`flex cursor-pointer items-start gap-3 rounded-lg px-3 py-2.5 transition ${
-                                checked ? 'bg-white' : 'hover:bg-white/60'
+                              className={`flex min-h-[44px] cursor-pointer items-start gap-3 rounded-lg px-3 py-2.5 transition-all duration-150 focus-within:ring-2 focus-within:ring-[#E60000] focus-within:ring-offset-2 active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+                                checked ? 'bg-white shadow-[0_0_0_1px_rgba(230,0,0,0.2)]' : 'hover:bg-white/60'
                               }`}
                             >
                               <input
@@ -409,8 +413,18 @@ export function BriefPage() {
                 )}
 
                 {errorMsg && (
-                  <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                    {errorMsg}
+                  <div
+                    role="alert"
+                    aria-live="assertive"
+                    className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100 text-xs font-bold text-red-700"
+                    >
+                      !
+                    </span>
+                    <span>{errorMsg}</span>
                   </div>
                 )}
               </div>
@@ -420,36 +434,36 @@ export function BriefPage() {
                   type="button"
                   onClick={back}
                   disabled={stepIdx === 0}
-                  className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white px-5 py-2.5 text-sm font-medium text-[#333] transition-colors hover:bg-[#f0f0f0] disabled:opacity-30"
+                  className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full border border-black/15 bg-white px-5 py-2.5 text-sm font-medium text-[#333] transition-all duration-150 hover:bg-[#f0f0f0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30 motion-reduce:transition-none motion-reduce:active:scale-100"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                   Назад
                 </button>
                 {!isContactStep ? (
                   <button
                     type="button"
                     onClick={next}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#E60000] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(230,0,0,0.6)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-8px_rgba(230,0,0,0.75)]"
+                    className="inline-flex min-h-[48px] cursor-pointer items-center gap-2 rounded-full bg-[#E60000] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(230,0,0,0.6)] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-8px_rgba(230,0,0,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
                   >
                     Дальше
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={submit}
                     disabled={status === 'loading'}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#E60000] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(230,0,0,0.6)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-8px_rgba(230,0,0,0.75)] disabled:opacity-60"
+                    className="inline-flex min-h-[48px] cursor-pointer items-center gap-2 rounded-full bg-[#E60000] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(230,0,0,0.6)] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-8px_rgba(230,0,0,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
                   >
                     {status === 'loading' ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
                         Отправляем…
                       </>
                     ) : (
                       <>
                         Отправить бриф
-                        <Send className="h-4 w-4" />
+                        <Send className="h-4 w-4" aria-hidden="true" />
                       </>
                     )}
                   </button>
@@ -503,8 +517,10 @@ function StepList({
         return (
           <button
             key={s.id}
+            type="button"
             onClick={() => onPick(i)}
-            className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition ${
+            aria-current={active ? 'step' : undefined}
+            className={`group flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100 ${
               active ? 'bg-[#E60000]/10 text-[#101010]' : 'text-[#555] hover:bg-black/5'
             }`}
           >
@@ -567,7 +583,7 @@ function FieldRow({
           value={(value as string) || ''}
           placeholder={field.placeholder}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-          className="w-full rounded-xl border border-black/15 bg-white px-4 py-3 text-sm text-[#101010] outline-none transition focus:border-[#E60000]"
+          className="w-full min-h-[48px] rounded-xl border border-black/15 bg-white px-4 py-3 text-[15px] text-[#101010] placeholder:text-[#999] outline-none transition-all duration-150 focus:border-[#E60000] focus:ring-2 focus:ring-[#E60000]/20 motion-reduce:transition-none"
         />
       )}
       {field.type === 'number' && (
@@ -576,7 +592,7 @@ function FieldRow({
           value={(value as string) || ''}
           placeholder={field.placeholder}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-          className="w-full rounded-xl border border-black/15 bg-white px-4 py-3 text-sm text-[#101010] outline-none transition focus:border-[#E60000]"
+          className="w-full min-h-[48px] rounded-xl border border-black/15 bg-white px-4 py-3 text-[15px] text-[#101010] placeholder:text-[#999] outline-none transition-all duration-150 focus:border-[#E60000] focus:ring-2 focus:ring-[#E60000]/20 motion-reduce:transition-none"
         />
       )}
       {field.type === 'textarea' && (
@@ -585,7 +601,7 @@ function FieldRow({
           value={(value as string) || ''}
           placeholder={field.placeholder}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onChange(e.target.value)}
-          className="w-full rounded-xl border border-black/15 bg-white px-4 py-3 text-sm text-[#101010] outline-none transition focus:border-[#E60000]"
+          className="w-full min-h-[48px] rounded-xl border border-black/15 bg-white px-4 py-3 text-[15px] text-[#101010] placeholder:text-[#999] outline-none transition-all duration-150 focus:border-[#E60000] focus:ring-2 focus:ring-[#E60000]/20 motion-reduce:transition-none"
         />
       )}
       {field.type === 'radio' && field.options && (
@@ -595,8 +611,10 @@ function FieldRow({
             return (
               <label
                 key={opt}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition ${
-                  checked ? 'border-[#E60000] bg-[#fff5f5] text-[#101010]' : 'border-black/15 bg-white text-[#333] hover:border-black/30'
+                className={`group flex min-h-[48px] cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-150 focus-within:ring-2 focus-within:ring-[#E60000] focus-within:ring-offset-2 active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+                  checked
+                    ? 'border-[#E60000] bg-[#fff5f5] text-[#101010] shadow-[0_0_0_1px_rgba(230,0,0,0.3)]'
+                    : 'border-black/15 bg-white text-[#333] hover:border-[#E60000]/40 hover:bg-[#fafafa]'
                 }`}
               >
                 <input
@@ -605,9 +623,9 @@ function FieldRow({
                   value={opt}
                   checked={checked}
                   onChange={() => onChange(opt)}
-                  className="h-4 w-4 accent-[#E60000]"
+                  className="h-4 w-4 shrink-0 cursor-pointer accent-[#E60000] focus:outline-none"
                 />
-                {opt}
+                <span>{opt}</span>
               </label>
             );
           })}
@@ -630,8 +648,10 @@ function FieldRow({
             return (
               <label
                 key={opt}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition ${
-                  checked ? 'border-[#E60000] bg-[#fff5f5] text-[#101010]' : 'border-black/15 bg-white text-[#333] hover:border-black/30'
+                className={`group flex min-h-[48px] cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-150 focus-within:ring-2 focus-within:ring-[#E60000] focus-within:ring-offset-2 active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+                  checked
+                    ? 'border-[#E60000] bg-[#fff5f5] text-[#101010] shadow-[0_0_0_1px_rgba(230,0,0,0.3)]'
+                    : 'border-black/15 bg-white text-[#333] hover:border-[#E60000]/40 hover:bg-[#fafafa]'
                 }`}
               >
                 <input
@@ -641,9 +661,9 @@ function FieldRow({
                     const next = checked ? arr.filter((x) => x !== opt) : [...arr, opt];
                     onChange(next);
                   }}
-                  className="h-4 w-4 accent-[#E60000]"
+                  className="h-4 w-4 shrink-0 cursor-pointer accent-[#E60000] focus:outline-none"
                 />
-                {opt}
+                <span>{opt}</span>
               </label>
             );
           })}
@@ -668,7 +688,7 @@ function FieldRow({
 
 function SuccessScreen({ leadId, onDownload }: { leadId: number | null; onDownload: () => void }) {
   return (
-    <div className="min-h-screen bg-[#f5f5f7]">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#f6f7fa] to-[#eef0f3]">
       <div className="mx-auto flex max-w-2xl flex-col items-center px-4 pt-24 pb-20 text-center sm:pt-32">
         <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-[#E60000]/10 ring-8 ring-[#E60000]/5">
           <Check className="h-10 w-10 text-[#E60000]" />
@@ -682,7 +702,7 @@ function SuccessScreen({ leadId, onDownload }: { leadId: number | null; onDownlo
         <div className="flex w-full max-w-md flex-col gap-3">
           <button
             onClick={onDownload}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-6 py-3.5 text-sm font-medium text-[#333] hover:bg-[#f0f0f0]"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-6 py-3.5 text-sm font-medium text-[#333] cursor-pointer transition-all duration-150 hover:bg-[#f0f0f0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             <Download className="h-4 w-4" />
             Скачать копию брифа (.txt)
@@ -691,7 +711,7 @@ function SuccessScreen({ leadId, onDownload }: { leadId: number | null; onDownlo
             href="https://wa.me/447835212468"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(37,211,102,0.6)] hover:brightness-110"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(37,211,102,0.6)] hover:brightness-110 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             <MessageCircle className="h-4 w-4" />
             Написать в WhatsApp
@@ -700,7 +720,7 @@ function SuccessScreen({ leadId, onDownload }: { leadId: number | null; onDownlo
             href="https://t.me/koagency_bot"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#229ED9] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(34,158,217,0.6)] hover:brightness-110"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#229ED9] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(34,158,217,0.6)] hover:brightness-110 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             <Send className="h-4 w-4" />
             Открыть Telegram
