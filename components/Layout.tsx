@@ -17,6 +17,17 @@ export function Layout({ children }: LayoutProps) {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // Тупиковые страницы без хедера/футера/эффектов — чтобы клиент не ушёл до отправки
+  const isDeadEnd = pathname === '/brief' || pathname.startsWith('/brief/');
+
+  if (isDeadEnd) {
+    return (
+      <div className="min-h-screen bg-background text-foreground font-sans transition-colors duration-300 selection:bg-[#E60000] selection:text-white">
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-sans transition-colors duration-300 selection:bg-[#E60000] selection:text-white">
       

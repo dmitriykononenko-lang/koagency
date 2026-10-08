@@ -1,13 +1,16 @@
 'use client';
 
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 
 /**
  * Плавающий чат-виджет amoCRM (id 438343).
  * Использует next/script с стратегией afterInteractive — не блокирует первый paint.
- * Брендовая стилизация лаунчера — см. components/AmoChat.css (импортируется в globals.css).
+ * Скрыт на тупиковых страницах (напр. /brief), чтобы клиент не отвлекался.
  */
 export function AmoChat() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/brief')) return null;
   return (
     <Script
       id="amo-social-button"
