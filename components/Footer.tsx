@@ -104,6 +104,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/brief" className="text-white/70 hover:text-[#E60000] transition-colors">
+                  Онлайн-бриф на внедрение
+                </Link>
+              </li>
+              <li>
                 <Link to="/enterprise" className="text-white/70 hover:text-[#E60000] transition-colors">
                   Enterprise-внедрение
                 </Link>

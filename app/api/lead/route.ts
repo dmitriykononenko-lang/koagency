@@ -109,6 +109,12 @@ interface LeadPayload {
   note?: string;
   page?: string;
   utm?: { source?: string; medium?: string; campaign?: string };
+  /** Переопределяет название сделки целиком. */
+  leadTitle?: string;
+  /** Теги для сделки — например, ['brief', 'kommo']. */
+  tags?: string[];
+  /** Компания клиента (попадёт в название сделки, если leadTitle не задан). */
+  company?: string;
 }
 
 export const runtime = 'nodejs';
@@ -150,10 +156,20 @@ export async function POST(req: Request) {
   if (phone) customFields.push({ field_code: 'PHONE', values: [{ value: phone, enum_code: 'MOB' }] });
   if (email) customFields.push({ field_code: 'EMAIL', values: [{ value: email, enum_code: 'WORK' }] });
 
+  const company = (body.company || '').trim();
+  const leadTitle =
+    (body.leadTitle || '').trim() ||
+    (company ? `Заявка с сайта: ${name} / ${company}` : `Заявка с сайта: ${name}`);
+
+  const tags = Array.isArray(body.tags)
+    ? body.tags.filter((t) => typeof t === 'string' && t.trim()).map((t) => ({ name: t.trim() }))
+    : [];
+
   const leadBody: Record<string, unknown> = {
-    name: `Заявка с сайта: ${name}`,
+    name: leadTitle,
     _embedded: {
       contacts: [{ first_name: name, custom_fields_values: customFields }],
+      ...(tags.length ? { tags } : {}),
     },
   };
   if (process.env.AMOCRM_PIPELINE_ID) leadBody.pipeline_id = Number(process.env.AMOCRM_PIPELINE_ID);
