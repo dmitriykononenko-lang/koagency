@@ -17,7 +17,6 @@ import { motion } from 'framer-motion';
 import { Link } from '@/lib/router-shim';
 
 import { MagneticButton } from './ui/magnetic-button';
-import { HandWrittenTitle } from './ui/hand-writing-text';
 import DisplayCards from './ui/display-cards';
 
 // Карточки-веер (21st.dev), наполнены реальными этапами ko:agency
@@ -105,20 +104,32 @@ export function Hero() {
               </span>
             </motion.div>
 
-            {/* Headline с обводкой от руки */}
-            <div className="-mx-4 mb-2 sm:-mx-2">
-              <HandWrittenTitle
-                title="Внедрение amoCRM и автоматизация продаж"
-                className="!max-w-none !py-8 md:!py-10"
-                titleClassName="text-[#101010] !text-4xl sm:!text-5xl lg:!text-6xl justify-center lg:justify-start lg:pl-2"
-              />
-            </div>
+            {/* Headline с толстой красной подчеркивающей линией */}
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="mb-4 text-4xl font-bold leading-[1.05] tracking-tight text-[#101010] sm:text-5xl lg:text-6xl"
+            >
+              Внедрение amoCRM и{' '}
+              <span className="relative inline-block">
+                автоматизация&nbsp;продаж
+                <motion.span
+                  aria-hidden="true"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.7, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
+                  style={{ transformOrigin: 'left center' }}
+                  className="absolute left-0 -bottom-1.5 h-[6px] w-full rounded-full bg-[#E60000] sm:h-[7px] lg:h-[9px] motion-reduce:scale-x-100"
+                />
+              </span>
+            </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-3xl font-semibold tracking-tight text-[#E60000] sm:text-4xl lg:text-5xl"
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="mt-4 text-3xl font-semibold tracking-tight text-[#E60000] sm:text-4xl lg:text-5xl"
             >
               amoCRM · Kommo · AI
             </motion.p>
