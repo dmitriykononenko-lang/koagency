@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Loader2, Download, Me
 import { BRIEF_STEPS, CONTACT_STEP, STARTUP_CHECKLIST, type BriefField, type BriefStep } from '@/data/brief';
 
 const STORAGE_KEY = 'koagency.brief.v1';
-const WEBHOOK_URL = '/api/lead';
+const WEBHOOK_URL = '/api/submit';
 
 type AnswerValue = string | string[];
 interface Answers {

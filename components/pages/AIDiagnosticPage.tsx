@@ -9,7 +9,7 @@ import { ArrowRight, Check, AlertTriangle, Sparkles, Loader2, CheckCircle2, XCir
 // -----------------------------------------------------------------------------
 
 const CONFIG = {
-  WEBHOOK_URL: '/api/lead',
+  WEBHOOK_URL: '/api/submit',
   BOOKING_URL: 'https://wa.me/447835212468',
   SOURCE: 'Диагностика готовности к AI',
 };
