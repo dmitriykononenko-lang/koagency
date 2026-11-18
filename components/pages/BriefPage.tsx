@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { WHATSAPP_URL } from '@/lib/contacts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Loader2, Download, MessageCircle, Send } from 'lucide-react';
 import { BRIEF_STEPS, CONTACT_STEP, STARTUP_CHECKLIST, type BriefField, type BriefStep } from '@/data/brief';
@@ -708,7 +709,7 @@ function SuccessScreen({ leadId, onDownload }: { leadId: number | null; onDownlo
             Скачать копию брифа (.txt)
           </button>
           <a
-            href="https://wa.me/447835212468"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(37,211,102,0.6)] hover:brightness-110 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E60000] focus-visible:ring-offset-2 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"

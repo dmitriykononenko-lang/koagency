@@ -17,7 +17,8 @@ export const translations = {
       contact: "Контакты",
       privacy: "Политика конфиденциальности",
       terms: "Условия использования",
-      rights: "Все права защищены."
+      rights: "Все права защищены.",
+      allContacts: "Все контакты"
     },
     contact: {
       title: "Свяжитесь с нами",
@@ -85,7 +86,8 @@ export const translations = {
       contact: "Contacts",
       privacy: "Privacy Policy",
       terms: "Terms of Use",
-      rights: "All rights reserved."
+      rights: "All rights reserved.",
+      allContacts: "All contacts"
     },
     contact: {
       title: "Contact Us",

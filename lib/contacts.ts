@@ -42,6 +42,14 @@ export const SUPPORT_EMAIL = 'service@koagency.me';
 export const HR_EMAIL = 'hr@koagency.me';
 export const PARTNERS_EMAIL = 'partners@koagency.me';
 
+/** Основной номер: WhatsApp, звонки по России. Совпадает с contacts.koagency.me. */
+export const PRIMARY_PHONE = '+7 991 222-38-80';
+export const PRIMARY_PHONE_TEL = 'tel:+79912223880';
+export const WHATSAPP_URL = 'https://wa.me/79912223880';
+
+/** Страница со всеми каналами связи. */
+export const CONTACTS_PAGE_URL = 'https://contacts.koagency.me';
+
 export function emailByPurpose(purpose: 'general' | 'support' | 'partners' | 'hr'): string {
   switch (purpose) {
     case 'support':

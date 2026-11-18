@@ -3,6 +3,7 @@
 import { Link } from '@/lib/router-shim';
 import { motion } from 'framer-motion';
 import { LegalRequisites } from '@/components/LegalRequisites';
+import { PRIMARY_PHONE, PRIMARY_PHONE_TEL } from '@/lib/contacts';
 import {
   ArrowUpRight,
   Check,
@@ -513,14 +514,14 @@ export function WidgetTaskTemplatesPage() {
                 </div>
               </Card>
             </a>
-            <a href="tel:78143" className="group">
+            <a href={PRIMARY_PHONE_TEL} className="group">
               <Card className="h-full p-6 border-black/10 bg-white shadow-sm hover:shadow-md hover:border-[#E60000]/30 transition-all">
                 <Phone className="mb-3 h-6 w-6 text-[#E60000]" />
                 <div className="mb-1 text-xs uppercase font-mono tracking-wider text-[#999999]">
                   Телефон
                 </div>
                 <div className="font-semibold text-[#101010] group-hover:text-[#E60000] transition-colors">
-                  78143
+                  {PRIMARY_PHONE}
                 </div>
               </Card>
             </a>

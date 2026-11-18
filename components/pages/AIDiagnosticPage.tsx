@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { WHATSAPP_URL } from '@/lib/contacts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Check, AlertTriangle, Sparkles, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 
@@ -10,7 +11,7 @@ import { ArrowRight, Check, AlertTriangle, Sparkles, Loader2, CheckCircle2, XCir
 
 const CONFIG = {
   WEBHOOK_URL: '/api/submit',
-  BOOKING_URL: 'https://wa.me/447835212468',
+  BOOKING_URL: WHATSAPP_URL,
   SOURCE: 'Диагностика готовности к AI',
 };
 

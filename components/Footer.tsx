@@ -1,9 +1,9 @@
 'use client';
 
-import { Mail, Phone, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { Link, useLocation, useNavigate } from '@/lib/router-shim';
 import { useLanguage } from '../lib/i18n/LanguageContext';
-import { CONTACT_EMAILS, LEGAL_ENTITY } from '@/lib/contacts';
+import { CONTACTS_PAGE_URL, CONTACT_EMAILS, LEGAL_ENTITY } from '@/lib/contacts';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -190,6 +190,17 @@ export function Footer() {
                 <a href="https://t.me/ko_agency" className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors">
                   <MessageSquare className="w-4 h-4" />
                   Telegram
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACTS_PAGE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/70 hover:text-[#E60000] transition-colors"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                  {t('footer.allContacts')}
                 </a>
               </li>
             </ul>

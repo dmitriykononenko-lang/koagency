@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { WHATSAPP_URL } from '@/lib/contacts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -158,7 +159,7 @@ export function LeadForm({ open, onOpenChange, calculationData }: LeadFormProps)
                 sliderText="Свайпни и забери бонус"
                 unlockedContent={
                   <a
-                    href="https://wa.me/447835212468"
+                    href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-6 flex h-14 w-full items-center justify-between rounded-full bg-[#E60000] p-2 text-white shadow-lg transition-transform hover:scale-[1.03]"

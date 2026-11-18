@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { WHATSAPP_URL } from '@/lib/contacts';
 import {
   Send,
   MessageCircle,
@@ -24,7 +25,7 @@ export const ClipPathLinks = () => {
     <div className="divide-y divide-border border border-border">
       <div className="grid grid-cols-2 divide-x divide-border">
         <LinkBox Icon={Send} label="Telegram" href="https://t.me/ko_agency" />
-        <LinkBox Icon={MessageCircle} label="WhatsApp" href="https://wa.me/447835212468" />
+        <LinkBox Icon={MessageCircle} label="WhatsApp" href={WHATSAPP_URL} />
       </div>
       <div className="grid grid-cols-2 divide-x divide-border sm:grid-cols-4">
         <LinkBox Icon={Phone} label="+7 991 222-38-80" href="tel:+79912223880" />
