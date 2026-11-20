@@ -40,8 +40,8 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
     titleStart: 'Каждая заявка сразу ',
     titleAccent: 'у своего менеджера',
     lead: 'Виджет сам распределяет новые сделки между менеджерами: по очереди или по правилам, с учётом смен и лимитов',
-    primaryCta: 'Установить из amoМаркета',
-    installUrl: AMO_MARKET_URL,
+    primaryCta: 'Подключить виджет',
+    installUrl: 'https://raspredelenie.koagency.ru/support',
     checks: ['Для amoCRM', 'Русский и английский'],
     why: {
       title: 'Заявки не ждут, пока их раздадут',
@@ -161,8 +161,8 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
     titleAccent: 'который час',
     titleEnd: ' у клиента',
     lead: 'Местное время и страна клиента рядом с номером телефона: в карточке и в списках. Менеджер не звонит ночью и сразу видит, откуда клиент',
-    primaryCta: 'Установить из amoМаркета',
-    installUrl: AMO_MARKET_URL,
+    primaryCta: 'Подключить виджет',
+    installUrl: 'https://www.koagency.me/widgets/client-time/support.html',
     checks: ['Определение по номеру телефона', 'Русский и английский'],
     why: {
       title: 'Клиенты в разных часовых поясах',
@@ -226,8 +226,8 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
     titleStart: 'Типовая задача ',
     titleAccent: 'в один клик',
     lead: 'Готовые шаблоны с текстом, сроком и ответственным. Кнопка прямо в карточке сделки, контакта или компании: выбрали шаблон, задача создана',
-    primaryCta: 'Установить из amoМаркета',
-    installUrl: AMO_MARKET_URL,
+    primaryCta: 'Подключить виджет',
+    installUrl: '#support',
     checks: ['Данные остаются в amoCRM', 'Русский и английский'],
     why: {
       title: 'Меньше кликов, один стандарт',

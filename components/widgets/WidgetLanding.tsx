@@ -24,7 +24,7 @@ function SectionHead({ n, label, title, subtitle }: { n: string; label: string; 
 }
 
 function isExternal(href: string) {
-  return href.startsWith('http') || href.endsWith('.html');
+  return href.startsWith('http');
 }
 
 export function WidgetLanding({ slug }: { slug: string }) {
@@ -197,7 +197,7 @@ export function WidgetLanding({ slug }: { slug: string }) {
       </section>
 
       {/* Поддержка и другие виджеты */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section id="support" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[7fr_5fr]">
           <div>
             <SectionHead n="06" label="Поддержка" title="Поддержка и документы" />
