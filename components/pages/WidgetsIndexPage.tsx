@@ -6,6 +6,10 @@ import {
   ArrowUpRight,
   ListChecks,
   BarChart3,
+  Users,
+  Merge,
+  Globe,
+  Wallet,
   Plug,
   Sparkles,
   Puzzle,
@@ -16,6 +20,10 @@ import { widgetsList, type Widget } from '@/data/widgets';
 
 const ICON_MAP: Record<string, LucideIcon> = {
   ListChecks,
+  Users,
+  Merge,
+  Globe,
+  Wallet,
   BarChart3,
   Plug,
   Sparkles,
@@ -24,7 +32,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 const STATUS_LABEL: Record<Widget['status'], string> = {
   live: 'Доступен',
-  beta: 'Beta',
+  beta: 'Модерация',
   'coming-soon': 'Скоро',
 };
 
@@ -48,7 +56,7 @@ export function WidgetsIndexPage() {
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#E60000]" />
             <span className="font-mono text-xs uppercase tracking-wider text-[#101010]">
-              Виджеты KO:AGENCY для amoCRM и Kommo
+              Виджеты KO:AGENCY для amoCRM
             </span>
           </motion.div>
 
@@ -67,9 +75,7 @@ export function WidgetsIndexPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto max-w-2xl text-base text-[#666666] sm:text-lg"
           >
-            Собственные разработки для amoCRM и Kommo — устанавливаются в один клик
-            через amoМаркет. 14 дней бесплатно, безлимит по пользователям, поддержка
-            в Telegram.
+            Собственные разработки для amoCRM: каждый виджет закрывает одну задачу отдела продаж. Устанавливаются через amoМаркет, поддержка от команды, которая их разработала
           </motion.p>
         </div>
       </section>

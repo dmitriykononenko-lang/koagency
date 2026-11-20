@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const widgetPages: MetadataRoute.Sitemap = Object.keys(widgetsData).map((slug) => ({
+  const widgetPages: MetadataRoute.Sitemap = Object.keys(widgetsData).filter((slug) => widgetsData[slug].status !== 'coming-soon').map((slug) => ({
     url: `${SITE_URL}/widgets/${slug}`,
     lastModified: now,
     changeFrequency: 'monthly',

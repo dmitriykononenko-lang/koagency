@@ -119,6 +119,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/widgets/raspredelenie" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Распределение сделок
+                </Link>
+              </li>
+              <li>
+                <Link to="/widgets/dubli" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Поиск дублей
+                </Link>
+              </li>
+              <li>
+                <Link to="/widgets/client-time" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Время и страна клиента
+                </Link>
+              </li>
+              <li>
                 <Link to="/widgets/task-templates" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
                   ↳ Шаблоны задач
                 </Link>
