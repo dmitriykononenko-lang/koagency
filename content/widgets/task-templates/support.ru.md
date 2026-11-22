@@ -55,7 +55,7 @@ amoCRM не дал создать задачу с правами текущег�
 Если нужен конкретный день и час, включите в шаблоне «Выбор даты вручную»: дату и время укажете при постановке задачи.
 
 ### Где хранятся шаблоны, видит ли их разработчик
-В вашем аккаунте amoCRM: в служебном списке «Шаблоны задач (данные виджета)» и резервно в настройках виджета. У виджета нет своего сервера, данные никуда не уходят. Подробнее — в [политике конфиденциальности](/widgets/task-templates/privacy).
+В вашем аккаунте amoCRM: в служебном списке «Шаблоны задач (данные виджета)» и резервно в настройках виджета. Шаблоны и данные карточек никуда не уходят. На сервер KO передаётся только телефон для связи, который вы указываете при установке, и ID с поддоменом аккаунта. Подробнее — в [политике конфиденциальности](/widgets/task-templates/privacy).
 
 ### Можно ли удалить служебный список
 Да, но вместе с ним пропадут шаблоны. Если виджет продолжит работать, он создаст новый пустой список при следующем сохранении шаблонов.
@@ -82,5 +82,5 @@ Please include your amoCRM account address, what you did and what happened, and 
 - **"Failed to save templates".** Templates are stored in the account service list «Шаблоны задач (данные виджета)». The user needs permission to work with lists. Ask an administrator to create the first templates, or grant list permissions in Settings → Users.
 - **"Failed to create the task".** amoCRM rejected the task under the current user's permissions, or the user selected in the template is inactive.
 - **Due time looks wrong.** It is counted from the moment you create the task, in your computer's time zone. "Tomorrow" means in 24 hours, "by the end of the day" means 23:59 today. For an exact date, turn on "Pick the date manually" in the template.
-- **Where are templates stored?** In your amoCRM account only. The widget has no server. See the [privacy policy](/en/widgets/task-templates/privacy).
+- **Where are templates stored?** In your amoCRM account only. The only thing sent to KO is the contact phone you enter during installation, with the account ID and subdomain. See the [privacy policy](/en/widgets/task-templates/privacy).
 - **What happens if I disable the widget?** Templates stay in your account and come back when you enable it again. To remove them, delete the service list under Lists.
