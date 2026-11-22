@@ -25,7 +25,8 @@ export const widgetsData: Record<string, Widget> = {
     category: 'productivity',
     platform: 'amoCRM',
     status: 'live',
-    price: 'Цена в amoМаркете',
+    price: 'от 1 995 ₽/мес',
+    priceNote: 'Пробный период 7 дней',
     icon: 'Users',
     bullets: [
       'По очереди или по правилам для воронок и этапов',
@@ -44,7 +45,7 @@ export const widgetsData: Record<string, Widget> = {
     category: 'productivity',
     platform: 'amoCRM',
     status: 'beta',
-    price: 'Цена в amoМаркете',
+    price: 'от 1 995 ₽/мес',
     priceNote: 'Пробный период 5 дней',
     icon: 'Merge',
     bullets: [

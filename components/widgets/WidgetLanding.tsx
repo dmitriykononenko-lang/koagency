@@ -174,7 +174,7 @@ export function WidgetLanding({ slug }: { slug: string }) {
                   </div>
                 ))}
               </div>
-              <p className="mt-3 text-sm text-[#666]">Оплата через amoМаркет</p>
+              {w.pricing.payNote && <p className="mt-3 text-sm text-[#666]">{w.pricing.payNote}</p>}
             </>
           ) : (
             <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7 sm:flex-row sm:items-center">
