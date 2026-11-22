@@ -254,6 +254,49 @@ function TaskTemplatesDemo() {
   );
 }
 
+/* Чаты Авто.ру: сообщение по объявлению превращается в сделку, ответ уходит в чат */
+const AR_MSGS: [string, string][] = [
+  ['client', 'Здравствуйте, автомобиль ещё в продаже?'],
+  ['manager', 'Добрый день! Да, в наличии. Когда удобно посмотреть?'],
+  ['client', 'Завтра после обеда можно?'],
+  ['manager', 'Да, ждём вас в 15:00'],
+];
+
+function AutoruDemo() {
+  const t = useTick(1800);
+  const shown = (t % (AR_MSGS.length + 2)) + 1;
+  return (
+    <Window title="Сделка #5203 · Чаты Авто.ру">
+      <div className="mb-3 flex items-center justify-between rounded-xl border border-black/5 bg-[#fcfcfc] px-3 py-2.5 text-[13px]">
+        <span>
+          Kia Rio, 2021
+          <span className="block font-mono text-[11px] text-[#888]">объявление · 1 450 000 ₽</span>
+        </span>
+        <span className="rounded-full bg-[#fdecec] px-2 py-0.5 font-mono text-[10px] text-[#E60000]">источник: Авто.ру</span>
+      </div>
+      <div className="grid min-h-[176px] content-start gap-2">
+        {AR_MSGS.slice(0, Math.min(shown, AR_MSGS.length)).map(([who, text], i) => (
+          <div
+            key={text}
+            className={`max-w-[85%] rounded-xl px-3 py-2 text-[13px] animate-in fade-in slide-in-from-bottom-1 duration-300 ${
+              who === 'client' ? 'justify-self-start bg-[#f2f2f2]' : 'justify-self-end bg-[#101010] text-white'
+            }`}
+          >
+            <span className={`block font-mono text-[10px] ${who === 'client' ? 'text-[#888]' : 'text-[#aaa]'}`}>
+              {who === 'client' ? 'клиент · Авто.ру' : 'менеджер · из amoCRM'}
+            </span>
+            {text}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex justify-between border-t border-black/5 pt-2.5">
+        <span className={mono}>статус подключения</span>
+        <span className="font-mono text-[11px] text-emerald-700">ответы доставляются</span>
+      </div>
+    </Window>
+  );
+}
+
 export function WidgetDemo({ kind }: { kind: DemoKind }) {
   switch (kind) {
     case 'raspredelenie':
@@ -264,5 +307,7 @@ export function WidgetDemo({ kind }: { kind: DemoKind }) {
       return <ClientTimeDemo />;
     case 'task-templates':
       return <TaskTemplatesDemo />;
+    case 'autoru':
+      return <AutoruDemo />;
   }
 }

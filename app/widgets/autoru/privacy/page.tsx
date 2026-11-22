@@ -28,10 +28,11 @@ export default function Page() {
         data={breadcrumbJsonLd([
           { name: 'Главная', url: '/' },
           { name: 'Виджеты', url: '/widgets' },
+          { name: 'Чаты Авто.ру', url: '/widgets/autoru' },
           { name: 'Политика конфиденциальности «Чаты Авто.ру»', url: PATH },
         ])}
       />
-      <WidgetDocPage file={FILE} backHref="/widgets" backLabel="Ко всем виджетам" kicker="Юридический документ" />
+      <WidgetDocPage file={FILE} backHref="/widgets/autoru" backLabel="К странице виджета" kicker="Юридический документ" />
     </>
   );
 }

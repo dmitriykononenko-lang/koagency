@@ -95,6 +95,25 @@ export const widgetsData: Record<string, Widget> = {
     tags: ['Задачи', 'Автоматизация', 'amoCRM'],
     href: '/widgets/task-templates',
   },
+  autoru: {
+    slug: 'autoru',
+    title: 'Чаты Авто.ру',
+    tagline: 'Чаты дилера в сделках amoCRM',
+    description:
+      'Клиент пишет по объявлению на Авто.ру, и в amoCRM появляется сделка с контактом и ссылкой на автомобиль. Менеджер отвечает из карточки сделки.',
+    category: 'integrations',
+    platform: 'amoCRM',
+    status: 'beta',
+    price: 'Цена в amoМаркете',
+    icon: 'MessageSquare',
+    bullets: [
+      'Сделка и контакт по первому сообщению',
+      'Ответы из карточки уходят в чат Авто.ру',
+      'Один клиент, один контакт, без дублей',
+    ],
+    tags: ['Чаты', 'Авто.ру', 'amoCRM'],
+    href: '/widgets/autoru',
+  },
   finance: {
     slug: 'finance',
     title: 'Финансовый учёт',

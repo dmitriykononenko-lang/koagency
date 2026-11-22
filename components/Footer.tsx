@@ -138,6 +138,11 @@ export function Footer() {
                   ↳ Шаблоны задач
                 </Link>
               </li>
+              <li>
+                <Link to="/widgets/autoru" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Чаты Авто.ру
+                </Link>
+              </li>
             </ul>
           </div>
 
