@@ -120,6 +120,7 @@ status: черновик, не опубликовано; адрес страни
 - Мы храним никнейм и ID клиента Авто.ру, тексты сообщений, ссылки на объявления и вложения. Телефона клиента Авто.ру не передаёт, и у нас его нет.
 - Сырые входящие запросы храним 14 дней, переписку — 90 дней. Через 30 дней после отключения виджета удаляем все данные аккаунта с сервера.
 - ChatId — ключ для отправки ответов — храним в зашифрованном виде.
+- Телефон для связи, который администратор указывает при установке, через хаб KO:AGENCY попадает в CRM KO:AGENCY — чтобы связаться с вами по подписке и поддержке. Там он хранится [срок хранения телефона в CRM KO].
 - Данные не продаём и не передаём третьим лицам, кроме Авто.ру (ответы клиентам) и amoCRM (ваш аккаунт).
 
 ## Кто разработчик
@@ -147,7 +148,7 @@ Email: hello@koagency.me
 | Ключи доступа к API amoCRM (OAuth) | amoCRM при установке виджета | создавать сделки, контакты и примечания | сервер KO, зашифрованы |
 | Настройки: воронка, этап, ответственный | вводит администратор | создавать сделки в нужном месте | сервер KO |
 | ID и поддомен аккаунта amoCRM | amoCRM | отличать данные одного аккаунта от другого | сервер KO |
-| Телефон для связи | вводит администратор при установке (обязательное поле) | связаться с вами по вопросам виджета — см. «Телефон для связи» | сервер KO, CRM KO:AGENCY |
+| Телефон для связи | вводит администратор при установке (обязательное поле) | связаться с вами по подписке и поддержке — см. «Телефон для связи» | сервер KO; через хаб KO:AGENCY — в CRM KO:AGENCY |
 | IP-адрес и время запросов | технические журналы сервера | защита от злоупотреблений и разбор сбоев | сервер KO, 14 дней |
 
 Виджет не получает телефон, email и настоящее имя клиента Авто.ру: Авто.ру их не передаёт. Мы не используем cookie, счётчики и рекламную аналитику.
@@ -165,6 +166,7 @@ Email: hello@koagency.me
 | Технические журналы | 14 дней |
 | Все данные аккаунта (настройки, ключи, связка клиентов с контактами, переписка) | удаляются через 30 дней после отключения виджета |
 | Резервные копии | данные пропадают из них в течение 14 дней после удаления |
+| Телефон для связи в CRM KO:AGENCY | [срок хранения телефона в CRM KO] |
 
 Через 90 дней старые сообщения пропадают из панели виджета, но остаются в сделке amoCRM в виде примечаний — удалить их можете вы средствами amoCRM.
 
@@ -172,25 +174,26 @@ Email: hello@koagency.me
 
 ## Телефон для связи
 
-При установке виджет просит телефон для связи — без него виджет не включается. Он нужен, чтобы поддержка KO помогла с подключением и предупредила о важном: сбоях, изменениях API Авто.ру, обновлениях и оплате.
+При установке виджет просит телефон для связи — без него виджет не включается. Он нужен, чтобы связаться с вами по подписке (оплата, продление) и поддержке: помочь с подключением и предупредить о важном — сбоях, изменениях API Авто.ру, обновлениях.
 
-- **Что передаётся:** телефон, ID и поддомен аккаунта amoCRM, версия виджета.
-- **Куда:** на сервер KO:AGENCY и в CRM KO:AGENCY (amoCRM), где мы ведём клиентов.
+- **Что передаётся:** телефон, ID и поддомен аккаунта amoCRM, ID пользователя amoCRM, который сохранил настройки, и название виджета.
+- **Куда:** на сервер виджета, оттуда через хаб KO:AGENCY — в CRM KO:AGENCY (amoCRM), где мы ведём клиентов. Хаб — служебный сервер KO:AGENCY, через который наши виджеты передают контакты в CRM.
 - **Кто видит:** сотрудники KO:AGENCY, которые занимаются поддержкой и продажами. Третьим лицам телефон не передаём.
-- **Сколько храним:** пока виджет установлен. Через 30 дней после отключения запись на сервере удаляется, а у контакта в CRM KO:AGENCY стирается телефон.
+- **Сколько храним:** на сервере виджета — пока виджет установлен, через 30 дней после отключения запись удаляется. В CRM KO:AGENCY — [срок хранения телефона в CRM KO]. Удалить телефон раньше можно по запросу — см. «Как удалить данные».
 
 Указывая телефон и сохраняя настройки, вы соглашаетесь на его обработку для этих целей.
 
 ## Кто видит данные
 
 - Пользователи вашего аккаунта amoCRM — в пределах своих прав в amoCRM.
-- Сотрудники KO:AGENCY — только чтобы решить вопрос поддержки или разобрать сбой, по вашему обращению.
+- Сотрудники KO:AGENCY — только чтобы решить вопрос поддержки или разобрать сбой, по вашему обращению. Телефон для связи видят сотрудники поддержки и продаж в CRM KO:AGENCY.
 - Авто.ру получает ответы менеджеров и имя отправителя — так работает чат.
 
 ## Как удалить данные
 
 - **Всё сразу:** отключите виджет — через 30 дней данные аккаунта удалятся автоматически. Чтобы удалить раньше, напишите на hello@koagency.me с указанием поддомена аккаунта amoCRM: удалим в течение 10 рабочих дней.
 - **Переписку конкретного клиента:** напишите на hello@koagency.me, укажите ссылку на сделку — удалим её с сервера KO. Примечания в сделке удаляете вы в amoCRM.
+- **Телефон для связи:** напишите на hello@koagency.me с поддоменом аккаунта — удалим его с сервера виджета и из CRM KO:AGENCY в течение 10 рабочих дней. Если виджет ещё установлен, укажите другой телефон в настройках: без телефона виджет не работает.
 - Если ваш клиент просит удалить его данные, перешлите запрос нам — исполним в тот же срок.
 
 ## Ваши права
@@ -216,13 +219,13 @@ Version of [publication date]. KO:AGENCY general policy: [koagency.me/legal/priv
 
 **Summary.** The widget receives Auto.ru chat messages on the KO:AGENCY server, creates leads and contacts in your amoCRM account and sends your managers’ replies back to the Auto.ru chat. The server is located in Moscow, Russia (Selectel data center).
 
-**What we store:** the Auto.ru customer nickname and chat ID, message texts and replies, links to attachments and listings (title and price), the name of the amoCRM user who sent a reply, the account’s ChatId and webhook address (ChatId is encrypted with AES-256-GCM), amoCRM OAuth keys (encrypted), widget settings (pipeline, stage, responsible user), the account ID and subdomain, and the contact phone you enter during installation. Auto.ru does not share the customer’s phone, email or real name, so we don’t have them. No cookies or ad analytics.
+**What we store:** the Auto.ru customer nickname and chat ID, message texts and replies, links to attachments and listings (title and price), the name of the amoCRM user who sent a reply, the account’s ChatId and webhook address (ChatId is encrypted with AES-256-GCM), amoCRM OAuth keys (encrypted), widget settings (pipeline, stage, responsible user), the account ID and subdomain, and the contact phone you enter during installation (also passed to the KO:AGENCY CRM, see below). Auto.ru does not share the customer’s phone, email or real name, so we don’t have them. No cookies or ad analytics.
 
-**Retention:** raw incoming requests — 14 days; chat history on the KO server — 90 days; server logs — 14 days; all account data is deleted 30 days after the widget is disabled; backups are cleared within 14 days after deletion. Notes created in amoCRM leads stay in your account until you delete them.
+**Retention:** raw incoming requests — 14 days; chat history on the KO server — 90 days; server logs — 14 days; all account data is deleted 30 days after the widget is disabled; backups are cleared within 14 days after deletion; the contact phone in the KO:AGENCY CRM — [phone retention period in KO CRM]. Notes created in amoCRM leads stay in your account until you delete them.
 
 **Roles.** The amoCRM account owner (the dealer) is the controller of their customers’ data; KO:AGENCY processes it on their behalf only to run the widget. We don’t sell or share data with third parties except Auto.ru (replies to customers) and amoCRM (your account).
 
-**Contact phone.** Required to enable the widget. KO support uses it for connection help and important notices. Stored while the widget is installed and erased 30 days after it is disabled.
+**Contact phone.** Required to enable the widget. It goes to the widget server and, through the KO:AGENCY hub (a KO:AGENCY service server our widgets use to pass contacts to the CRM), to the KO:AGENCY CRM (amoCRM), where KO support and sales staff use it to contact you about your subscription (payment, renewal) and support: connection help and important notices. Along with the phone we pass the amoCRM account ID and subdomain, the ID of the amoCRM user who saved the settings, and the widget name. On the widget server the phone is kept while the widget is installed and deleted 30 days after it is disabled; in the KO:AGENCY CRM it is kept [phone retention period in KO CRM]. To have it deleted earlier, email hello@koagency.me with your amoCRM subdomain.
 
 **Deletion and requests:** disable the widget, or email hello@koagency.me with your amoCRM subdomain — we delete the data within 10 business days.
 
