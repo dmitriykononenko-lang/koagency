@@ -63,8 +63,8 @@ export const widgetsData: Record<string, Widget> = {
       'Местное время и страна клиента рядом с номером телефона в карточке и в списках. Страна, часовой пояс и регион заполняются в полях.',
     category: 'productivity',
     platform: 'amoCRM',
-    status: 'live',
-    price: 'Цена в amoМаркете',
+    status: 'beta',
+    price: 'Бесплатно',
     icon: 'Globe',
     bullets: [
       'Местное время у номера в карточке и списках',
@@ -82,8 +82,8 @@ export const widgetsData: Record<string, Widget> = {
       'Готовые шаблоны задач с текстом, типом, сроком и ответственным. Кнопка в карточке сделки, контакта и компании.',
     category: 'productivity',
     platform: 'amoCRM',
-    status: 'live',
-    price: 'Цена в amoМаркете',
+    status: 'beta',
+    price: 'от 1 490 ₽ за 3 месяца',
     icon: 'ListChecks',
     bullets: [
       'Шаблон задаёт всё сразу: тип, срок, ответственный, текст',

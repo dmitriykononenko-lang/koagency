@@ -32,7 +32,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 const STATUS_LABEL: Record<Widget['status'], string> = {
   live: 'Доступен',
-  beta: 'Модерация',
+  beta: 'Скоро в amoМаркете',
   'coming-soon': 'Скоро',
 };
 

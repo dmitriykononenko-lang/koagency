@@ -149,21 +149,49 @@ export function WidgetLanding({ slug }: { slug: string }) {
       {/* Стоимость */}
       <section className="border-b border-black/5 bg-[#f5f5f5] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <SectionHead n="04" label="Стоимость" title="Цена в amoМаркете" subtitle={w.pricing.note} />
-          <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7 sm:flex-row sm:items-center">
-            <div>
-              <span className="font-mono text-[11px] uppercase text-[#888]">Оплата через amoМаркет</span>
-              <p className="mt-1 text-lg font-semibold">{AMO_MARKET_NOTE}</p>
+          <SectionHead
+            n="04"
+            label="Стоимость"
+            title={w.pricing.free ? 'Бесплатно' : w.pricing.plans ? 'Тарифы' : 'Цена в amoМаркете'}
+            subtitle={w.pricing.note}
+          />
+          {w.pricing.free ? (
+            <div className="rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7">
+              <span className="font-mono text-[11px] uppercase text-[#888]">Без оплаты</span>
+              <p className="mt-1 text-lg font-semibold">Виджет бесплатный: устанавливаете и пользуетесь без ограничений по сроку</p>
             </div>
-            <a
-              href={AMO_MARKET_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#E60000] px-5 py-3 text-sm font-semibold text-white hover:bg-[#c40000]"
-            >
-              Открыть amoМаркет <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </div>
+          ) : w.pricing.plans ? (
+            <>
+              <div className="grid overflow-hidden rounded-2xl border border-black/10 bg-white md:grid-cols-3">
+                {w.pricing.plans.map(([period, price, note], i) => (
+                  <div
+                    key={period}
+                    className={`border-black/10 p-7 ${i < 2 ? 'border-b md:border-r md:border-b-0' : ''} ${i === 1 ? 'bg-[#101010] text-white' : ''}`}
+                  >
+                    <span className={`font-mono text-[11px] uppercase ${i === 1 ? 'text-[#aaa]' : 'text-[#888]'}`}>{period}</span>
+                    <p className="mt-3 text-3xl font-bold tracking-tight">{price}</p>
+                    <p className={`mt-1 text-sm ${i === 1 ? 'text-[#bbb]' : 'text-[#666]'}`}>{note}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-sm text-[#666]">Оплата через amoМаркет</p>
+            </>
+          ) : (
+            <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7 sm:flex-row sm:items-center">
+              <div>
+                <span className="font-mono text-[11px] uppercase text-[#888]">Оплата через amoМаркет</span>
+                <p className="mt-1 text-lg font-semibold">{AMO_MARKET_NOTE}</p>
+              </div>
+              <a
+                href={AMO_MARKET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#E60000] px-5 py-3 text-sm font-semibold text-white hover:bg-[#c40000]"
+              >
+                Открыть amoМаркет <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          )}
           {w.data && (
             <div className="mt-5 rounded-2xl border border-black/10 bg-white p-7">
               <h3 className="mb-2 font-semibold">{w.data.title}</h3>
