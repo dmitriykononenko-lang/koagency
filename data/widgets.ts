@@ -114,6 +114,25 @@ export const widgetsData: Record<string, Widget> = {
     tags: ['Чаты', 'Авто.ру', 'amoCRM'],
     href: '/widgets/autoru',
   },
+  'hidden-field': {
+    slug: 'hidden-field',
+    title: 'Скрытие полей',
+    tagline: 'Каждый видит только нужные поля',
+    description:
+      'Скрывает поля карточек сделки, контакта и компании от выбранных сотрудников и отделов: скрыть, звёздочки или только чтение.',
+    category: 'productivity',
+    platform: 'amoCRM',
+    status: 'beta',
+    price: 'Цена в amoМаркете',
+    icon: 'EyeOff',
+    bullets: [
+      'Три режима: скрыть, звёздочки, только чтение',
+      'Правила для сотрудников, отделов и воронок',
+      'Все настройки в одной матрице',
+    ],
+    tags: ['Поля', 'Доступ', 'amoCRM'],
+    href: '/widgets/hidden-field',
+  },
   finance: {
     slug: 'finance',
     title: 'Финансовый учёт',

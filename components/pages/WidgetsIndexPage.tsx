@@ -10,6 +10,7 @@ import {
   Merge,
   Globe,
   Wallet,
+  EyeOff,
   MessageSquare,
   Plug,
   Sparkles,
@@ -20,6 +21,7 @@ import { Card } from '../ui/card';
 import { widgetsList, type Widget } from '@/data/widgets';
 
 const ICON_MAP: Record<string, LucideIcon> = {
+  EyeOff,
   MessageSquare,
   ListChecks,
   Users,

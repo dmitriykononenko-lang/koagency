@@ -297,6 +297,80 @@ function AutoruDemo() {
   );
 }
 
+/* Скрытие полей: матрица «поле × сотрудник», режимы переключаются по кругу */
+const HF_FIELDS = ['Телефон', 'E-mail', 'Бюджет', 'Теги'];
+const HF_USERS = ['Анна', 'Олег', 'Отдел продаж'];
+const HF_MODES: [string, string][] = [
+  ['Открыто', 'bg-white text-[#888]'],
+  ['Скрыть', 'bg-[#101010] text-white'],
+  ['Звёздочки', 'bg-[#fdecec] text-[#E60000]'],
+  ['Только чтение', 'bg-[#f2f2f2] text-[#444]'],
+];
+const HF_START = [
+  [2, 0, 1],
+  [1, 0, 2],
+  [3, 1, 3],
+  [0, 0, 0],
+];
+const HF_SAMPLE = ['+7 912 345-67-89', 'ivan@mail.ru', '1 450 000 ₽', 'VIP, опт'];
+
+function HiddenFieldDemo() {
+  const t = useTick(1600);
+  const [grid, setGrid] = useState(HF_START);
+  const auto = t % (HF_FIELDS.length * HF_USERS.length);
+  const ar = Math.floor(auto / HF_USERS.length);
+  const ac = auto % HF_USERS.length;
+  const cycle = (r: number, c: number) => setGrid((g) => g.map((row, ri) => row.map((m, ci) => (ri === r && ci === c ? (m + 1) % HF_MODES.length : m))));
+  return (
+    <Window title="Скрытие полей · Сделки">
+      <div className="grid grid-cols-[1fr_repeat(3,minmax(0,1fr))] gap-1.5 text-[12px]">
+        <span />
+        {HF_USERS.map((u) => (
+          <span key={u} className={`${mono} truncate text-center`}>
+            {u}
+          </span>
+        ))}
+        {HF_FIELDS.map((f, r) => (
+          <div key={f} className="contents">
+            <span className="self-center font-medium">{f}</span>
+            {HF_USERS.map((u, c) => {
+              const [label, cls] = HF_MODES[grid[r][c]];
+              return (
+                <button
+                  key={u}
+                  type="button"
+                  onClick={() => cycle(r, c)}
+                  className={`truncate rounded-md border px-1.5 py-1.5 text-center text-[11px] transition-colors ${cls} ${
+                    r === ar && c === ac ? 'border-[#E60000]' : 'border-black/5'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3.5 rounded-xl border-[1.5px] border-[#101010] p-3 text-[13px]">
+        <div className="mb-1.5 flex justify-between font-semibold">
+          Карточка глазами: {HF_USERS[ac]}
+          <span className={mono}>после сохранения</span>
+        </div>
+        {HF_FIELDS.map((f, r) => {
+          const m = grid[r][ac];
+          if (m === 1) return null;
+          return (
+            <div key={f} className="flex justify-between border-t border-black/5 py-1 text-[#444]">
+              <span className={mono}>{f}</span>
+              <span>{m === 2 ? '••••••••' : HF_SAMPLE[r]}{m === 3 ? ' · только чтение' : ''}</span>
+            </div>
+          );
+        })}
+      </div>
+    </Window>
+  );
+}
+
 export function WidgetDemo({ kind }: { kind: DemoKind }) {
   switch (kind) {
     case 'raspredelenie':
@@ -309,5 +383,7 @@ export function WidgetDemo({ kind }: { kind: DemoKind }) {
       return <TaskTemplatesDemo />;
     case 'autoru':
       return <AutoruDemo />;
+    case 'hidden-field':
+      return <HiddenFieldDemo />;
   }
 }

@@ -52,6 +52,17 @@ function inline(text: string, key = 'i'): ReactNode[] {
   return out;
 }
 
+/** Якорь заголовка как на GitHub: «Подписка и оплата» → «подписка-и-оплата». */
+function slugify(text: string) {
+  return text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*`]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/\s/g, '-');
+}
+
 type Item = { text: string; children: { ordered: boolean; items: string[] } | null };
 
 function render(md: string): ReactNode[] {
@@ -67,7 +78,7 @@ function render(md: string): ReactNode[] {
       i++;
       continue;
     }
-    const h = line.match(/^(#{1,3}) (.*)$/);
+    const h = line.match(/^(#{1,4}) (.*)$/);
     if (h) {
       const lvl = h[1].length;
       const cls =
@@ -75,10 +86,29 @@ function render(md: string): ReactNode[] {
           ? 'mb-6 mt-2 text-3xl font-bold tracking-tight text-[#101010] sm:text-4xl'
           : lvl === 2
             ? 'mb-4 mt-12 text-2xl font-bold tracking-tight text-[#101010]'
-            : 'mb-2 mt-8 text-lg font-semibold text-[#101010]';
+            : lvl === 3
+              ? 'mb-2 mt-8 text-lg font-semibold text-[#101010]'
+              : 'mb-2 mt-6 text-base font-semibold text-[#101010]';
       const Tag = (`h${lvl}` as unknown) as 'h1';
-      out.push(<Tag key={k++} className={cls}>{inline(h[2], `h${k}`)}</Tag>);
+      out.push(
+        <Tag key={k++} id={slugify(h[2])} className={`scroll-mt-24 ${cls}`}>
+          {inline(h[2], `h${k}`)}
+        </Tag>,
+      );
       i++;
+      continue;
+    }
+    if (line.startsWith('>')) {
+      const quote: string[] = [];
+      while (i < lines.length && lines[i].startsWith('>')) {
+        quote.push(lines[i].replace(/^>\s?/, ''));
+        i++;
+      }
+      out.push(
+        <blockquote key={k++} className="my-6 rounded-r-xl border-l-4 border-[#E60000] bg-[#fff7f7] px-5 py-4 text-[15px] leading-relaxed text-[#333]">
+          {inline(quote.join(' '), `q${k}`)}
+        </blockquote>,
+      );
       continue;
     }
     if (/^---\s*$/.test(line)) {
@@ -141,7 +171,7 @@ function render(md: string): ReactNode[] {
       continue;
     }
     const para: string[] = [];
-    while (i < lines.length && lines[i].trim() && !/^(#{1,3} |\||---\s*$)/.test(lines[i]) && !isUl(lines[i]) && !isOl(lines[i])) {
+    while (i < lines.length && lines[i].trim() && !/^(#{1,4} |\||>|---\s*$)/.test(lines[i]) && !isUl(lines[i]) && !isOl(lines[i])) {
       para.push(lines[i].trim());
       i++;
     }

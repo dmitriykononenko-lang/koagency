@@ -143,6 +143,11 @@ export function Footer() {
                   ↳ Чаты Авто.ру
                 </Link>
               </li>
+              <li>
+                <Link to="/widgets/hidden-field" className="text-white/70 hover:text-[#E60000] transition-colors pl-3 text-xs">
+                  ↳ Скрытие полей
+                </Link>
+              </li>
             </ul>
           </div>
 

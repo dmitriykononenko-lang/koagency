@@ -26,6 +26,13 @@ const nextConfig = {
         destination: '/legal/offer',
         permanent: true,
       },
+      // В текстах и manifest виджета «Скрытие полей» адреса во множественном числе
+      {
+        source: '/widgets/hidden-fields/:path*',
+        destination: '/widgets/hidden-field/:path*',
+        permanent: true,
+      },
+      { source: '/widgets/hidden-fields', destination: '/widgets/hidden-field', permanent: true },
     ];
   },
 
