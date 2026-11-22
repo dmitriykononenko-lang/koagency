@@ -75,7 +75,6 @@ status: черновик, не опубликовано; адрес страни
 Чтобы мы ответили с первого раза, укажите адрес аккаунта amoCRM (например, \`company.amocrm.ru\`), что делали и что произошло, и приложите скриншот. Пароли и ChatId не присылайте — для проверки они не нужны.
 
 Отвечаем в рабочие дни с 10:00 до 19:00 по Москве, первый ответ — в течение одного рабочего дня.
-<!-- сроки ответа ждут подтверждения Дмитрия -->
 
 ---
 
@@ -178,7 +177,7 @@ Email: hello@koagency.me
 
 - **Что передаётся:** телефон, ID и поддомен аккаунта amoCRM, ID пользователя amoCRM, который сохранил настройки, и название виджета.
 - **Куда:** на сервер виджета, оттуда через хаб KO:AGENCY — в CRM KO:AGENCY (amoCRM), где мы ведём клиентов. Хаб — служебный сервер KO:AGENCY, через который наши виджеты передают контакты в CRM.
-- **Кто видит:** сотрудники KO:AGENCY, которые занимаются поддержкой и продажами. Третьим лицам телефон не передаём.
+- **Кто видит:** сотрудники KO Agency, которые ведут клиентов: телефон используется сотрудниками KO Agency для связи с вами по работе виджета. Третьим лицам телефон не передаём.
 - **Сколько храним:** на сервере виджета — пока виджет установлен, через 30 дней после отключения запись удаляется. В CRM KO:AGENCY — [срок хранения телефона в CRM KO]. Удалить телефон раньше можно по запросу — см. «Как удалить данные».
 
 Указывая телефон и сохраняя настройки, вы соглашаетесь на его обработку для этих целей.
@@ -186,7 +185,7 @@ Email: hello@koagency.me
 ## Кто видит данные
 
 - Пользователи вашего аккаунта amoCRM — в пределах своих прав в amoCRM.
-- Сотрудники KO:AGENCY — только чтобы решить вопрос поддержки или разобрать сбой, по вашему обращению. Телефон для связи видят сотрудники поддержки и продаж в CRM KO:AGENCY.
+- Сотрудники KO:AGENCY — только чтобы решить вопрос поддержки или разобрать сбой, по вашему обращению. Телефон для связи в CRM KO:AGENCY используется сотрудниками KO Agency для связи с вами по работе виджета.
 - Авто.ру получает ответы менеджеров и имя отправителя — так работает чат.
 
 ## Как удалить данные
@@ -225,7 +224,7 @@ Version of [publication date]. KO:AGENCY general policy: [koagency.me/legal/priv
 
 **Roles.** The amoCRM account owner (the dealer) is the controller of their customers’ data; KO:AGENCY processes it on their behalf only to run the widget. We don’t sell or share data with third parties except Auto.ru (replies to customers) and amoCRM (your account).
 
-**Contact phone.** Required to enable the widget. It goes to the widget server and, through the KO:AGENCY hub (a KO:AGENCY service server our widgets use to pass contacts to the CRM), to the KO:AGENCY CRM (amoCRM), where KO support and sales staff use it to contact you about your subscription (payment, renewal) and support: connection help and important notices. Along with the phone we pass the amoCRM account ID and subdomain, the ID of the amoCRM user who saved the settings, and the widget name. On the widget server the phone is kept while the widget is installed and deleted 30 days after it is disabled; in the KO:AGENCY CRM it is kept [phone retention period in KO CRM]. To have it deleted earlier, email hello@koagency.me with your amoCRM subdomain.
+**Contact phone.** Required to enable the widget. It goes to the widget server and, through the KO:AGENCY hub (a KO:AGENCY service server our widgets use to pass contacts to the CRM), to the KO:AGENCY CRM (amoCRM), where it is used by KO Agency staff who look after clients to contact you about the widget: subscription (payment, renewal), connection help and important notices. Along with the phone we pass the amoCRM account ID and subdomain, the ID of the amoCRM user who saved the settings, and the widget name. On the widget server the phone is kept while the widget is installed and deleted 30 days after it is disabled; in the KO:AGENCY CRM it is kept [phone retention period in KO CRM]. To have it deleted earlier, email hello@koagency.me with your amoCRM subdomain.
 
 **Deletion and requests:** disable the widget, or email hello@koagency.me with your amoCRM subdomain — we delete the data within 10 business days.
 
