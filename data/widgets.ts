@@ -85,6 +85,7 @@ export const widgetsData: Record<string, Widget> = {
     platform: 'amoCRM',
     status: 'beta',
     price: 'от 1 490 ₽ за 3 месяца',
+    priceNote: 'Пробный период 7 дней',
     icon: 'ListChecks',
     bullets: [
       'Шаблон задаёт всё сразу: тип, срок, ответственный, текст',
