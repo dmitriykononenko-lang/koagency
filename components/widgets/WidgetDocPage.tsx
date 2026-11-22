@@ -159,7 +159,19 @@ function render(md: string): ReactNode[] {
   return out;
 }
 
-export function WidgetDocPage({ file, backHref, backLabel, kicker }: { file: string; backHref: string; backLabel: string; kicker: string }) {
+export function WidgetDocPage({
+  file,
+  backHref,
+  backLabel,
+  kicker,
+  children,
+}: {
+  file: string;
+  backHref: string;
+  backLabel: string;
+  kicker: string;
+  children?: ReactNode;
+}) {
   const { body } = readDoc(file);
   return (
     <div className="min-h-screen bg-white">
@@ -173,6 +185,7 @@ export function WidgetDocPage({ file, backHref, backLabel, kicker }: { file: str
       <article className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-3 font-mono text-xs uppercase tracking-wider text-[#999]">{kicker}</div>
         {render(body)}
+        {children}
       </article>
     </div>
   );
