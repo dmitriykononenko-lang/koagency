@@ -147,7 +147,7 @@ export function WidgetLanding({ slug }: { slug: string }) {
       </section>
 
       {/* Стоимость */}
-      <section className="border-b border-black/5 bg-[#f5f5f5] px-4 py-20 sm:px-6 lg:px-8">
+      <section id="pricing" className="scroll-mt-24 border-b border-black/5 bg-[#f5f5f5] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHead
             n="04"

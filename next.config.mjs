@@ -19,15 +19,11 @@ const nextConfig = {
   // Редиректы: consolidation юр-документов + со старых URL
   async redirects() {
     return [
-      // Юр-документы виджета «Шаблоны задач» переехали в универсальные /legal/*
+      // Оферта виджета «Шаблоны задач» общая: /legal/offer.
+      // Политика у виджета своя: /widgets/task-templates/privacy (её требует модерация amoМаркета).
       {
         source: '/widgets/task-templates/offer',
         destination: '/legal/offer',
-        permanent: true,
-      },
-      {
-        source: '/widgets/task-templates/privacy',
-        destination: '/legal/privacy',
         permanent: true,
       },
     ];

@@ -253,7 +253,7 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
     titleAccent: 'в один клик',
     lead: 'Готовые шаблоны с текстом, сроком и ответственным. Кнопка прямо в карточке сделки, контакта или компании: выбрали шаблон, задача создана',
     primaryCta: 'Подключить виджет',
-    installUrl: '#support',
+    installUrl: '/widgets/task-templates/support',
     checks: ['Пробный период 7 дней', 'Данные остаются в amoCRM', 'Русский и английский'],
     why: {
       title: 'Меньше кликов, один стандарт',
@@ -301,8 +301,10 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
       ['На каких языках интерфейс?', 'Русский и английский'],
     ],
     links: [
-      { label: 'Публичная оферта', href: '/widgets/task-templates/offer' },
+      { label: 'Инструкция', href: '/widgets/task-templates/instruction' },
+      { label: 'Поддержка и частые вопросы', href: '/widgets/task-templates/support' },
       { label: 'Политика конфиденциальности', href: '/widgets/task-templates/privacy' },
+      { label: 'Публичная оферта', href: '/widgets/task-templates/offer' },
     ],
     related: ['raspredelenie', 'client-time'],
   },

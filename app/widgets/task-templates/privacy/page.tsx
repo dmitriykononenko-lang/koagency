@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import { buildMetadata, breadcrumbJsonLd } from '@/lib/seo';
 import { JsonLd } from '@/components/JsonLd';
-import { WidgetPrivacyPage } from '@/components/pages/WidgetPrivacyPage';
+import { WidgetDocPage, readDoc } from '@/components/widgets/WidgetDocPage';
+import { PRIVACY_RU } from '@/data/widgetDocs';
+
+const FILE = PRIVACY_RU;
+const { meta } = readDoc(FILE);
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Политика конфиденциальности — Шаблоны задач для amoCRM',
-  description:
-    'Политика конфиденциальности виджета «Шаблоны задач»: какие данные обрабатываются, где хранятся, права пользователя.',
+  title: meta.title,
+  description: meta.description,
   path: '/widgets/task-templates/privacy',
 });
 
@@ -16,11 +19,12 @@ export default function Page() {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Главная', url: '/' },
-          { name: 'Виджет «Шаблоны задач»', url: '/widgets/task-templates' },
+          { name: 'Виджеты', url: '/widgets' },
+          { name: 'Шаблоны задач', url: '/widgets/task-templates' },
           { name: 'Политика конфиденциальности', url: '/widgets/task-templates/privacy' },
         ])}
       />
-      <WidgetPrivacyPage />
+      <WidgetDocPage file={FILE} backHref="/widgets/task-templates" backLabel="К странице виджета" kicker="Юридический документ" />
     </>
   );
 }
