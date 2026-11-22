@@ -123,7 +123,7 @@ export const widgetsData: Record<string, Widget> = {
     category: 'productivity',
     platform: 'amoCRM',
     status: 'beta',
-    price: 'Цена в amoМаркете',
+    price: 'Оплата по счёту KO Agency',
     icon: 'EyeOff',
     bullets: [
       'Три режима: скрыть, звёздочки, только чтение',

@@ -20,7 +20,7 @@ export interface WidgetPageConfig {
   why: { title: string; subtitle?: string; bad: [string, string[]]; good: [string, string[]] };
   features: [string, string][];
   steps: [string, string][];
-  pricing: { note?: string; free?: boolean; plans?: [string, string, string][]; payNote?: string };
+  pricing: { note?: string; free?: boolean; plans?: [string, string, string][]; payNote?: string; invoice?: string };
   data?: { title: string; text: string; link?: WidgetPageLink };
   faq: [string, string][];
   links: WidgetPageLink[];
@@ -419,7 +419,7 @@ export const widgetPages: Record<string, WidgetPageConfig> = {
       ['Настройте', 'В матрице выберите режим для полей и сотрудников'],
       ['Сохраните', 'Правила начнут действовать у сотрудников'],
     ],
-    pricing: {},
+    pricing: { invoice: 'Цену и условия подписки уточняйте в поддержке: hello@koagency.me' },
     data: {
       title: 'Ваши данные',
       text: 'Правила и лицензионный ключ хранятся в настройках виджета в вашем аккаунте amoCRM. Ключ проверяется в браузере. Правила, поля и данные карточек не покидают amoCRM',

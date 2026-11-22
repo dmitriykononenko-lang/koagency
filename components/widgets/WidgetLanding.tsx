@@ -152,13 +152,18 @@ export function WidgetLanding({ slug }: { slug: string }) {
           <SectionHead
             n="04"
             label="Стоимость"
-            title={w.pricing.free ? 'Бесплатно' : w.pricing.plans ? 'Тарифы' : 'Цена в amoМаркете'}
+            title={w.pricing.free ? 'Бесплатно' : w.pricing.plans ? 'Тарифы' : w.pricing.invoice ? 'Подписка' : 'Цена в amoМаркете'}
             subtitle={w.pricing.note}
           />
           {w.pricing.free ? (
             <div className="rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7">
               <span className="font-mono text-[11px] uppercase text-[#888]">Без оплаты</span>
               <p className="mt-1 text-lg font-semibold">Виджет бесплатный: устанавливаете и пользуетесь без ограничений по сроку</p>
+            </div>
+          ) : w.pricing.invoice ? (
+            <div className="rounded-2xl border border-black/10 border-l-4 border-l-[#E60000] bg-white p-7">
+              <span className="font-mono text-[11px] uppercase text-[#888]">Оплата по счёту KO Agency</span>
+              <p className="mt-1 text-lg font-semibold">{w.pricing.invoice}</p>
             </div>
           ) : w.pricing.plans ? (
             <>
