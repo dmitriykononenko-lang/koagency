@@ -244,6 +244,9 @@ export function WidgetLanding({ slug }: { slug: string }) {
               <a href={`mailto:${PRIMARY_EMAIL}`} className="flex items-center justify-between border-b border-black/10 py-4 text-[15px] hover:text-[#E60000]">
                 Почта <span className="font-mono text-sm">{PRIMARY_EMAIL}</span>
               </a>
+              <div className="flex items-center justify-between border-b border-black/10 py-4 text-[15px]">
+                Часы поддержки <span className="font-mono text-sm">10:00–19:00 МСК</span>
+              </div>
             </div>
           </div>
           <div>
